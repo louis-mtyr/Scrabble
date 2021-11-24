@@ -7,7 +7,6 @@ namespace Scrabble
         static void Main(string[] args)
         {
             Console.WriteLine("^^");
-            Console.WriteLine("Hello World!");
             //test par ici
         }
     }
