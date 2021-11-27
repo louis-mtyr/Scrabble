@@ -31,7 +31,7 @@ namespace Scrabble
         }
         public void Retire_un_nombre()
         {
-            if (this.nombreJ > 0) nombreJ--;
+            if (this.nombreJ > 0) this.nombreJ--;
             else Console.WriteLine("Il n'y a plus de jetons dans le sac");
         }
         public override string ToString()
