@@ -11,6 +11,7 @@ namespace Scrabble
 
         public Sac_Jetons(string fichier)
         {
+            this.sac = new List<Jeton>();
             StreamReader sr = new StreamReader(fichier);
             string mot = sr.ReadLine();
             string[] ligne;
@@ -26,7 +27,7 @@ namespace Scrabble
 
         public Jeton Retire_Jeton(Random r)
         {
-            int aleatoire = r.Next(0,27);
+            int aleatoire = r.Next(0,this.sac.Count);
             Jeton jeton_tiré =this.sac[aleatoire];
             return jeton_tiré;
         }

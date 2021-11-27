@@ -21,14 +21,16 @@ namespace Scrabble
             string rep = "Le Dictionnaire contient : \n";
             for(int i = 0; i <= 5; i++)
             {
-                rep=rep+this.ensembleMots.Count+" mots de " + this.longueur + " en " + this.langue;
+                rep=rep+this.ensembleMots.Count+" mots de " + this.longueur + " lettres en " + this.langue;
             }
             return rep;
         }
 
-        public bool RechDichoRecursif(string mot)
+        public bool RechDichoRecursif(string mot, int i=0)
         {
-            
+            if (i == this.ensembleMots.Count) return false;
+            else if (this.ensembleMots[i] == mot) return true;
+            else return RechDichoRecursif(mot, i + 1);
         }
     }
 }
