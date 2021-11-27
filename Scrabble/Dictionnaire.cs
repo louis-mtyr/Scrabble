@@ -13,6 +13,13 @@ namespace Scrabble
 
         public Dictionnaire(List<string> ensembleMots,int longueur,string langue)
         {
+            this.ensembleMots = ensembleMots;
+            this.longueur = longueur;
+            this.langue = langue;
+        }
+
+        public Dictionnaire(string fichier)
+        {
 
         }
 
@@ -28,7 +35,7 @@ namespace Scrabble
 
         public bool RechDichoRecursif(string mot, int i=0)
         {
-            if (i == this.ensembleMots.Count) return false;
+            if (this.ensembleMots==null || i == this.ensembleMots.Count) return false;
             else if (this.ensembleMots[i] == mot) return true;
             else return RechDichoRecursif(mot, i + 1);
         }
