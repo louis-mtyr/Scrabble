@@ -8,13 +8,15 @@ namespace Scrabble
     class Plateau
     {
         private string[,] matrice;
+        private Dictionnaire leDico;
+        private Joueur leJoueur;
 
         public Plateau(string[,] matrice = null) //jcomprends pas ce qu'ils demandent
         {
             this.matrice = matrice;
         }
 
-        public Plateau(string fichier)
+        public Plateau(string fichier, Dictionnaire leDico, Joueur leJoueur)
         {
             StreamReader sr = new StreamReader(fichier);
             string mot = sr.ReadLine();
@@ -29,6 +31,8 @@ namespace Scrabble
                 }
                 mot = sr.ReadLine();
             }
+            this.leDico = leDico;
+            this.leJoueur = leJoueur;
         }
 
         public override string ToString()
@@ -137,6 +141,7 @@ namespace Scrabble
         public bool Test_Plateau(string mot,int ligne,int colonne,char direction)
         {
             bool verif = true;
+            int compteurMain = 0;
             if (ligne >= 0 && colonne >= 0 && ligne <= 14 && colonne <= 14)
             {
                 verif = false;
@@ -145,23 +150,35 @@ namespace Scrabble
             {
                 switch (direction)
                 {
-                    case 'v':
+                    case 'h':
                         if (colonne + mot.Length > 14)
                         {
                             verif = false;
                         }
                         for(int i = 0; i < mot.Length; i++)
                         {
-                            if (matrice[ligne,colonne+ i]!="_")
+                            if (matrice[ligne,colonne + i]!="_")
                             {
-                                if(matrice[ligne, colonne + i] != Convert.ToString(mot[i]))
-                                {
+                                if(matrice[ligne, colonne + i] != Convert.ToString(mot[i]))        //ne marche que si on met la lettre à la position [ligne, colonne]
+                                {                                                                  //faire un int k=0 et l'augmenter progressivement au lieu de mot[i]
                                     verif = false;
                                 }
                             }
+                            else
+                            {
+                                for (int j = 0; j < 7; j++)
+                                {
+                                    if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons[j])
+                                    {
+                                        compteurMain++;
+                                    }
+                                    if (compteurMain == 0) verif = false;                           //chépa si tous les cas sont vérifiés ici
+                                    compteurMain = 0;
+                                }
+                            }
                         }
-                            break;
-                    case 'h':
+                        break;
+                    case 'v':
                         if (ligne + mot.Length > 14)
                         {
                             verif = false;
@@ -170,31 +187,36 @@ namespace Scrabble
                         {
                             if (matrice[ligne+i, colonne] != "_")
                             {
-                                if (matrice[ligne+i, colonne] != Convert.ToString(mot[i]))
-                                {
+                                if (matrice[ligne+i, colonne] != Convert.ToString(mot[i]))        //ne marche que si on met la lettre à la position [ligne, colonne]
+                                {                                                                  //faire un int k=0 et l'augmenter progressivement au lieu de mot[i]
                                     verif = false;
+                                }
+                            }
+                            else
+                            {
+                                for (int j = 0; j < 7; j++)
+                                {
+                                    if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons[j])
+                                    {
+                                        compteurMain++;
+                                    }
+                                    if (compteurMain == 0) verif = false;                           //chépa si tous les cas sont vérifiés ici
+                                    compteurMain = 0;
                                 }
                             }
                         }
                         break;
                     default:
                         Console.WriteLine("Direction entrée mauvaise");
+                        verif = false;
                         break;
                 }
             }
             if (verif == true)
             {
-                Dictionnaire ledico=
-                if (.RechDichoRecursif(mot) == false)
+                if (this.leDico.RechDichoRecursif(mot) == false)
                 {
                     verif = false;
-                }
-            }
-            if (verif == true)
-            {
-                for(int i = 0; i < mot.Length; i++)
-                {
-
                 }
             }
             return verif;

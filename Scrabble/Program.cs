@@ -8,7 +8,9 @@ namespace Scrabble
     {
         static void Main(string[] args)
         {
-            Plateau monplateau = new Plateau("InstancePlateau.txt");
+            Joueur joueur1 = new Joueur("Joueurs.txt");
+            Dictionnaire dico = new Dictionnaire(null, 0, "turc");
+            Plateau monplateau = new Plateau("InstancePlateau.txt",dico, joueur1);
             Console.WriteLine(monplateau.ToString());
 
             Stopwatch stopWatch = new Stopwatch();
