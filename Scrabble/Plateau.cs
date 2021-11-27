@@ -28,6 +28,7 @@ namespace Scrabble
                 }
             }
         }
+
         public override string ToString()
         {
             string rep = "";
@@ -111,6 +112,72 @@ namespace Scrabble
                 rep = rep + "\n";
             }
             return rep;
+        }
+
+        public bool Test_Plateau(string mot,int ligne,int colonne,char direction)
+        {
+            bool verif = true;
+            if (ligne >= 0 && colonne >= 0 && ligne <= 14 && colonne <= 14)
+            {
+                verif = false;
+            }
+            else 
+            {
+                switch (direction)
+                {
+                    case 'v':
+                        if (colonne + mot.Length > 14)
+                        {
+                            verif = false;
+                        }
+                        for(int i = 0; i < mot.Length; i++)
+                        {
+                            if (matrice[ligne,colonne+ i]!="_")
+                            {
+                                if(matrice[ligne, colonne + i] != Convert.ToString(mot[i]))
+                                {
+                                    verif = false;
+                                }
+                            }
+                        }
+                            break;
+                    case 'h':
+                        if (ligne + mot.Length > 14)
+                        {
+                            verif = false;
+                        }
+                        for (int i = 0; i < mot.Length; i++)
+                        {
+                            if (matrice[ligne+i, colonne] != "_")
+                            {
+                                if (matrice[ligne+i, colonne] != Convert.ToString(mot[i]))
+                                {
+                                    verif = false;
+                                }
+                            }
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("Direction entrée mauvaise");
+                        break;
+                }
+            }
+            if (verif == true)
+            {
+                Dictionnaire ledico=
+                if (.RechDichoRecursif(mot) == false)
+                {
+                    verif = false;
+                }
+            }
+            if (verif == true)
+            {
+                for(int i = 0; i < mot.Length; i++)
+                {
+
+                }
+            }
+            return verif;
         }
     }
 }
