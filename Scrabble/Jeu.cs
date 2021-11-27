@@ -15,7 +15,7 @@ namespace Scrabble
         {
             //fichier dictionnaire kompranpa
             this.monplateau = monplateau;
-            //fichier sac jetons flemme
+            this.monsac_jetons = new Sac_Jetons(fichierSac_jetons);
         }
 
         public Jeu(string fichierDico, Plateau monplateau, Sac_Jetons monsac_jetons)
