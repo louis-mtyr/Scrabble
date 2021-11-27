@@ -17,26 +17,31 @@ namespace Scrabble
             this.score = score;
             this.nombreJ = nombreJ;
         }
+
         public string Lettre
         {
             get { return this.lettre; }
         }
+
         public int Score
         {
             get { return this.score; }
         }
+
         public int NombreJ
         {
             get { return this.nombreJ; }
         }
+
         public void Retire_un_nombre()
         {
             if (this.nombreJ > 0) this.nombreJ--;
             else Console.WriteLine("Il n'y a plus de jetons dans le sac");
         }
+
         public override string ToString()
         {
-            return "Lettre : " + this.lettre + " ,Score : " + this.score + " ,Lettre " + this.lettre + " restantes : " + this.nombreJ;
+            return "Lettre : " + this.lettre + "\nScore : " + this.score + "\nLettres " + this.lettre + " restantes : " + this.nombreJ;
         }
     }
 }

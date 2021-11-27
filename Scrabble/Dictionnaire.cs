@@ -11,6 +11,24 @@ namespace Scrabble
         private int longueur;
         private string langue;
 
-        public Dictionnaire()
+        public Dictionnaire(List<string> ensembleMots,int longueur,string langue)
+        {
+
+        }
+
+        public override string ToString()
+        {
+            string rep = "Le Dictionnaire contient : \n";
+            for(int i = 0; i <= 5; i++)
+            {
+                rep=rep+this.ensembleMots.Count+" mots de " + this.longueur + " en " + this.langue;
+            }
+            return rep;
+        }
+
+        public bool RechDichoRecursif(string mot)
+        {
+
+        }
     }
 }
