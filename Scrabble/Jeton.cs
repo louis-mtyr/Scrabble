@@ -36,7 +36,7 @@ namespace Scrabble
         }
         public override string ToString()
         {
-            return "Lettre : " + this.lettre + " ,Score : " + this.score + " ,Lettre " + this.lettre + " restantes : " + this.nombreJ;
+            return "Lettre : " + this.lettre + "Score : " + this.score + "Lettre " + this.lettre + " restantes : " + this.nombreJ;
         }
     }
 }

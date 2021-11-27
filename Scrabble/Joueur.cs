@@ -38,7 +38,11 @@ namespace Scrabble
             mot = sr.ReadLine();
             ligne = mot.Split(';');
             this.listeJetons = new List<Jeton>();
-            foreach (string lettres in ligne) this.listeJetons.Add(/*conversion string en Jeton*/);
+            foreach (string lettres in ligne)
+            {
+
+                this.listeJetons.Add();
+            }
         }
 
         public string Nom
