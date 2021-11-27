@@ -33,7 +33,12 @@ namespace Scrabble
 
         public override string ToString()
         {
-            return "Lettre : " + this.sac[].Lettre + " ,Score : " + this.sac[].Score + " ,Lettre " + this.sac[].Lettre + " restantes : " + this.sac[].NombreJ;
+            string rep = "Il reste dans le sac :";
+            for (int i=0; i<sac.Count; i++)
+            {
+                rep += this.sac[i].NombreJ + "jetons de la lettre " + this.sac[i].Lettre + "\n";
+            }
+            return rep;
         }
     }
 }
