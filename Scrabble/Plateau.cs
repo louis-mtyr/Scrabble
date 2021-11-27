@@ -110,6 +110,7 @@ namespace Scrabble
                 }
                 rep = rep + "\n";
             }
+            return rep;
         }
     }
 }

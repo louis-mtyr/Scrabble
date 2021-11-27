@@ -10,14 +10,14 @@ namespace Scrabble
         private string nom;
         private int score;
         private List<string> motsTrouves;
-        private List<Jeton> listeJetons;
+        private List<string> listeJetons_lettre;
 
-        public Joueur(string nom, int score = 0, List<string> motsTrouves = null, List<Jeton> listeJetons = null)
+        public Joueur(string nom, int score = 0, List<string> motsTrouves = null, List<string> listeJetons_lettre = null)
         {
             this.nom = nom;
             this.score = score;
             this.motsTrouves = motsTrouves;
-            this.listeJetons = listeJetons;
+            this.listeJetons_lettre = listeJetons_lettre;
         }
 
         public Joueur(string fichier)
@@ -37,8 +37,8 @@ namespace Scrabble
 
             mot = sr.ReadLine();
             ligne = mot.Split(';');
-            this.listeJetons = new List<Jeton>();
-            foreach (string lettres in ligne) this.listeJetons.Add();   
+            this.listeJetons_lettre = new List<string>();
+            foreach (string lettres in ligne) this.listeJetons_lettre.Add(lettres);   
         }
 
         public string Nom
@@ -56,9 +56,9 @@ namespace Scrabble
             get { return this.motsTrouves; }
         }
 
-        public List<Jeton> ListeJetons
+        public List<string> ListeJetons
         {
-            get { return this.listeJetons; }
+            get { return this.listeJetons_lettre; }
         }
 
         public void Add_Mot(string mot)
@@ -84,12 +84,12 @@ namespace Scrabble
 
         public void Add_Main_Courante(Jeton monjeton)
         {
-            this.listeJetons.Add(monjeton);
+            this.listeJetons_lettre.Add(monjeton.Lettre);
         }
 
         public void Remove_Main_Courante(Jeton monjeton)
         {
-            this.ListeJetons.Remove(monjeton);
+            this.listeJetons_lettre.Remove(monjeton.Lettre);
         }
     }
 }
