@@ -23,12 +23,14 @@ namespace Scrabble
                 mot = sr.ReadLine();
             }
         }
+
         public Jeton Retire_Jeton(Random r)
         {
             int aleatoire = r.Next(0,27);
             Jeton jeton_tiré =this.sac[aleatoire];
             return jeton_tiré;
         }
+
         public override string ToString()
         {
             return "Lettre : " + this.sac[].Lettre + " ,Score : " + this.sac[].Score + " ,Lettre " + this.sac[].Lettre + " restantes : " + this.sac[].NombreJ;

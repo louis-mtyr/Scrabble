@@ -15,6 +15,7 @@ namespace Scrabble
         {
 
         }
+
         public override string ToString()
         {
             string rep = "Le Dictionnaire contient : \n";
@@ -24,6 +25,7 @@ namespace Scrabble
             }
             return rep;
         }
+
         public bool RechDichoRecursif(string mot)
         {
 
