@@ -139,6 +139,16 @@ namespace Scrabble
                                     verif = false;
                                 }
                             }
+                            else
+                            {
+                                for (int j = 0; j < 7; j++)
+                                {
+                                    if (Convert.ToString(mot[i]) == .ListeJetons[j])
+                                    {
+
+                                    }
+                                }
+                            }
                         }
                             break;
                     case 'h':
@@ -164,7 +174,7 @@ namespace Scrabble
             }
             if (verif == true)
             {
-                Dictionnaire ledico=
+                Dictionnaire ledico =;
                 if (.RechDichoRecursif(mot) == false)
                 {
                     verif = false;
