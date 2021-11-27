@@ -28,7 +28,7 @@ namespace Scrabble
 
         public bool RechDichoRecursif(string mot)
         {
-
+            
         }
     }
 }
