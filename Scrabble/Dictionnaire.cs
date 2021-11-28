@@ -18,10 +18,32 @@ namespace Scrabble
             this.langue = langue;
         }
 
-        public Dictionnaire(string fichier)
+        public Dictionnaire(string fichier, int longueur)
         {
+            if (longueur >= 2 && longueur <= 15)
+            {
+                StreamReader sr = new StreamReader(fichier);
+                string mot = sr.ReadLine();
+                string[] ligne;
+                while (mot != Convert.ToString(longueur))
+                {
+                    mot = sr.ReadLine();
+                }
+                mot = sr.ReadLine();
+                ligne = mot.Split(';');
+                for (int i = 0; i < ligne.Length; i++) this.ensembleMots.Add(ligne[i]);
 
+                this.longueur = longueur;
+                this.langue = "francais";
+            }
+            else
+            {
+                this.ensembleMots = null;
+                this.langue = "indéfinie";
+                this.longueur = 0;
+            }
         }
+
         public int Longueur
         {
             get { return this.longueur; }
