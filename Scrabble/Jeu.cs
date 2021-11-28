@@ -70,7 +70,7 @@ namespace Scrabble
             switch (nombrejoueur)
             {
                 case 2:
-                    Console.WriteLine("Quel est le nom du premier joueur ?");  //faut faire une liste ici
+                    Console.WriteLine("Quel est le nom du premier joueur ?"); 
                     string nom12joueurs = Console.ReadLine();
                     Joueur joueur12joueurs = new Joueur(nom12joueurs, 0);
                     listeJoueurs.Add(joueur12joueurs);
