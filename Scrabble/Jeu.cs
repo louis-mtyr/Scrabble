@@ -47,7 +47,7 @@ namespace Scrabble
 
             Console.WriteLine("C'est au tour du joueur {0} :", numéroJoueur);
             Console.WriteLine(listeJoueurs[numéroJoueur - 1].ToString());
-            Console.WriteLine("Quelle action voulez-vous faire ?\n 1. Piocher un nouveau jeton\n 2. Poser un mot à l'horizontale\n 3. Poser un mot à la verticale");
+            Console.WriteLine("Quelle action voulez-vous faire ?\n 1. Piocher un nouveau jeton\n 2. Poser un mot à l'horizontale\n 3. Poser un mot à la verticale\n 4. Passer le tour");
             string réponseJoueur = Console.ReadLine();
             bool tourFini = false;
             while (tourFini == false)
@@ -111,6 +111,11 @@ namespace Scrabble
                         //coord en Y a faire
                         break;
                     case "3":
+                        break;
+                    case "4":
+                        Console.WriteLine("Le joueur {0} a passé son tour, appuyez sur une touche pour passer au tour suivant.", numéroJoueur);
+                        tourFini = true;
+                        Console.ReadKey();
                         break;
                     default:
                         Console.WriteLine("Action non reconnue, veuillez taper '1', '2' ou '3' pour réaliser une action.");

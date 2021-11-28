@@ -154,7 +154,7 @@ namespace Scrabble
             {
                 for (int i = 1; i <= nombrejoueur; i++)
                 {
-                    leJeu.Jouer(nombrejoueur, listeJoueurs); //c'est pas la bonne boucle mais on a l'idée
+                    leJeu.Jouer(i, listeJoueurs); //c'est pas la bonne boucle mais on a l'idée
                 }
             }
         }
