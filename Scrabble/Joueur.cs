@@ -76,19 +76,49 @@ namespace Scrabble
 
         public override string ToString()
         {
-            string rep = "Nom du joueur : " + this.nom + "\nScore : " + this.score + "\nMots trouvés : ";
+            Console.Write("Nom du joueur : ");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write(this.nom);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("\nScore : ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(this.score);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("\nMots trouvés : ");
             for(int i=0; i<this.motsTrouves.Count; i++)
             {
-                if (i != this.motsTrouves.Count - 1) rep += this.motsTrouves[i] + " ; ";
-                else rep += this.motsTrouves[i];
+                if (i != this.motsTrouves.Count - 1)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write(this.motsTrouves[i]);
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write(" ; ");
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write(this.motsTrouves[i]);
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
             }
-            rep += "\nLettres disponibles dans sa main : ";
+            Console.Write("\nLettres disponibles dans sa main : ");
             for (int j=0; j<this.listeJetons_lettre.Count; j++)
             {
-                if (j != this.listeJetons_lettre.Count - 1) rep += this.listeJetons_lettre[j] + " ; ";
-                else rep += this.listeJetons_lettre[j];
+                if (j != this.listeJetons_lettre.Count - 1)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write(this.listeJetons_lettre[j]);
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write(" ; ");
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write(this.listeJetons_lettre[j]);
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
             }
-            return rep;
+            return "";
         }
 
         public void Add_Score(int val)

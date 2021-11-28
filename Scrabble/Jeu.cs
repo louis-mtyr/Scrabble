@@ -59,7 +59,11 @@ namespace Scrabble
                         Console.WriteLine(this.monplateau.ToString());
                         Console.WriteLine(listeJoueurs[numéroJoueur - 1].ToString());
                         Jeton jetonPioché = this.monsac_jetons.Retire_Jeton(aleatoire);
-                        Console.WriteLine("Le jeton pioché est : " + jetonPioché.Lettre + "\nLequel de vos jetons souhaitez-vous remplacer par ce nouveau jeton ?");
+                        Console.Write("Le jeton pioché est : ");
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        Console.Write(jetonPioché.Lettre);
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("\nLequel de vos jetons souhaitez-vous remplacer par ce nouveau jeton ?");
                         string jetonARemplacer = Console.ReadLine().ToUpper();
                         bool appartient = false;
                         while (appartient == false)
