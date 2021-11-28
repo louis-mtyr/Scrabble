@@ -31,6 +31,7 @@ namespace Scrabble
         public int NombreJ
         {
             get { return this.nombreJ; }
+            set { this.nombreJ = value; }
         }
 
         public void Retire_un_nombre()

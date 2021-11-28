@@ -12,7 +12,15 @@ namespace Scrabble
         private List<string> motsTrouves;
         private List<string> listeJetons_lettre;
 
-        public Joueur(string nom, int score = 0, List<string> motsTrouves = null, List<string> listeJetons_lettre = null)
+        public Joueur(string nom, int score = 0)
+        {
+            this.nom = nom;
+            this.score = score;
+            this.motsTrouves = new List<string>();
+            this.listeJetons_lettre = new List<string>();
+        }
+
+        public Joueur(string nom, int score, List<string> motsTrouves, List<string> listeJetons_lettre)
         {
             this.nom = nom;
             this.score = score;
@@ -56,7 +64,7 @@ namespace Scrabble
             get { return this.motsTrouves; }
         }
 
-        public List<string> ListeJetons
+        public List<string> ListeJetons_lettre
         {
             get { return this.listeJetons_lettre; }
         }
@@ -73,6 +81,12 @@ namespace Scrabble
             {
                 if (i != this.motsTrouves.Count - 1) rep += this.motsTrouves[i] + " ; ";
                 else rep += this.motsTrouves[i];
+            }
+            rep += "\nLettres disponibles dans sa main : ";
+            for (int j=0; j<this.listeJetons_lettre.Count; j++)
+            {
+                if (j != this.listeJetons_lettre.Count - 1) rep += this.listeJetons_lettre[j] + " ; ";
+                else rep += this.listeJetons_lettre[j];
             }
             return rep;
         }

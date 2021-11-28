@@ -4,7 +4,7 @@ using System.Text;
 using System.IO;
 
 namespace Scrabble
-{
+{ 
     class Plateau
     {
         private string[,] matrice;
@@ -15,7 +15,7 @@ namespace Scrabble
         {
             this.matrice = matrice;
         }
-
+        
         public Plateau(string fichier, Dictionnaire leDico, Joueur leJoueur)
         {
             StreamReader sr = new StreamReader(fichier);
@@ -33,6 +33,18 @@ namespace Scrabble
             }
             this.leDico = leDico;
             this.leJoueur = leJoueur;
+        }
+        public string[,] Matrice
+        {
+            get { return this.matrice; }
+        }
+        public Dictionnaire LeDico
+        {
+            get { return this.leDico; }
+        }
+            public Joueur LeJoueur
+        {
+            get { return this.leJoueur; }
         }
 
         public override string ToString()
@@ -168,7 +180,7 @@ namespace Scrabble
                             {
                                 for (int j = 0; j < 7; j++)
                                 {
-                                    if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons[j])
+                                    if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j])
                                     {
                                         compteurMain++;
                                     }
@@ -196,7 +208,7 @@ namespace Scrabble
                             {
                                 for (int j = 0; j < 7; j++)
                                 {
-                                    if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons[j])
+                                    if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j])
                                     {
                                         compteurMain++;
                                     }

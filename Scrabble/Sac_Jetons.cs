@@ -24,11 +24,18 @@ namespace Scrabble
                 mot = sr.ReadLine();
             }
         }
+        public List<Jeton> Sac
+        {
+            get { return this.sac; }
+            set { this.sac = value; }
+        }
 
         public Jeton Retire_Jeton(Random r)
         {
             int aleatoire = r.Next(0,this.sac.Count);
-            Jeton jeton_tiré =this.sac[aleatoire];
+            Jeton jeton_tiré = this.sac[aleatoire];
+            if (jeton_tiré.NombreJ > 1) jeton_tiré.NombreJ--;
+            else this.sac.Remove(jeton_tiré);
             return jeton_tiré;
         }
 
