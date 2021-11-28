@@ -49,9 +49,16 @@ namespace Scrabble
 
         public override string ToString()
         {
-            Console.Write("--------------------------------\n");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write("    A B C D E F G H I J K L M N O\n");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("   --------------------------------\n");
             for (int i = 0; i < 15; i++)
             {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                if (i <= 8) Console.Write(" " + (i + 1) + " ");
+                else Console.Write(i + 1 + " ");
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.Write("|");
                 for (int j = 0; j < 15; j++)
                 {
@@ -146,7 +153,7 @@ namespace Scrabble
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write("|\n");
             }
-            Console.Write("--------------------------------");
+            Console.Write("   --------------------------------");
             return "";
         }
 
