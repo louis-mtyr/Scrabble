@@ -22,6 +22,18 @@ namespace Scrabble
         {
 
         }
+        public int Longueur
+        {
+            get { return this.longueur; }
+        }
+        public string Langue
+        {
+            get { return this.langue; }
+        }
+        public List<string> EnsembleMots
+        {
+            get { return this.ensembleMots; }
+        }
 
         public override string ToString()
         {

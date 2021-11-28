@@ -24,6 +24,10 @@ namespace Scrabble
                 mot = sr.ReadLine();
             }
         }
+        public List<Jeton> Sac
+        {
+            get { return this.sac; }
+        }
 
         public Jeton Retire_Jeton(Random r)
         {
