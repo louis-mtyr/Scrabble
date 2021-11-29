@@ -15,14 +15,16 @@ namespace Scrabble
 
         public Jeu(string fichierDico, Plateau monplateau, string fichierSac_jetons)
         {
-            //fichier dictionnaire kompranpa
+            this.mondico = new Dictionnaire[14];
+            for (int i = 0; i < mondico.Length; i++) this.mondico[i] = new Dictionnaire(fichierDico, i+2);
             this.monplateau = monplateau;
             this.monsac_jetons = new Sac_Jetons(fichierSac_jetons);
         }
 
         public Jeu(string fichierDico, Plateau monplateau, Sac_Jetons monsac_jetons)
         {
-            //fichier dictionnaire kompranpa
+            this.mondico = new Dictionnaire[14];
+            for (int i = 0; i < mondico.Length; i++) this.mondico[i] = new Dictionnaire(fichierDico, i + 2);
             this.monplateau = monplateau;
             this.monsac_jetons = monsac_jetons;
         }
@@ -50,6 +52,12 @@ namespace Scrabble
             Console.WriteLine("Quelle action voulez-vous faire ?\n 1. Piocher un nouveau jeton\n 2. Poser un mot à l'horizontale\n 3. Poser un mot à la verticale\n 4. Passer le tour");
             string réponseJoueur = Console.ReadLine();
             bool tourFini = false;
+            string motAAjouter;
+            bool existence;
+            string coordMotX;
+            int nbrCoordMotX;
+            string coordMotY;
+            int nbrCoordMotY;
             while (tourFini == false)
             {
                 switch (réponseJoueur)
@@ -59,7 +67,11 @@ namespace Scrabble
                         Console.WriteLine(this.monplateau.ToString());
                         Console.WriteLine(listeJoueurs[numéroJoueur - 1].ToString());
                         Jeton jetonPioché = this.monsac_jetons.Retire_Jeton(aleatoire);
-                        Console.WriteLine("Le jeton pioché est : " + jetonPioché.Lettre + "\nLequel de vos jetons souhaitez-vous remplacer par ce nouveau jeton ?");
+                        Console.Write("Le jeton pioché est : ");
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        Console.Write(jetonPioché.Lettre);
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("\nLequel de vos jetons souhaitez-vous remplacer par ce nouveau jeton ?");
                         string jetonARemplacer = Console.ReadLine().ToUpper();
                         bool appartient = false;
                         while (appartient == false)
@@ -81,36 +93,221 @@ namespace Scrabble
                         tourFini = true;
                         Console.ReadKey();
                         break;
+
                     case "2":
                         Console.WriteLine("Quel est le mot que vous voulez ajouter sur le plateau ?");
-                        string motAAjouter = Console.ReadLine(); //possibilité de devoir .ToUpper en fonction du dico
-                        bool existence = mondico[0].RechDichoRecursif(motAAjouter); //possibilité de devoir ajuster en fonction du dico / tableau de dicos --> on peut faire un dico par taille des mots
-                        while (existence==false)                                    //par exemple mondico[0] = dico des mots de 2 lettres, mondico[1] = dico des mots de 3 lettres etc...
+                        motAAjouter = Console.ReadLine().ToUpper();
+                        while (motAAjouter.Length > 15 || motAAjouter.Length < 2)
+                        {
+                            Console.WriteLine("Ce mot ne rentre pas dans le plateau\nVeuillez choisir un mot valable :");
+                            motAAjouter = Console.ReadLine().ToUpper();
+                        }
+                        existence = mondico[motAAjouter.Length-2].RechDichoRecursif(motAAjouter); 
+                        while (existence==false)                                    
                         {                                                           //problème : à quoi sert la langue dans les attributs du Dictionnaire ?
                             Console.WriteLine("Ce mot n'existe pas dans le dictionnaire choisi\nVeuillez choisir un mot valable :");
-                            motAAjouter = Console.ReadLine();
-                            existence = mondico[0].RechDichoRecursif(motAAjouter);
+                            motAAjouter = Console.ReadLine().ToUpper();
+                            existence = mondico[motAAjouter.Length-2].RechDichoRecursif(motAAjouter);
                         }
+
                         Console.WriteLine("Veuillez indiquer la ligne de la 1ere lettre de votre mot sur le plateau");
-                        string coordMotX = Console.ReadLine();
-                        int nbrCoordMotX;
+                        coordMotX = Console.ReadLine();
                         do
                         {
                             if (int.TryParse(coordMotX, out nbrCoordMotX))
                             {
-                                Console.WriteLine("Cette coordonnée est invalide");
-                                coordMotX = Console.ReadLine();
+                                if (nbrCoordMotX < 1 || nbrCoordMotX > 15)
+                                {
+                                    Console.WriteLine("Cette coordonnée est invalide\nVeuillez indiquer la ligne de la 1ere lettre de votre mot sur le plateau");
+                                    coordMotX = Console.ReadLine();
+                                }
                             }
                             else
                             {
                                 nbrCoordMotX = 0;
-                                Console.WriteLine("Cette coordonnée est invalide");
+                                Console.WriteLine("Cette coordonnée est invalide\nVeuillez indiquer la ligne de la 1ere lettre de votre mot sur le plateau");
                                 coordMotX = Console.ReadLine();
                             }
-                        } while (nbrCoordMotX < 1 && nbrCoordMotX > 15);
-                        //coord en Y a faire
+                        } while (nbrCoordMotX < 1 || nbrCoordMotX > 15);
+
+                        Console.WriteLine("Veuillez indiquer la colonne de la 1ere lettre de votre mot sur le plateau");
+                        nbrCoordMotY=-1;
+                        do
+                        {
+                            coordMotY = Console.ReadLine().ToUpper();
+                            switch (coordMotY)
+                            {
+                                case "A":
+                                    nbrCoordMotY = 0;
+                                    break;
+                                case "B":
+                                    nbrCoordMotY = 1;
+                                    break;
+                                case "C":
+                                    nbrCoordMotY = 2;
+                                    break;
+                                case "D":
+                                    nbrCoordMotY = 3;
+                                    break;
+                                case "E":
+                                    nbrCoordMotY = 4;
+                                    break;
+                                case "F":
+                                    nbrCoordMotY = 5;
+                                    break;
+                                case "G":
+                                    nbrCoordMotY = 6;
+                                    break;
+                                case "H":
+                                    nbrCoordMotY = 7;
+                                    break;
+                                case "I":
+                                    nbrCoordMotY = 8;
+                                    break;
+                                case "J":
+                                    nbrCoordMotY = 9;
+                                    break;
+                                case "K":
+                                    nbrCoordMotY = 10;
+                                    break;
+                                case "L":
+                                    nbrCoordMotY = 11;
+                                    break;
+                                case "M":
+                                    nbrCoordMotY = 12;
+                                    break;
+                                case "N":
+                                    nbrCoordMotY = 13;
+                                    break;
+                                case "O":
+                                    nbrCoordMotY = 14;
+                                    break;
+                                default:
+                                    Console.WriteLine("Cette coordonnée est invalide\nVeuillez indiquer la colonne de la 1ere lettre de votre mot sur le plateau");
+                                    break;
+                            }
+                        } while (coordMotY != "A" && coordMotY != "B" && coordMotY != "C" && coordMotY != "D" && coordMotY != "E" && coordMotY != "F" && coordMotY != "G" && coordMotY != "H" && coordMotY != "I" && coordMotY != "J" && coordMotY != "K" && coordMotY != "L" && coordMotY != "M" && coordMotY != "N" && coordMotY != "O");
+
+                        if (monplateau.Test_Plateau(motAAjouter, nbrCoordMotX-1, nbrCoordMotY, 'h') == false) Console.WriteLine("Cette action est impossible");
+                        else
+                        {
+                            int compteurLettre = 0;
+                            for (int j=nbrCoordMotY; j<nbrCoordMotY+motAAjouter.Length; j++)
+                            {
+                                if (monplateau.Matrice[nbrCoordMotX-1, j] != "*") monplateau.Matrice[nbrCoordMotX-1, j] = Convert.ToString(motAAjouter[compteurLettre]);
+                                compteurLettre++;
+                            }
+                            tourFini = true;
+                        }
                         break;
                     case "3":
+                        Console.WriteLine("Quel est le mot que vous voulez ajouter sur le plateau ?");
+                        motAAjouter = Console.ReadLine().ToUpper();
+                        while (motAAjouter.Length > 15 || motAAjouter.Length < 2)
+                        {
+                            Console.WriteLine("Ce mot ne rentre pas dans le plateau\nVeuillez choisir un mot valable :");
+                            motAAjouter = Console.ReadLine().ToUpper();
+                        }
+                        existence = mondico[motAAjouter.Length - 2].RechDichoRecursif(motAAjouter);
+                        while (existence == false)
+                        {
+                            Console.WriteLine("Ce mot n'existe pas dans le dictionnaire choisi\nVeuillez choisir un mot valable :");
+                            motAAjouter = Console.ReadLine().ToUpper();
+                            existence = mondico[motAAjouter.Length - 2].RechDichoRecursif(motAAjouter);
+                        }
+
+                        Console.WriteLine("Veuillez indiquer la ligne de la 1ere lettre de votre mot sur le plateau");
+                        coordMotX = Console.ReadLine();
+                        do
+                        {
+                            if (int.TryParse(coordMotX, out nbrCoordMotX))
+                            {
+                                if (nbrCoordMotX < 1 || nbrCoordMotX > 15)
+                                {
+                                    Console.WriteLine("Cette coordonnée est invalide\nVeuillez indiquer la ligne de la 1ere lettre de votre mot sur le plateau");
+                                    coordMotX = Console.ReadLine();
+                                }
+                            }
+                            else
+                            {
+                                nbrCoordMotX = 0;
+                                Console.WriteLine("Cette coordonnée est invalide\nVeuillez indiquer la ligne de la 1ere lettre de votre mot sur le plateau");
+                                coordMotX = Console.ReadLine();
+                            }
+                        } while (nbrCoordMotX < 1 || nbrCoordMotX > 15);
+
+                        Console.WriteLine("Veuillez indiquer la colonne de la 1ere lettre de votre mot sur le plateau");
+                        nbrCoordMotY = -1;
+                        do
+                        {
+                            coordMotY = Console.ReadLine().ToUpper();
+                            switch (coordMotY)
+                            {
+                                case "A":
+                                    nbrCoordMotY = 0;
+                                    break;
+                                case "B":
+                                    nbrCoordMotY = 1;
+                                    break;
+                                case "C":
+                                    nbrCoordMotY = 2;
+                                    break;
+                                case "D":
+                                    nbrCoordMotY = 3;
+                                    break;
+                                case "E":
+                                    nbrCoordMotY = 4;
+                                    break;
+                                case "F":
+                                    nbrCoordMotY = 5;
+                                    break;
+                                case "G":
+                                    nbrCoordMotY = 6;
+                                    break;
+                                case "H":
+                                    nbrCoordMotY = 7;
+                                    break;
+                                case "I":
+                                    nbrCoordMotY = 8;
+                                    break;
+                                case "J":
+                                    nbrCoordMotY = 9;
+                                    break;
+                                case "K":
+                                    nbrCoordMotY = 10;
+                                    break;
+                                case "L":
+                                    nbrCoordMotY = 11;
+                                    break;
+                                case "M":
+                                    nbrCoordMotY = 12;
+                                    break;
+                                case "N":
+                                    nbrCoordMotY = 13;
+                                    break;
+                                case "O":
+                                    nbrCoordMotY = 14;
+                                    break;
+                                default:
+                                    Console.WriteLine("Cette coordonnée est invalide\nVeuillez indiquer la colonne de la 1ere lettre de votre mot sur le plateau");
+                                    break;
+                            }
+                        } while (coordMotY != "A" && coordMotY != "B" && coordMotY != "C" && coordMotY != "D" && coordMotY != "E" && coordMotY != "F" && coordMotY != "G" && coordMotY != "H" && coordMotY != "I" && coordMotY != "J" && coordMotY != "K" && coordMotY != "L" && coordMotY != "M" && coordMotY != "N" && coordMotY != "O");
+
+                        if (monplateau.Test_Plateau(motAAjouter, nbrCoordMotX - 1, nbrCoordMotY, 'v') == false) Console.WriteLine("Cette action est impossible");
+                        else
+                        {
+                            int compteurLettre = 0;
+                            for (int j = nbrCoordMotX-1; j < nbrCoordMotX-1 + motAAjouter.Length; j++)
+                            {
+                                if (monplateau.Matrice[j, nbrCoordMotY] != "*")
+                                {
+                                    monplateau.Matrice[j, nbrCoordMotY] = Convert.ToString(motAAjouter[compteurLettre]);
+                                }
+                                compteurLettre++;
+                            }
+                            tourFini = true;
+                        }
                         break;
                     case "4":
                         Console.WriteLine("Le joueur {0} a passé son tour, appuyez sur une touche pour passer au tour suivant.", numéroJoueur);

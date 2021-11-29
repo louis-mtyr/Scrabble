@@ -10,11 +10,11 @@ namespace Scrabble
     {
         static void Main(string[] args)
         {
-            Dictionnaire leDico = new Dictionnaire(null, 0, "français");
-            Joueur leJoueur = new Joueur("Joueurs.txt");
-            Plateau lePlateau = new Plateau("TestPlateau.txt", leDico, leJoueur);
+            Dictionnaire leDico = new Dictionnaire("Francais.txt",3);
+            //Joueur leJoueur = new Joueur("Joueurs.txt");
+            //Plateau lePlateau = new Plateau("TestPlateau.txt", leDico, leJoueur);
             Sac_Jetons leSac = new Sac_Jetons("Jetons.txt");
-            Jeu leJeu = new Jeu("", lePlateau, leSac);
+            //Jeu leJeu = new Jeu("Francais.txt", lePlateau, leSac);
 
             Random aleatoire = new Random();
             Console.WriteLine("Voici le Scrabble");
@@ -150,10 +150,13 @@ namespace Scrabble
             }
             if (compteurVérifJetonsSac == leSac.Sac.Count) vérifJetonsSac = true;
 
+            Plateau lePlateau = new Plateau("TestPlateau.txt", leDico, null);
             while (vérifJetonsSac == false)
             {
                 for (int i = 1; i <= nombrejoueur; i++)
                 {
+                    lePlateau = new Plateau(lePlateau.Matrice, leDico, listeJoueurs[i-1]);
+                    Jeu leJeu = new Jeu("Francais.txt", lePlateau, leSac);
                     leJeu.Jouer(i, listeJoueurs); //c'est pas la bonne boucle mais on a l'idée
                 }
             }
