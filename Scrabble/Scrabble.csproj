@@ -5,4 +5,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\LEFIEVRE\Documents\A2 ESILV\A2 S1 ESILV\Infomatique\Algorithmique\Scrabble\Scrabble\Scrabble.xml</DocumentationFile>
+  </PropertyGroup>
+
 </Project>
