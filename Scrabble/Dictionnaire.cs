@@ -56,14 +56,22 @@ namespace Scrabble
         {
             get { return this.ensembleMots; }
         }
-
+        /// <summary>
+        /// Retourne une chaîne de caractères qui décrit le dictionnaire des mots de la longueur mis en instance
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             string rep = "Le Dictionnaire contient : ";
             rep=rep+this.ensembleMots.Count+" mots de " + this.longueur + " lettres en " + this.langue + ".";
             return rep;
         }
-
+        /// <summary>
+        /// Teste que le mot appartient bien au dictionnaire
+        /// </summary>
+        /// <param name="mot">Mot utilisé pour le test</param>
+        /// <param name="i">Index de chacun des mots de la liste</param>
+        /// <returns></returns>
         public bool RechDichoRecursif(string mot, int i=0)
         {
             if (this.ensembleMots==null || i == this.ensembleMots.Count) return false;

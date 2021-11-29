@@ -29,7 +29,11 @@ namespace Scrabble
             get { return this.sac; }
             set { this.sac = value; }
         }
-
+        /// <summary>
+        /// Permet de tirer au hasard un jeton parmi tous les jetons possibles
+        /// </summary>
+        /// <param name="r">Fonction random</param>
+        /// <returns></returns>
         public Jeton Retire_Jeton(Random r)
         {
             Jeton jeton_tiré = null;
@@ -44,7 +48,10 @@ namespace Scrabble
             }
             return jeton_tiré;
         }
-
+        /// <summary>
+        /// Ajoute au sac le jeton défaussé
+        /// </summary>
+        /// <param name="lettreJeton">La lettre défaussé par le joueur</param>
         public void Ajoute_Jeton(string lettreJeton)
         {
             switch(lettreJeton.ToUpper())
@@ -134,7 +141,10 @@ namespace Scrabble
                     break;
             }
         }
-
+        /// <summary>
+        /// Retourne une chaîne de caractères qui décrit un jeton
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             string rep = "Il reste dans le sac :";

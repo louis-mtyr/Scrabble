@@ -40,7 +40,11 @@ namespace Scrabble
         {
             get { return this.monsac_jetons; }
         }
-
+        /// <summary>
+        /// Simule le tour d'un joueur
+        /// </summary>
+        /// <param name="numéroJoueur">Numéro du joueur à qui c'est le tour</param>
+        /// <param name="listeJoueurs">Liste des joueurs qui jouent au Scrabble</param>
         public void Jouer(int numéroJoueur, List<Joueur> listeJoueurs)
         {
             Random aleatoire = new Random();

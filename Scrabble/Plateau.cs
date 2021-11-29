@@ -54,7 +54,10 @@ namespace Scrabble
         {
             get { return this.leJoueur; }
         }
-
+        /// <summary>
+        /// Retourne une chaîne de caractères qui décrit le plateau
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -164,7 +167,14 @@ namespace Scrabble
             Console.Write("   --------------------------------");
             return "";
         }
-
+        /// <summary>
+        /// Teste si le mot passé en paramètre est un mot éligible aux positions ligne et colonne et dans la direction indiquée
+        /// </summary>
+        /// <param name="mot">Mot que l'on veut posé</param>
+        /// <param name="ligne">Index de la ligne où l'on veut posé la première lettre du mot</param>
+        /// <param name="colonne">Index de la colonne où l'on veut posé la première lettre du mot</param>
+        /// <param name="direction">Direction dans laquelle on veut posé le mot</param>
+        /// <returns></returns>
         public bool Test_Plateau(string mot,int ligne,int colonne,char direction)
         {
             bool verif = true;
