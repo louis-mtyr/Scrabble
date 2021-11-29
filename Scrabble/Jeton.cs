@@ -33,7 +33,9 @@ namespace Scrabble
             get { return this.nombreJ; }
             set { this.nombreJ = value; }
         }
-
+        /// <summary>
+        /// Simule le fait qu’un joueur ait tiré au hasard une lettre et donc on soustrait une unité à nombreJ
+        /// </summary>
         public void Retire_un_nombre()
         {
             if (this.nombreJ > 0) this.nombreJ--;

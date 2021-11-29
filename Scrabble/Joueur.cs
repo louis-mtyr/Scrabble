@@ -68,12 +68,18 @@ namespace Scrabble
         {
             get { return this.listeJetons_lettre; }
         }
-
+        /// <summary>
+        /// Ajoute le mot dans la liste des mots déjà trouvés par le joueur au cours de la partie
+        /// </summary>
+        /// <param name="mot">Mot trouvé</param>
         public void Add_Mot(string mot)
         {
             this.motsTrouves.Add(mot);
         }
-
+        /// <summary>
+        /// Retourne une chaîne de caractères qui décrit un joueur
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             string rep = "Nom du joueur : " + this.nom + "\nScore : " + this.score + "\nMots trouvés : ";
@@ -90,17 +96,26 @@ namespace Scrabble
             }
             return rep;
         }
-
+        /// <summary>
+        /// Ajoute une valeur au score
+        /// </summary>
+        /// <param name="val">Valeur à ajouté au score </param>
         public void Add_Score(int val)
         {
             this.score += val;
         }
-
+        /// <summary>
+        /// Ajoute un jeton à la main courante
+        /// </summary>
+        /// <param name="monjeton">Jeton qui va être ajouté à notre main</param>
         public void Add_Main_Courante(Jeton monjeton)
         {
             this.listeJetons_lettre.Add(monjeton.Lettre);
         }
-
+        /// <summary>
+        /// Retire un jeton à la main courante
+        /// </summary>
+        /// <param name="monjeton">Jeton qui va être retiré à notre main</param>
         public void Remove_Main_Courante(Jeton monjeton)
         {
             this.listeJetons_lettre.Remove(monjeton.Lettre);

@@ -20,7 +20,9 @@ namespace Scrabble
 
         public Dictionnaire(string fichier)
         {
-
+            StreamReader sr = new StreamReader(fichier);
+            string mot = sr.ReadLine();
+            string[] ligne;
         }
         public int Longueur
         {
