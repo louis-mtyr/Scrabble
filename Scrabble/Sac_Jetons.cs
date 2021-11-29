@@ -141,6 +141,99 @@ namespace Scrabble
                     break;
             }
         }
+
+        public Jeton TrouveJeton(string lettreJeton)
+        {
+            Jeton jetonCherche = null;
+            switch (lettreJeton.ToUpper())
+            {
+                case "A":
+                    jetonCherche = this.sac[0];
+                    break;
+                case "B":
+                    jetonCherche = this.sac[1];
+                    break;
+                case "C":
+                    jetonCherche = this.sac[2];
+                    break;
+                case "D":
+                    jetonCherche = this.sac[3];
+                    break;
+                case "E":
+                    jetonCherche = this.sac[4];
+                    break;
+                case "F":
+                    jetonCherche = this.sac[5];
+                    break;
+                case "G":
+                    jetonCherche = this.sac[6];
+                    break;
+                case "H":
+                    jetonCherche = this.sac[7];
+                    break;
+                case "I":
+                    jetonCherche = this.sac[8];
+                    break;
+                case "J":
+                    jetonCherche = this.sac[9];
+                    break;
+                case "K":
+                    jetonCherche = this.sac[10];
+                    break;
+                case "L":
+                    jetonCherche = this.sac[11];
+                    break;
+                case "M":
+                    jetonCherche = this.sac[12];
+                    break;
+                case "N":
+                    jetonCherche = this.sac[13];
+                    break;
+                case "O":
+                    jetonCherche = this.sac[14];
+                    break;
+                case "P":
+                    jetonCherche = this.sac[15];
+                    break;
+                case "Q":
+                    jetonCherche = this.sac[16];
+                    break;
+                case "R":
+                    jetonCherche = this.sac[17];
+                    break;
+                case "S":
+                    jetonCherche = this.sac[18];
+                    break;
+                case "T":
+                    jetonCherche = this.sac[19];
+                    break;
+                case "U":
+                    jetonCherche = this.sac[20];
+                    break;
+                case "V":
+                    jetonCherche = this.sac[21];
+                    break;
+                case "W":
+                    jetonCherche = this.sac[22];
+                    break;
+                case "X":
+                    jetonCherche = this.sac[23];
+                    break;
+                case "Y":
+                    jetonCherche = this.sac[24];
+                    break;
+                case "Z":
+                    jetonCherche = this.sac[25];
+                    break;
+                case "*":
+                    jetonCherche = this.sac[26];
+                    break;
+                default:
+                    break;
+            }
+            return jetonCherche;
+        }
+
         /// <summary>
         /// Retourne une chaîne de caractères qui décrit un jeton
         /// </summary>
