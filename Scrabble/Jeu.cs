@@ -15,14 +15,16 @@ namespace Scrabble
 
         public Jeu(string fichierDico, Plateau monplateau, string fichierSac_jetons)
         {
-            //fichier dictionnaire kompranpa
+            this.mondico = new Dictionnaire[14];
+            for (int i = 0; i < mondico.Length; i++) this.mondico[i] = new Dictionnaire(fichierDico, i+2);
             this.monplateau = monplateau;
             this.monsac_jetons = new Sac_Jetons(fichierSac_jetons);
         }
 
         public Jeu(string fichierDico, Plateau monplateau, Sac_Jetons monsac_jetons)
         {
-            //fichier dictionnaire kompranpa
+            this.mondico = new Dictionnaire[14];
+            for (int i = 0; i < mondico.Length; i++) this.mondico[i] = new Dictionnaire(fichierDico, i + 2);
             this.monplateau = monplateau;
             this.monsac_jetons = monsac_jetons;
         }
@@ -83,13 +85,18 @@ namespace Scrabble
                         break;
                     case "2":
                         Console.WriteLine("Quel est le mot que vous voulez ajouter sur le plateau ?");
-                        string motAAjouter = Console.ReadLine(); //possibilité de devoir .ToUpper en fonction du dico
-                        bool existence = mondico[0].RechDichoRecursif(motAAjouter); //possibilité de devoir ajuster en fonction du dico / tableau de dicos --> on peut faire un dico par taille des mots
+                        string motAAjouter = Console.ReadLine().ToUpper();
+                        while (motAAjouter.Length > 15 || motAAjouter.Length < 2)
+                        {
+                            Console.WriteLine("Ce mot ne rentre pas dans le plateau\nVeuillez choisir un mot valable :");
+                            motAAjouter = Console.ReadLine().ToUpper();
+                        }
+                        bool existence = mondico[motAAjouter.Length-2].RechDichoRecursif(motAAjouter); //possibilité de devoir ajuster en fonction du dico / tableau de dicos --> on peut faire un dico par taille des mots
                         while (existence==false)                                    //par exemple mondico[0] = dico des mots de 2 lettres, mondico[1] = dico des mots de 3 lettres etc...
                         {                                                           //problème : à quoi sert la langue dans les attributs du Dictionnaire ?
                             Console.WriteLine("Ce mot n'existe pas dans le dictionnaire choisi\nVeuillez choisir un mot valable :");
                             motAAjouter = Console.ReadLine();
-                            existence = mondico[0].RechDichoRecursif(motAAjouter);
+                            existence = mondico[motAAjouter.Length-2].RechDichoRecursif(motAAjouter);
                         }
                         Console.WriteLine("Veuillez indiquer la ligne de la 1ere lettre de votre mot sur le plateau");
                         string coordMotX = Console.ReadLine();
@@ -108,6 +115,21 @@ namespace Scrabble
                                 coordMotX = Console.ReadLine();
                             }
                         } while (nbrCoordMotX < 1 && nbrCoordMotX > 15);
+                        Console.WriteLine("Veuillez indiquer la colonne de la 1ere lettre de votre mot sur le plateau");
+                        string coordMotY = Console.ReadLine().ToUpper();
+                        do
+                        {
+                            switch (coordMotY)
+                            {
+                                case "A":
+                                    break;
+                                default:
+                                    Console.WriteLine("Cette coordonnée est invalide");
+                                    coordMotY = Console.ReadLine().ToUpper();
+                                    break;
+                            }
+                        } while (coordMotY != "A" && coordMotY != "B" && coordMotY != "C" && coordMotY != "D" && coordMotY != "E" && coordMotY != "F" && coordMotY != "G" && coordMotY != "H" && coordMotY != "I" && coordMotY != "J" && coordMotY != "K" && coordMotY != "L" && coordMotY != "M" && coordMotY != "N" && coordMotY != "O");
+
                         //coord en Y a faire
                         break;
                     case "3":

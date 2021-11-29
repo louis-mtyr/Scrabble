@@ -22,6 +22,7 @@ namespace Scrabble
         {
             if (longueur >= 2 && longueur <= 15)
             {
+                this.ensembleMots = new List<string>();
                 StreamReader sr = new StreamReader(fichier);
                 string mot = sr.ReadLine();
                 string[] ligne;
@@ -30,9 +31,8 @@ namespace Scrabble
                     mot = sr.ReadLine();
                 }
                 mot = sr.ReadLine();
-                ligne = mot.Split(';');
+                ligne = mot.Split(' ');
                 for (int i = 0; i < ligne.Length; i++) this.ensembleMots.Add(ligne[i]);
-
                 this.longueur = longueur;
                 this.langue = "francais";
             }
@@ -59,11 +59,8 @@ namespace Scrabble
 
         public override string ToString()
         {
-            string rep = "Le Dictionnaire contient : \n";
-            for(int i = 0; i <= 5; i++)
-            {
-                rep=rep+this.ensembleMots.Count+" mots de " + this.longueur + " lettres en " + this.langue;
-            }
+            string rep = "Le Dictionnaire contient : ";
+            rep=rep+this.ensembleMots.Count+" mots de " + this.longueur + " lettres en " + this.langue + ".";
             return rep;
         }
 
