@@ -62,11 +62,13 @@ namespace Scrabble
         public List<string> MotsTrouves
         {
             get { return this.motsTrouves; }
+            set { this.motsTrouves = value; }
         }
 
         public List<string> ListeJetons_lettre
         {
             get { return this.listeJetons_lettre; }
+            set { this.listeJetons_lettre = value; }
         }
 
         public void Add_Mot(string mot)

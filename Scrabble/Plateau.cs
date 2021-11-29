@@ -34,6 +34,14 @@ namespace Scrabble
             this.leDico = leDico;
             this.leJoueur = leJoueur;
         }
+
+        public Plateau(string[,] matrice, Dictionnaire leDico, Joueur leJoueur)
+        {
+            this.matrice = matrice;
+            this.leDico = leDico;
+            this.leJoueur = leJoueur;
+        }
+
         public string[,] Matrice
         {
             get { return this.matrice; }
@@ -161,7 +169,7 @@ namespace Scrabble
         {
             bool verif = true;
             int compteurMain = 0;
-            if (ligne >= 0 && colonne >= 0 && ligne <= 14 && colonne <= 14)
+            if (ligne < 0 || colonne < 0 || ligne > 14 || colonne > 14)
             {
                 verif = false;
             }
@@ -176,10 +184,10 @@ namespace Scrabble
                         }
                         for(int i = 0; i < mot.Length; i++)
                         {
-                            if (matrice[ligne,colonne + i]!="_")
+                            if (matrice[ligne,colonne + i]!="_" && matrice[ligne, colonne + i]!="*")
                             {
-                                if(matrice[ligne, colonne + i] != Convert.ToString(mot[i]))        //ne marche que si on met la lettre à la position [ligne, colonne]
-                                {                                                                  //faire un int k=0 et l'augmenter progressivement au lieu de mot[i]
+                                if(matrice[ligne, colonne + i] != Convert.ToString(mot[i]))        //ne marche que si on met la lettre à la position [ligne, colonne] ---> C'est le cas a priori !
+                                {                                                                  //faire un int k=0 et l'augmenter progressivement au lieu de mot[i] ---> pas besoin normalement (à vérifier)
                                     verif = false;
                                 }
                             }
@@ -187,13 +195,13 @@ namespace Scrabble
                             {
                                 for (int j = 0; j < 7; j++)
                                 {
-                                    if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j])
+                                    if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j] || this.leJoueur.ListeJetons_lettre[j]=="*" || Convert.ToString(mot[i])==this.matrice[ligne,colonne+i])
                                     {
                                         compteurMain++;
-                                    }
-                                    if (compteurMain == 0) verif = false;                           //chépa si tous les cas sont vérifiés ici
-                                    compteurMain = 0;
+                                    }                           //chépa si tous les cas sont vérifiés ici
                                 }
+                                if (compteurMain == 0) verif = false;
+                                compteurMain = 0;
                             }
                         }
                         break;
@@ -204,10 +212,10 @@ namespace Scrabble
                         }
                         for (int i = 0; i < mot.Length; i++)
                         {
-                            if (matrice[ligne+i, colonne] != "_")
+                            if (matrice[ligne+i, colonne] != "_" && matrice[ligne+i, colonne] != "*")
                             {
-                                if (matrice[ligne+i, colonne] != Convert.ToString(mot[i]))        //ne marche que si on met la lettre à la position [ligne, colonne]
-                                {                                                                  //faire un int k=0 et l'augmenter progressivement au lieu de mot[i]
+                                if (matrice[ligne+i, colonne] != Convert.ToString(mot[i]))
+                                {
                                     verif = false;
                                 }
                             }
@@ -215,13 +223,13 @@ namespace Scrabble
                             {
                                 for (int j = 0; j < 7; j++)
                                 {
-                                    if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j])
+                                    if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j] || this.leJoueur.ListeJetons_lettre[j] == "*" || Convert.ToString(mot[i]) == this.matrice[ligne + i, colonne])
                                     {
                                         compteurMain++;
                                     }
-                                    if (compteurMain == 0) verif = false;                           //chépa si tous les cas sont vérifiés ici
-                                    compteurMain = 0;
                                 }
+                                if (compteurMain == 0) verif = false;
+                                compteurMain = 0;
                             }
                         }
                         break;
@@ -229,13 +237,6 @@ namespace Scrabble
                         Console.WriteLine("Direction entrée mauvaise");
                         verif = false;
                         break;
-                }
-            }
-            if (verif == true)
-            {
-                if (this.leDico.RechDichoRecursif(mot) == false)
-                {
-                    verif = false;
                 }
             }
             return verif;
