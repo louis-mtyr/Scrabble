@@ -86,7 +86,7 @@ namespace Scrabble
                             case (14, 7):
                             case (14, 14):
                                 Console.ForegroundColor = ConsoleColor.Red;
-                                Console.Write("5 ");
+                                Console.Write("3 ");
                                 break;
                             case (1, 1):
                             case (2, 2):
@@ -105,7 +105,7 @@ namespace Scrabble
                             case (2, 12):
                             case (1, 13):
                                 Console.ForegroundColor = ConsoleColor.Magenta;
-                                Console.Write("4 ");
+                                Console.Write("2 ");
                                 break;
                             case (1, 5):
                             case (1, 9):

@@ -70,29 +70,54 @@ namespace Scrabble
                         Console.Clear();
                         Console.WriteLine(this.monplateau.ToString());
                         Console.WriteLine(listeJoueurs[numéroJoueur - 1].ToString());
-                        Jeton jetonPioché = this.monsac_jetons.Retire_Jeton(aleatoire);
-                        Console.Write("Le jeton pioché est : ");
-                        Console.ForegroundColor = ConsoleColor.Magenta;
-                        Console.Write(jetonPioché.Lettre);
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.WriteLine("\nLequel de vos jetons souhaitez-vous remplacer par ce nouveau jeton ?");
-                        string jetonARemplacer = Console.ReadLine().ToUpper();
-                        bool appartient = false;
-                        while (appartient == false)
+                        Console.WriteLine("Combien de jetons voulez-vous défausser ?");
+                        string défausse = Console.ReadLine();
+                        int nbDéfausse;
+                        do
                         {
-                            for (int i = 0; i < listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Count; i++)
+                            if (int.TryParse(défausse, out nbDéfausse))
                             {
-                                if (jetonARemplacer == listeJoueurs[numéroJoueur - 1].ListeJetons_lettre[i]) appartient = true;
+                                if (nbDéfausse <= 0 || nbDéfausse >= 8)
+                                {
+                                    Console.WriteLine("Vous ne pouvez pas défausser autant de jetons");
+                                    Console.WriteLine("Combien de jetons voulez-vous défausser ?");
+                                    défausse = Console.ReadLine();
+                                }
                             }
-                            if (appartient == false)
+                            else
                             {
-                                Console.WriteLine("Vous n'avez pas de jeton " + jetonARemplacer + " dans votre main. Veuillez choisir un de vos jetons à remplacer :");
-                                jetonARemplacer = Console.ReadLine().ToUpper();
+                                nbDéfausse = 0;
+                                Console.WriteLine("Ce nombre n'existe pas");
+                                Console.WriteLine("Combien de jetons voulez-vous défausser ?");
+                                défausse = Console.ReadLine();
                             }
+                        } while (nbDéfausse <= 0 || nbDéfausse >= 8);
+                        for (int n = 0; n < nbDéfausse; n++)
+                        {
+                            Jeton jetonPioché = this.monsac_jetons.Retire_Jeton(aleatoire);
+                            Console.Write("Le jeton pioché est : ");
+                            Console.ForegroundColor = ConsoleColor.Magenta;
+                            Console.Write(jetonPioché.Lettre);
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine("\nLequel de vos jetons souhaitez-vous remplacer par ce nouveau jeton ?");
+                            string jetonARemplacer = Console.ReadLine().ToUpper();
+                            bool appartient = false;
+                            while (appartient == false)
+                            {
+                                for (int i = 0; i < listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Count-n; i++)
+                                {
+                                    if (jetonARemplacer == listeJoueurs[numéroJoueur - 1].ListeJetons_lettre[i]) appartient = true;
+                                }
+                                if (appartient == false)
+                                {
+                                    Console.WriteLine("Vous n'avez pas de jeton " + jetonARemplacer + " dans votre main. Veuillez choisir un de vos jetons à remplacer :");
+                                    jetonARemplacer = Console.ReadLine().ToUpper();
+                                }
+                            }
+                            listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove(jetonARemplacer);
+                            this.monsac_jetons.Ajoute_Jeton(jetonARemplacer);
+                            listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(jetonPioché.Lettre);
                         }
-                        listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove(jetonARemplacer);
-                        this.monsac_jetons.Ajoute_Jeton(jetonARemplacer);
-                        listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(jetonPioché.Lettre);
                         Console.WriteLine("Le tour du joueur {0} est terminé, appuyez sur une touche pour passer au tour suivant.", numéroJoueur);
                         tourFini = true;
                         Console.ReadKey();
@@ -198,9 +223,17 @@ namespace Scrabble
                             int compteurLettre = 0;
                             for (int j=nbrCoordMotY; j<nbrCoordMotY+motAAjouter.Length; j++)
                             {
-                                if (monplateau.Matrice[nbrCoordMotX-1, j] != "*") monplateau.Matrice[nbrCoordMotX-1, j] = Convert.ToString(motAAjouter[compteurLettre]);
+                                if (monplateau.Matrice[nbrCoordMotX - 1, j] != "*")
+                                {
+                                    monplateau.Matrice[nbrCoordMotX - 1, j] = Convert.ToString(motAAjouter[compteurLettre]);
+                                    listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove(Convert.ToString(motAAjouter[compteurLettre]));
+                                    listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(monsac_jetons.Retire_Jeton(aleatoire).Lettre);
+                                    listeJoueurs[numéroJoueur - 1].Score += monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).Score;
+                                    monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).NombreJ--;
+                                }
                                 compteurLettre++;
                             }
+                            listeJoueurs[numéroJoueur - 1].MotsTrouves.Add(motAAjouter);
                             tourFini = true;
                         }
                         break;
@@ -307,9 +340,14 @@ namespace Scrabble
                                 if (monplateau.Matrice[j, nbrCoordMotY] != "*")
                                 {
                                     monplateau.Matrice[j, nbrCoordMotY] = Convert.ToString(motAAjouter[compteurLettre]);
+                                    listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove(Convert.ToString(motAAjouter[compteurLettre]));
+                                    listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(monsac_jetons.Retire_Jeton(aleatoire).Lettre);
+                                    listeJoueurs[numéroJoueur - 1].Score += monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).Score;
+                                    monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).NombreJ--;
                                 }
                                 compteurLettre++;
                             }
+                            listeJoueurs[numéroJoueur - 1].MotsTrouves.Add(motAAjouter);
                             tourFini = true;
                         }
                         break;

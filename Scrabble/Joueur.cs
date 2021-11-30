@@ -57,6 +57,7 @@ namespace Scrabble
         public int Score
         {
             get { return this.score; }
+            set { this.score = value; }
         }
 
         public List<string> MotsTrouves
@@ -140,17 +141,17 @@ namespace Scrabble
         /// Ajoute un jeton à la main courante
         /// </summary>
         /// <param name="monjeton">Jeton qui va être ajouté à notre main</param>
-        public void Add_Main_Courante(Jeton monjeton)
+        public void Add_Main_Courante(string monjeton)
         {
-            this.listeJetons_lettre.Add(monjeton.Lettre);
+            this.listeJetons_lettre.Add(monjeton);
         }
         /// <summary>
         /// Retire un jeton à la main courante
         /// </summary>
         /// <param name="monjeton">Jeton qui va être retiré à notre main</param>
-        public void Remove_Main_Courante(Jeton monjeton)
+        public void Remove_Main_Courante(string monjeton)
         {
-            this.listeJetons_lettre.Remove(monjeton.Lettre);
+            this.listeJetons_lettre.Remove(monjeton);
         }
     }
 }
