@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace Scrabble
 {
-    class Jeu
+    public class Jeu
     {
         private Dictionnaire[] mondico;
         private Plateau monplateau;

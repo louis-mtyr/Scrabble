@@ -5,7 +5,7 @@ using System.IO;
 
 namespace Scrabble
 {
-    class Dictionnaire
+    public class Dictionnaire
     {
         private List<string> ensembleMots;
         private int longueur;

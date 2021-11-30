@@ -5,7 +5,7 @@ using System.IO;
 
 namespace Scrabble
 {
-    class Sac_Jetons
+    public class Sac_Jetons
     {
         private List<Jeton> sac;
 

@@ -4,8 +4,8 @@ using System.Text;
 using System.IO;
 
 namespace Scrabble
-{ 
-    class Plateau
+{
+    public class Plateau
     {
         private string[,] matrice;
         private Dictionnaire leDico;

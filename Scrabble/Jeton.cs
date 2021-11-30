@@ -5,7 +5,7 @@ using System.IO;
 
 namespace Scrabble
 {
-    class Jeton
+    public class Jeton
     {
         private string lettre;
         private int score;
