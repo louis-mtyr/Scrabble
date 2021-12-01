@@ -66,7 +66,7 @@ namespace Scrabble
             listeJetons_lettre.Add("A");
             motstrouvés.Add("Bonjour");
             Joueur joueur = new Joueur("Léo", 0, motstrouvés, listeJetons_lettre);
-            if (joueur.ToString() != "Nom du joueur : Léo" + "\nScore : 0" + "\nMots trouvés : Bonjour" + "\nLettres disponibles dans sa main : A ") rep = false;
+            if ((joueur.ToString() != "Nom du joueur : Léo" + "\nScore : 0" + "\nMots trouvés : Bonjour" + "\nLettres disponibles dans sa main : A ") rep = false;
             Assert.AreEqual(rep, true);
         }
         [TestMethod]
