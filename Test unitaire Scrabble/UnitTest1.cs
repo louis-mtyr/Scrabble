@@ -105,12 +105,20 @@ namespace Scrabble
             Assert.AreEqual(rep, true);
         }
         [TestMethod]
-        public void TestRetireJeton()
+        public void TestRetire_Jeton()
+        {
+            bool rep = true;
+            Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
+            sac.Ajoute_Jeton("A");
+            if (sac(0).NombreJ) rep = false;
+            Assert.AreEqual(rep, true);
+        }
+        public void TestAjoute_Jeton()
         {
             bool rep = true;
             Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
             Random r = new Random();
-            if (sac.Retire_Jeton(r)!=) rep = false;
+            if (sac.Retire_Jeton(r) !=) rep = false;
             Assert.AreEqual(rep, true);
         }
     }
