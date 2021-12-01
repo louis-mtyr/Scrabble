@@ -56,5 +56,61 @@ namespace Scrabble
             if (joueur.ListeJetons_lettre.Count!=0) rep = false;
             Assert.AreEqual(rep, true);
         }
+        [TestMethod]
+        public void TestTo_StringJoueur()
+        {
+            bool rep = true;
+            List<string> motstrouvés = new List<string>();
+            List<string> listeJetons_lettre = new List<string>();
+            listeJetons_lettre.Add("A");
+            motstrouvés.Add("Bonjour");
+            Joueur joueur = new Joueur("Léo", 0, motstrouvés, listeJetons_lettre);
+            if (joueur.ToString() != "Nom du joueur : Léo" + "\nScore : 0" + "\nMots trouvés : Bonjour" + "\nLettres disponibles dans sa main : A ") rep = false;
+            Assert.AreEqual(rep, true);
+        }
+        [TestMethod]
+        public void TestRetire_un_nombre()
+        {
+            bool rep = true;
+            Jeton A = new Jeton("A", 1, 10);
+            A.Retire_un_nombre();
+            if (A.NombreJ!=9) rep = false;
+            Assert.AreEqual(rep, true);
+        }
+        [TestMethod]
+        public void TestToStringJeton()
+        {
+            bool rep = true;
+            Jeton A = new Jeton("A", 1, 10);
+            if (A.ToString()!= "Lettre : A" + "\nScore : 1" + "\nLettres A" + " restantes : 10") rep = false;
+            Assert.AreEqual(rep, true);
+        }
+        [TestMethod]
+        public void TestToStringDictionnaire()
+        {
+            bool rep = true;
+            List<string> motstrouvés = new List<string>(3);
+            Dictionnaire mondico = new Dictionnaire(motstrouvés,3,"francais");
+            if (mondico.ToString() != "Le Dictionnaire contient : 3 mots de 3 lettres en francais.") rep = false;
+            Assert.AreEqual(rep, true);
+        }
+        [TestMethod]
+        public void TestRechDichoRecursif()
+        {
+            bool rep = true;
+            string mot = "AAS";
+            Dictionnaire mondico = new Dictionnaire("Francais.txt",3);
+            if (mondico.RechDichoRecursif(mot) !=true) rep = false;
+            Assert.AreEqual(rep, true);
+        }
+        [TestMethod]
+        public void TestRetireJeton()
+        {
+            bool rep = true;
+            string mot = "AAS";
+            Dictionnaire mondico = new Dictionnaire("Francais.txt", 3);
+            if (mondico.RechDichoRecursif(mot) != true) rep = false;
+            Assert.AreEqual(rep, true);
+        }
     }
 }
