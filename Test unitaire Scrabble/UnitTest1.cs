@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System;
 
 namespace Scrabble
 {
@@ -107,9 +108,9 @@ namespace Scrabble
         public void TestRetireJeton()
         {
             bool rep = true;
-            string mot = "AAS";
-            Dictionnaire mondico = new Dictionnaire("Francais.txt", 3);
-            if (mondico.RechDichoRecursif(mot) != true) rep = false;
+            Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
+            Random r = new Random();
+            if (sac.Retire_Jeton(r)!=) rep = false;
             Assert.AreEqual(rep, true);
         }
     }
