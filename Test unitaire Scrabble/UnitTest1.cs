@@ -121,5 +121,45 @@ namespace Scrabble
             if (sac.Retire_Jeton(r) !=) rep = false;
             Assert.AreEqual(rep, true);
         }
+        public void TestTrouveJeton()
+        {
+            bool rep = true;
+            Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
+            Random r = new Random();
+            if (sac.Retire_Jeton(r) !=) rep = false;
+            Assert.AreEqual(rep, true);
+        }
+        public void TestToString_SacJetons()
+        {
+            bool rep = true;
+            Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
+            Random r = new Random();
+            if (sac.Retire_Jeton(r) !=) rep = false;
+            Assert.AreEqual(rep, true);
+        }
+        public void TestToStringPlateau()
+        {
+            bool rep = true;
+            Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
+            Random r = new Random();
+            if (sac.Retire_Jeton(r) !=) rep = false;
+            Assert.AreEqual(rep, true);
+        }
+        public void Test_Test_Plateau()
+        {
+            bool rep = true;
+            Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
+            Random r = new Random();
+            if (sac.Retire_Jeton(r) !=) rep = false;
+            Assert.AreEqual(rep, true);
+        }
+        public void TestJouer()
+        {
+            bool rep = true;
+            Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
+            Random r = new Random();
+            if (sac.Retire_Jeton(r) !=) rep = false;
+            Assert.AreEqual(rep, true);
+        }
     }
 }
