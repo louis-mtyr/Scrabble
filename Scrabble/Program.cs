@@ -10,7 +10,7 @@ namespace Scrabble
     {
         static void Main(string[] args)
         {
-            /*Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
+            Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
             Console.WriteLine(sac.ToString());
             Dictionnaire leDico = new Dictionnaire("Francais.txt",3);
             Dictionnaire[] test = new Dictionnaire[13];
@@ -18,8 +18,7 @@ namespace Scrabble
             {
                 test[i] = new Dictionnaire("Francais.txt", i + 2);
                 Console.WriteLine(test[i].ToString());
-            }*/
-            Dictionnaire leDico = new Dictionnaire("Francais.txt", 3);
+            }
             Joueur leJoueur = new Joueur("Joueurs.txt");
             //Plateau lePlateau = new Plateau("TestPlateau.txt", leDico, leJoueur);
             Sac_Jetons leSac = new Sac_Jetons("Jetons.txt");
