@@ -179,6 +179,9 @@ namespace Scrabble
         {
             bool verif = true;
             int compteurMain = 0;
+            int compteurCasesNonVides = 0;
+            int compteurCasesDifferentesCentre = 0;
+            int compteurCasesDifferentesLettresPosees = 0;
             if (ligne < 0 || colonne < 0 || ligne > 14 || colonne > 14)
             {
                 verif = false;
@@ -214,6 +217,29 @@ namespace Scrabble
                                 compteurMain = 0;
                             }
                         }
+                        for (int i = 0; i < this.matrice.GetLength(0); i++)
+                        {
+                            for (int j = 0; j < this.matrice.GetLength(1); j++)
+                            {
+                                if (matrice[i, j] != "_") compteurCasesNonVides++;
+                            }
+                        }
+                        if (compteurCasesNonVides == 0)
+                        {
+                            for (int k=0; k<mot.Length; k++)
+                            {
+                                if (ligne == 7 && colonne + k == 7) compteurCasesDifferentesCentre++;
+                            }
+                            if (compteurCasesDifferentesCentre == 0) verif = false;
+                        }
+                        else
+                        {
+                            for (int k = 0; k < mot.Length; k++)
+                            {
+                                if (matrice[ligne, colonne+k] == "_") compteurCasesDifferentesLettresPosees++;
+                            }
+                            if (compteurCasesDifferentesLettresPosees == 0) verif = false;
+                        }
                         break;
                     case 'v':
                         if (ligne + mot.Length > 14)
@@ -241,6 +267,29 @@ namespace Scrabble
                                 if (compteurMain == 0) verif = false;
                                 compteurMain = 0;
                             }
+                        }
+                        for (int i = 0; i < this.matrice.GetLength(0); i++)
+                        {
+                            for (int j = 0; j < this.matrice.GetLength(1); j++)
+                            {
+                                if (matrice[i, j] != "_") compteurCasesNonVides++;
+                            }
+                        }
+                        if (compteurCasesNonVides == 0)
+                        {
+                            for (int k = 0; k < mot.Length; k++)
+                            {
+                                if (ligne + k == 7 && colonne == 7) compteurCasesDifferentesCentre++;
+                            }
+                            if (compteurCasesDifferentesCentre == 0) verif = false;
+                        }
+                        else
+                        {
+                            for (int k = 0; k < mot.Length; k++)
+                            {
+                                if (matrice[ligne + k, colonne] == "_") compteurCasesDifferentesLettresPosees++;
+                            }
+                            if (compteurCasesDifferentesLettresPosees == 0) verif = false;
                         }
                         break;
                     default:

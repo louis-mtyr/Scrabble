@@ -72,8 +72,8 @@ namespace Scrabble
         /// <returns></returns>
         public bool RechDichoRecursif(string mot, int i=0)
         {
-            if (this.ensembleMots==null || i == this.ensembleMots.Count) return false;
-            else if (this.ensembleMots[i] == mot.ToUpper()) return true;
+            if (this.ensembleMots==null || i == this.ensembleMots.Count/4) return false;
+            else if (this.ensembleMots[i] == mot.ToUpper() || this.ensembleMots[i+this.ensembleMots.Count/4] == mot.ToUpper() || this.ensembleMots[i + this.ensembleMots.Count / 2] == mot.ToUpper() || this.ensembleMots[i + this.ensembleMots.Count * 3 / 4] == mot.ToUpper()) return true;
             else return RechDichoRecursif(mot, i + 1);
         }
     }

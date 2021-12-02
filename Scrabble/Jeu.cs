@@ -124,7 +124,7 @@ namespace Scrabble
                         break;
 
                     case "2":
-                        Console.WriteLine("Quel est le mot que vous voulez ajouter sur le plateau ?");
+                        Console.WriteLine("Quel est le mot que vous voulez ajouter sur le plateau ? (sans les accents)");
                         motAAjouter = Console.ReadLine().ToUpper();
                         while (motAAjouter.Length > 15 || motAAjouter.Length < 2)
                         {
