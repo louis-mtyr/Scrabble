@@ -62,9 +62,7 @@ namespace Scrabble
         /// <returns></returns>
         public override string ToString()
         {
-            string rep = "Le Dictionnaire contient : ";
-            rep=rep+this.ensembleMots.Count+" mots de " + this.longueur + " lettres en " + this.langue + ".";
-            return rep;
+            return "Le Dictionnaire contient : " + this.ensembleMots.Count + " mots de " + this.longueur + " lettres en " + this.langue + ".";
         }
         /// <summary>
         /// Teste que le mot appartient bien au dictionnaire

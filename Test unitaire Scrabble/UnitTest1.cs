@@ -57,7 +57,7 @@ namespace Scrabble
             if (joueur.ListeJetons_lettre.Count!=0) rep = false;
             Assert.AreEqual(rep, true);
         }
-        [TestMethod]
+        /*[TestMethod]
         public void TestTo_StringJoueur()
         {
             bool rep = true;
@@ -68,7 +68,7 @@ namespace Scrabble
             Joueur joueur = new Joueur("Léo", 0, motstrouvés, listeJetons_lettre);
             if ((joueur.ToString() != "Nom du joueur : Léo" + "\nScore : 0" + "\nMots trouvés : Bonjour" + "\nLettres disponibles dans sa main : A ") rep = false;
             Assert.AreEqual(rep, true);
-        }
+        }*/
         [TestMethod]
         public void TestRetire_un_nombre()
         {
@@ -90,9 +90,10 @@ namespace Scrabble
         public void TestToStringDictionnaire()
         {
             bool rep = true;
-            List<string> motstrouvés = new List<string>(3);
+            List<string> motstrouvés = new List<string>();
+            for (int i = 1; i <= 3; i++) motstrouvés.Add(Convert.ToString(i));
             Dictionnaire mondico = new Dictionnaire(motstrouvés,3,"francais");
-            if (mondico.ToString() != "Le Dictionnaire contient : 3 mots de 3 lettres en francais.") rep = false;
+            if (mondico.ToString() != "Le Dictionnaire contient : " + 3 + " mots de " + 3 + " lettres en francais.") rep = false;
             Assert.AreEqual(rep, true);
         }
         [TestMethod]
@@ -105,12 +106,13 @@ namespace Scrabble
             Assert.AreEqual(rep, true);
         }
         [TestMethod]
-        public void TestRetire_Jeton()
+        public void TestRetire_Jeton(Random r)
         {
             bool rep = true;
             Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
-            sac.Ajoute_Jeton("A");
-            if (sac(0).NombreJ) rep = false;
+            int stock = sac.Retire_Jeton(r).NombreJ;
+            Jeton jetonCherche = new Jeton(sac.Retire_Jeton(r)),);
+            if (sac.Retire_Jeton(r).NombreJ!=stock-1) rep = false;
             Assert.AreEqual(rep, true);
         }
         public void TestAjoute_Jeton()
@@ -118,7 +120,7 @@ namespace Scrabble
             bool rep = true;
             Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
             Random r = new Random();
-            if (sac.Retire_Jeton(r) !=) rep = false;
+            
             Assert.AreEqual(rep, true);
         }
         public void TestTrouveJeton()
@@ -126,7 +128,7 @@ namespace Scrabble
             bool rep = true;
             Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
             Random r = new Random();
-            if (sac.Retire_Jeton(r) !=) rep = false;
+            
             Assert.AreEqual(rep, true);
         }
         public void TestToString_SacJetons()
@@ -134,7 +136,7 @@ namespace Scrabble
             bool rep = true;
             Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
             Random r = new Random();
-            if (sac.Retire_Jeton(r) !=) rep = false;
+       
             Assert.AreEqual(rep, true);
         }
         public void TestToStringPlateau()
@@ -142,7 +144,7 @@ namespace Scrabble
             bool rep = true;
             Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
             Random r = new Random();
-            if (sac.Retire_Jeton(r) !=) rep = false;
+         
             Assert.AreEqual(rep, true);
         }
         public void Test_Test_Plateau()
@@ -150,7 +152,7 @@ namespace Scrabble
             bool rep = true;
             Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
             Random r = new Random();
-            if (sac.Retire_Jeton(r) !=) rep = false;
+    
             Assert.AreEqual(rep, true);
         }
         public void TestJouer()
@@ -158,7 +160,7 @@ namespace Scrabble
             bool rep = true;
             Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
             Random r = new Random();
-            if (sac.Retire_Jeton(r) !=) rep = false;
+            
             Assert.AreEqual(rep, true);
         }
     }
