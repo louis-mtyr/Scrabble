@@ -151,7 +151,7 @@ namespace Scrabble
             Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
             Random r = new Random();
          
-            Assert.AreEqual(rep, true);
+            Assert.AreEqual(rep, true);+
         }
         public void Test_Test_Plateau()
         {
