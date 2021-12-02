@@ -12,50 +12,40 @@ namespace Scrabble
         public void TestAdd_Mot()
         {
             bool rep=true;
-            List<string> motstrouvés =new List<string>();
-            List<string> listeJetons_lettre = new List<string>();
-            motstrouvés.Add("Salut");
-            string mot = "Bonjour";
-            Joueur joueur = new Joueur ("Léo",0,motstrouvés,listeJetons_lettre);
+            string mot = "BONJOUR";
+            Joueur joueur = new Joueur ("Joueurs.txt");
             joueur.Add_Mot(mot);
-            if (mot != joueur.MotsTrouves[1]) rep = false;
+            if (joueur.MotsTrouves[0]!="BAT"|| joueur.MotsTrouves[1] != "SEBUM"|| joueur.MotsTrouves[2] != "LEXEMES"|| joueur.MotsTrouves[3] != "BONJOUR") rep = false;
             Assert.AreEqual(rep, true);
         }
         [TestMethod]
         public void TestAdd_Score()
         {
             bool rep = true;
-            List<string> motstrouvés = new List<string>();
-            List<string> listeJetons_lettre = new List<string>();
-            int score = 5;
-            Joueur joueur = new Joueur("Léo", 0, motstrouvés, listeJetons_lettre);
-            joueur.Add_Score(score);
-            if (score != joueur.Score) rep = false;
+            Joueur joueur = new Joueur("Joueurs.txt");
+            int val = 5;
+            joueur.Add_Score(val);
+            if (61 != joueur.Score) rep = false;
             Assert.AreEqual(rep, true);
         }
         [TestMethod]
         public void TestAdd_Main_Courante()
         {
             bool rep=true;
-            List<string> motstrouvés =new List<string>();
-            List<string> listeJetons_lettre = new List<string>();
+            Joueur joueur = new Joueur("Joueurs.txt");
             string jeton = "A";
-            Joueur joueur = new Joueur ("L?o",0,motstrouvés,listeJetons_lettre);
             joueur.Add_Main_Courante(jeton);
-            if (jeton != joueur.ListeJetons_lettre[0]) rep = false;
+            if (jeton != joueur.ListeJetons_lettre[7]) rep = false;
             Assert.AreEqual(rep, true);
         }
         [TestMethod]
         public void TestRemove_Main_Courante()
         {
             bool rep = true;
-            List<string> motstrouvés = new List<string>();
-            List<string> listeJetons_lettre = new List<string>();
-            listeJetons_lettre.Add("A");
+            Joueur joueur = new Joueur("Joueurs.txt");
             string jeton = "A";
-            Joueur joueur = new Joueur("L?o", 0, motstrouvés, listeJetons_lettre);
             joueur.Remove_Main_Courante(jeton);
-            if (joueur.ListeJetons_lettre.Count!=0) rep = false;
+            if (joueur.ListeJetons_lettre[0]!="B") rep = false;
             Assert.AreEqual(rep, true);
         }
         /*[TestMethod]
@@ -141,8 +131,8 @@ namespace Scrabble
         public void TestToString_SacJetons()
         {
             bool rep = true;
-            Sac_Jetons sac = new Sac_Jetons("Jetontest.txt");
-            if (sac.ToString() != "Il reste dans le sac : "+ 9 +" jetons de la lettre A qui vaut "+1+"\n") rep = false;
+            Sac_Jetons sac = new Sac_Jetons("Jetonstest.txt");
+            if (sac.ToString() != "Il reste dans le sac : "+ 9 +" jetons de la lettre A qui valent "+1+" point(s).\n") rep = false;
             Assert.AreEqual(rep, true);
         }
         public void TestToStringPlateau()
@@ -151,7 +141,7 @@ namespace Scrabble
             Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
             Random r = new Random();
          
-            Assert.AreEqual(rep, true);+
+            Assert.AreEqual(rep, true);
         }
         public void Test_Test_Plateau()
         {

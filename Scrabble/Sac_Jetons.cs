@@ -243,7 +243,7 @@ namespace Scrabble
             string rep = "Il reste dans le sac : ";
             for (int i=0; i<sac.Count; i++)
             {
-                rep += this.sac[i].NombreJ + " jetons de la lettre " + this.sac[i].Lettre + " qui valent " + this.sac[i].Score + "points.\n";
+                rep += this.sac[i].NombreJ + " jetons de la lettre " + this.sac[i].Lettre + " qui valent " + this.sac[i].Score + " point(s).\n";
             }
             return rep;
         }
