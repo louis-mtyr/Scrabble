@@ -240,10 +240,10 @@ namespace Scrabble
         /// <returns></returns>
         public override string ToString()
         {
-            string rep = "Il reste dans le sac :";
+            string rep = "Il reste dans le sac : ";
             for (int i=0; i<sac.Count; i++)
             {
-                rep += this.sac[i].NombreJ + "jetons de la lettre " + this.sac[i].Lettre + "\n";
+                rep += this.sac[i].NombreJ + " jetons de la lettre " + this.sac[i].Lettre + " qui vaut " + this.sac[i].Score + "\n";
             }
             return rep;
         }

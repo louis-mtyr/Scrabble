@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System;
+using System.IO;
 
 namespace Scrabble
 {
@@ -111,7 +112,7 @@ namespace Scrabble
             bool rep = true;
             Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
             int stock = sac.Retire_Jeton(r).NombreJ;
-            Jeton jetonCherche = new Jeton(sac.Retire_Jeton(r)),);
+
             if (sac.Retire_Jeton(r).NombreJ!=stock-1) rep = false;
             Assert.AreEqual(rep, true);
         }
@@ -119,24 +120,26 @@ namespace Scrabble
         {
             bool rep = true;
             Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
-            Random r = new Random();
+            int stock;
             
             Assert.AreEqual(rep, true);
         }
+        [TestMethod]
         public void TestTrouveJeton()
         {
             bool rep = true;
             Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
-            Random r = new Random();
-            
+            Jeton Jetoncherche = sac.TrouveJeton("a");
+            Jeton resulattendu = new Jeton("A", 1, 9);
+            if (Jetoncherche.NombreJ != resulattendu.NombreJ|| Jetoncherche.Lettre != resulattendu.Lettre|| Jetoncherche.Score != resulattendu.Score) rep = false;
             Assert.AreEqual(rep, true);
         }
+        [TestMethod]
         public void TestToString_SacJetons()
         {
             bool rep = true;
-            Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
-            Random r = new Random();
-       
+            Sac_Jetons sac = new Sac_Jetons("Jetontest.txt");
+            if (sac.ToString() != "Il reste dans le sac : "+ 9 +" jetons de la lettre A qui vaut "+1+"\n") rep = false;
             Assert.AreEqual(rep, true);
         }
         public void TestToStringPlateau()
