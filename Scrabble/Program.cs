@@ -10,16 +10,19 @@ namespace Scrabble
     {
         static void Main(string[] args)
         {
+            /*Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
+            Console.WriteLine(sac.ToString());
             Dictionnaire leDico = new Dictionnaire("Francais.txt",3);
             Dictionnaire[] test = new Dictionnaire[13];
             for(int i=0;i<13;i++)
             {
                 test[i] = new Dictionnaire("Francais.txt", i + 2);
                 Console.WriteLine(test[i].ToString());
-            }
-            //Joueur leJoueur = new Joueur("Joueurs.txt");
+            }*/
+            Dictionnaire leDico = new Dictionnaire("Francais.txt", 3);
+            Joueur leJoueur = new Joueur("Joueurs.txt");
             //Plateau lePlateau = new Plateau("TestPlateau.txt", leDico, leJoueur);
-            /*Sac_Jetons leSac = new Sac_Jetons("Jetons.txt");
+            Sac_Jetons leSac = new Sac_Jetons("Jetons.txt");
             //Jeu leJeu = new Jeu("Francais.txt", lePlateau, leSac);
 
             Random aleatoire = new Random();
@@ -165,7 +168,7 @@ namespace Scrabble
                     Jeu leJeu = new Jeu("Francais.txt", lePlateau, leSac);
                     leJeu.Jouer(i, listeJoueurs); //c'est pas la bonne boucle mais on a l'idée
                 }
-            }*/
+            }
         }
     }
 }

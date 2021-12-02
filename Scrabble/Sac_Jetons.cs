@@ -20,7 +20,7 @@ namespace Scrabble
             {
                 ligne = mot.Split(';');
                 jeton = new Jeton(ligne[0], Convert.ToInt32(ligne[1]), Convert.ToInt32(ligne[2]));
-                this.sac.Add(jeton);
+                for(int i=0;i< Convert.ToInt32(ligne[2]);i++) this.sac.Add(jeton);
                 mot = sr.ReadLine();
             }
         }
@@ -240,8 +240,8 @@ namespace Scrabble
         /// <returns></returns>
         public override string ToString()
         {
-            string rep = "Il reste dans le sac : ";
-            for (int i=0; i<sac.Count; i++)
+            string rep = "Il reste dans le sac : \n";
+            for (int i=0; i<this.sac.Count; i=i+this.sac[i].NombreJ)
             {
                 rep += this.sac[i].NombreJ + " jeton(s) de la lettre " + this.sac[i].Lettre + " qui valent " + this.sac[i].Score + " point(s).\n";
             }
