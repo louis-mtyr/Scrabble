@@ -100,9 +100,9 @@ namespace Scrabble
         public void TestRechDichoRecursif()
         {
             bool rep = true;
-            string mot = "AAS";
+            string mot = "aas";
             Dictionnaire mondico = new Dictionnaire("Francais.txt",3);
-            if (mondico.RechDichoRecursif(mot) !=true) rep = false;
+            if (mondico.RechDichoRecursif(mot) != true) rep = false;
             Assert.AreEqual(rep, true);
         }
         [TestMethod]
@@ -110,9 +110,12 @@ namespace Scrabble
         {
             bool rep = true;
             Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
-            int stock = sac.Retire_Jeton(r).NombreJ;
-            Jeton jetonCherche = new Jeton(sac.Retire_Jeton(r)),);
-            if (sac.Retire_Jeton(r).NombreJ!=stock-1) rep = false;
+            int[] stock = new int[27];
+            for (int i = 0; i < 27; i++) stock[i] = sac.Sac[i].NombreJ;
+            for (int i=0; i<27; i++)
+            {
+                if (sac.Retire_Jeton(r).NombreJ != stock[i] - 1) rep = false;
+            }
             Assert.AreEqual(rep, true);
         }
         public void TestAjoute_Jeton()
