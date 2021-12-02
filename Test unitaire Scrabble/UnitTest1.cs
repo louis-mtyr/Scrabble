@@ -40,7 +40,7 @@ namespace Scrabble
             List<string> motstrouvés =new List<string>();
             List<string> listeJetons_lettre = new List<string>();
             string jeton = "A";
-            Joueur joueur = new Joueur ("Léo",0,motstrouvés,listeJetons_lettre);
+            Joueur joueur = new Joueur ("L?o",0,motstrouvés,listeJetons_lettre);
             joueur.Add_Main_Courante(jeton);
             if (jeton != joueur.ListeJetons_lettre[0]) rep = false;
             Assert.AreEqual(rep, true);
@@ -53,7 +53,7 @@ namespace Scrabble
             List<string> listeJetons_lettre = new List<string>();
             listeJetons_lettre.Add("A");
             string jeton = "A";
-            Joueur joueur = new Joueur("Léo", 0, motstrouvés, listeJetons_lettre);
+            Joueur joueur = new Joueur("L?o", 0, motstrouvés, listeJetons_lettre);
             joueur.Remove_Main_Courante(jeton);
             if (joueur.ListeJetons_lettre.Count!=0) rep = false;
             Assert.AreEqual(rep, true);
@@ -62,12 +62,12 @@ namespace Scrabble
         public void TestTo_StringJoueur()
         {
             bool rep = true;
-            List<string> motstrouvés = new List<string>();
+            List<string> motstrouv?s = new List<string>();
             List<string> listeJetons_lettre = new List<string>();
             listeJetons_lettre.Add("A");
-            motstrouvés.Add("Bonjour");
-            Joueur joueur = new Joueur("Léo", 0, motstrouvés, listeJetons_lettre);
-            if ((joueur.ToString() != "Nom du joueur : Léo" + "\nScore : 0" + "\nMots trouvés : Bonjour" + "\nLettres disponibles dans sa main : A ") rep = false;
+            motstrouv?s.Add("Bonjour");
+            Joueur joueur = new Joueur("L?o", 0, motstrouv?s, listeJetons_lettre);
+            if ((joueur.ToString() != "Nom du joueur : L?o" + "\nScore : 0" + "\nMots trouv?s : Bonjour" + "\nLettres disponibles dans sa main : A ") rep = false;
             Assert.AreEqual(rep, true);
         }*/
         [TestMethod]
@@ -101,9 +101,9 @@ namespace Scrabble
         public void TestRechDichoRecursif()
         {
             bool rep = true;
-            string mot = "AAS";
+            string mot = "aas";
             Dictionnaire mondico = new Dictionnaire("Francais.txt",3);
-            if (mondico.RechDichoRecursif(mot) !=true) rep = false;
+            if (mondico.RechDichoRecursif(mot) != true) rep = false;
             Assert.AreEqual(rep, true);
         }
         [TestMethod]
@@ -111,8 +111,12 @@ namespace Scrabble
         {
             bool rep = true;
             Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
-            int stock = sac.Retire_Jeton(r).NombreJ;
-            if (sac.Retire_Jeton(r).NombreJ!=stock-1) rep = false;
+            int[] stock = new int[27];
+            for (int i = 0; i < 27; i++) stock[i] = sac.Sac[i].NombreJ;
+            for (int i=0; i<27; i++)
+            {
+                if (sac.Retire_Jeton(r).NombreJ != stock[i] - 1) rep = false;
+            }
             Assert.AreEqual(rep, true);
         }
         public void TestAjoute_Jeton()
