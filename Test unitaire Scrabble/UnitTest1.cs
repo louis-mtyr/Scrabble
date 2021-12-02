@@ -112,7 +112,6 @@ namespace Scrabble
             bool rep = true;
             Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
             int stock = sac.Retire_Jeton(r).NombreJ;
-
             if (sac.Retire_Jeton(r).NombreJ!=stock-1) rep = false;
             Assert.AreEqual(rep, true);
         }
