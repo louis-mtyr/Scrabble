@@ -105,16 +105,19 @@ namespace Scrabble
             for (int i = 0; i < 27; i++) stock[i] = sac.Sac[i].NombreJ;
             for (int i=0; i<27; i++)
             {
+               
                 if (sac.Retire_Jeton(r).NombreJ != stock[i] - 1) rep = false;
             }
             Assert.AreEqual(rep, true);
         }
+        [TestMethod]
         public void TestAjoute_Jeton()
         {
             bool rep = true;
             Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
-            int stock;
-            
+            int stock= sac.Sac[0].NombreJ;
+            sac.Ajoute_Jeton("a");
+            if (sac.Sac[0].NombreJ != stock + 1) rep = false;
             Assert.AreEqual(rep, true);
         }
         [TestMethod]
@@ -132,9 +135,10 @@ namespace Scrabble
         {
             bool rep = true;
             Sac_Jetons sac = new Sac_Jetons("Jetonstest.txt");
-            if (sac.ToString() != "Il reste dans le sac : "+ 9 +" jetons de la lettre A qui valent "+1+" point(s).\n") rep = false;
+            if (sac.ToString() != "Il reste dans le sac : "+ 9 +" jeton(s) de la lettre A qui valent "+1+" point(s).\n") rep = false;
             Assert.AreEqual(rep, true);
         }
+        [TestMethod]
         public void TestToStringPlateau()
         {
             bool rep = true;
@@ -143,6 +147,7 @@ namespace Scrabble
          
             Assert.AreEqual(rep, true);
         }
+        [TestMethod]
         public void Test_Test_Plateau()
         {
             bool rep = true;
@@ -151,6 +156,7 @@ namespace Scrabble
     
             Assert.AreEqual(rep, true);
         }
+        [TestMethod]
         public void TestJouer()
         {
             bool rep = true;
