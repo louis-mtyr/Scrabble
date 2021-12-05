@@ -59,7 +59,7 @@ namespace Scrabble
             Joueur joueur = new Joueur("L?o", 0, motstrouv?s, listeJetons_lettre);
             if ((joueur.ToString() != "Nom du joueur : L?o" + "\nScore : 0" + "\nMots trouv?s : Bonjour" + "\nLettres disponibles dans sa main : A ") rep = false;
             Assert.AreEqual(rep, true);
-        }*/
+        }
         [TestMethod]
         public void TestRetire_un_nombre()
         {
@@ -139,7 +139,7 @@ namespace Scrabble
             if (sac.ToString() != "Il reste dans le sac : "+ 9 +" jeton(s) de la lettre A qui valent "+1+" point(s).\n") rep = false;
             Assert.AreEqual(rep, true);
         }
-        /*[TestMethod]
+        [TestMethod]
         public void TestToStringPlateau()
         {
             bool rep = true;
