@@ -155,7 +155,6 @@ namespace Scrabble
                                 motAAjouter = Console.ReadLine().ToUpper();
                                 existence = mondico[motAAjouter.Length - 2].RechDichoRecursif(motAAjouter);
                             }
-                            Console.WriteLine("Ce mot n'existe pas dans le dictionnaire choisi\nVeuillez choisir un mot valable :");
                             Console.WriteLine("Veuillez indiquer la ligne de la 1ere lettre de votre mot sur le plateau");
                             coordMotX = Console.ReadLine();
                             do
@@ -175,11 +174,6 @@ namespace Scrabble
                                     coordMotX = Console.ReadLine();
                                 }
                             } while (nbrCoordMotX < 1 || nbrCoordMotX > 15);
-                                    Console.WriteLine("Cette coordonnée est invalide\nVeuillez indiquer la ligne de la 1ere lettre de votre mot sur le plateau");
-                                    coordMotX = Console.ReadLine();
-                                }
-                            } while (nbrCoordMotX < 1 || nbrCoordMotX > 15);
-
                             Console.WriteLine("Veuillez indiquer la colonne de la 1ere lettre de votre mot sur le plateau");
                             nbrCoordMotY = -1;
                             do
@@ -275,7 +269,6 @@ namespace Scrabble
                             Console.WriteLine("Le joueur {0} a passé son tour, appuyez sur une touche pour passer au tour suivant.", numéroJoueur);
                             tourFini = true;
                             Console.ReadKey();
-                            break;
                         }
                         else
                         {
@@ -397,8 +390,8 @@ namespace Scrabble
                                 tourFini = true;
                                 Console.ReadKey();
                             }
-                            break;
                         }
+                        break;
                     case "4":
                         Console.WriteLine("Le joueur {0} a passé son tour, appuyez sur une touche pour passer au tour suivant.", numéroJoueur);
                         tourFini = true;
