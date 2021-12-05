@@ -244,9 +244,9 @@ namespace Scrabble
                         }
                         if (verif == true)
                         {
-                            if (matrice[ligne, colonne - accrémentation] != "_")
+                            if (matrice[ligne, colonne - accrémentation] != "_"&& matrice[ligne, colonne + mot.Length - 1 + accrémentation] == "_")
                             {
-                                while (matrice[ligne, colonne - accrémentation] != "_")
+                                while (matrice[ligne, colonne - accrémentation] != "_"&&colonne-accrémentation>=0)
                                 {
                                     rep = matrice[ligne, colonne - accrémentation] + rep;
                                     accrémentation++;
@@ -256,9 +256,9 @@ namespace Scrabble
                                 accrémentation = 1;
                                 rep = "";
                             }
-                            if (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_")
+                            if (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_"&& matrice[ligne, colonne - accrémentation] == "_")
                             {
-                                while (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_")
+                                while (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_"&& colonne + mot.Length - 1 + accrémentation<=14)
                                 {
                                     rep = rep + matrice[ligne, colonne + mot.Length - 1 + accrémentation];
                                     accrémentation++;
@@ -268,42 +268,36 @@ namespace Scrabble
                                 accrémentation = 1;
                                 rep = "";
                             }
+                            if (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_" && matrice[ligne, colonne - accrémentation] != "_")
+                            {
+                                while (matrice[ligne, colonne - accrémentation] != "_" && colonne - accrémentation >= 0)
+                                {
+                                    rep = matrice[ligne, colonne - accrémentation] + rep;
+                                    accrémentation++;
+                                }
+                                accrémentation = 1;
+                                rep = rep + mot;
+                                while (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_" && colonne + mot.Length - 1 + accrémentation <= 14)
+                                {
+                                    rep = rep + matrice[ligne, colonne + mot.Length - 1 + accrémentation];
+                                    accrémentation++;
+                                }
+                                if (leDico.RechDichoRecursif(rep) == false) verif = false;
+                                accrémentation = 1;
+                                rep = "";
+                            }
                             for (int i = 0; i < mot.Length; i++)
                             {
-                                if (matrice[ligne + accrémentation, colonne + i] != "_" && matrice[ligne - accrémentation, colonne + i] == "_")
+                                if (matrice[ligne - accrémentation, colonne + i] != "_" || matrice[ligne + accrémentation, colonne + i] != "_")
                                 {
-                                    rep = matrice[ligne, colonne + i];
-                                    while (matrice[ligne + accrémentation, colonne + i] != "_")
-                                    {
-                                        rep = rep + matrice[ligne + accrémentation, colonne + i];
-                                        accrémentation++;
-                                    }
-                                    if (leDico.RechDichoRecursif(rep) == false) verif = false;
-                                    accrémentation = 1;
-                                    rep = "";
-                                }
-                                if (matrice[ligne - accrémentation, colonne + i] != "_" && matrice[ligne + accrémentation, colonne + i] == "_")
-                                {
-                                    rep = matrice[ligne, colonne + i];
-                                    while (matrice[ligne - accrémentation, colonne + i] != "_")
-                                    {
-                                        rep = matrice[ligne - accrémentation, colonne + i] + rep;
-                                        accrémentation++;
-                                    }
-                                    if (leDico.RechDichoRecursif(rep) == false) verif = false;
-                                    accrémentation = 1;
-                                    rep = "";
-                                }
-                                if (matrice[ligne - accrémentation, colonne + i] != "_" && matrice[ligne + accrémentation, colonne + i] != "_")
-                                {
-                                    rep = matrice[ligne, colonne + i];
-                                    while (matrice[ligne - accrémentation, colonne + i] != "_")
+                                    rep = Convert.ToString(mot[i]);
+                                    while (matrice[ligne - accrémentation, colonne + i] != "_" && ligne - accrémentation >=0)
                                     {
                                         rep = matrice[ligne - accrémentation, colonne + i] + rep;
                                         accrémentation++;
                                     }
                                     accrémentation = 1;
-                                    while (matrice[ligne + accrémentation, colonne + i] != "_")
+                                    while (matrice[ligne + accrémentation, colonne + i] != "_" && ligne + accrémentation <= 14)
                                     {
                                         rep = rep + matrice[ligne + accrémentation, colonne + i];
                                         accrémentation++;
@@ -367,9 +361,9 @@ namespace Scrabble
                         }
                         if (verif == true)
                         {
-                            if (matrice[ligne - accrémentation, colonne] != "_")
+                            if (matrice[ligne - accrémentation, colonne] != "_"&& matrice[ligne + mot.Length - 1 + accrémentation, colonne] == "_")
                             {
-                                while (matrice[ligne - accrémentation, colonne] != "_")
+                                while (matrice[ligne - accrémentation, colonne] != "_"&&(ligne-accrémentation)>=0)
                                 {
                                     rep = matrice[ligne - accrémentation, colonne] + rep;
                                     accrémentation++;
@@ -379,9 +373,9 @@ namespace Scrabble
                                 accrémentation = 1;
                                 rep = "";
                             }
-                            if (matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "_")
+                            if (matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "_"&& matrice[ligne - accrémentation, colonne] == "_")
                             {
-                                while (matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "_")
+                                while (matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "_"&& ligne + mot.Length - 1 + accrémentation <= 14)
                                 {
                                     rep = rep + matrice[ligne + mot.Length - 1 + accrémentation, colonne];
                                     accrémentation++;
@@ -391,42 +385,36 @@ namespace Scrabble
                                 accrémentation = 1;
                                 rep = "";
                             }
+                            if (matrice[ligne - accrémentation, colonne] != "_" && matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "_")
+                            {
+                                while (matrice[ligne - accrémentation, colonne] != "_"&& (ligne - accrémentation) >= 0)
+                                {
+                                    rep = matrice[ligne - accrémentation, colonne] + rep;
+                                    accrémentation++;
+                                }
+                                accrémentation = 1;
+                                rep = rep + mot;
+                                while (matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "_" && ligne + mot.Length - 1 + accrémentation <= 14)
+                                {
+                                    rep = rep + matrice[ligne + mot.Length - 1 + accrémentation, colonne];
+                                    accrémentation++;
+                                }
+                                if (leDico.RechDichoRecursif(rep) == false) verif = false;
+                                accrémentation = 1;
+                                rep = "";
+                            }
                             for (int i = 0; i < mot.Length; i++)
                             {
-                                if (matrice[ligne + i, colonne + accrémentation] != "_" && matrice[ligne + i, colonne - accrémentation] == "_")
+                                if (matrice[ligne + i, colonne - accrémentation] != "_" || matrice[ligne + i, colonne + accrémentation] != "_")
                                 {
-                                    rep = matrice[ligne + i, colonne];
-                                    while (matrice[ligne + i, colonne + accrémentation] != "_")
-                                    {
-                                        rep = rep + matrice[ligne + i, colonne + accrémentation];
-                                        accrémentation++;
-                                    }
-                                    if (leDico.RechDichoRecursif(rep) == false) verif = false;
-                                    accrémentation = 1;
-                                    rep = "";
-                                }
-                                if (matrice[ligne + i, colonne - accrémentation] != "_" && matrice[ligne + i, colonne + accrémentation] == "_")
-                                {
-                                    rep = matrice[ligne + i, colonne];
-                                    while (matrice[ligne + i, colonne - accrémentation] != "_")
-                                    {
-                                        rep = matrice[ligne + i, colonne - accrémentation] + rep;
-                                        accrémentation++;
-                                    }
-                                    if (leDico.RechDichoRecursif(rep) == false) verif = false;
-                                    accrémentation = 1;
-                                    rep = "";
-                                }
-                                if (matrice[ligne + i, colonne - accrémentation] != "_" && matrice[ligne + i, colonne + accrémentation] != "_")
-                                {
-                                    rep = matrice[ligne + i, colonne];
-                                    while (matrice[ligne + i, colonne - accrémentation] != "_")
+                                    rep = Convert.ToString(mot[i]);
+                                    while (matrice[ligne + i, colonne - accrémentation] != "_"&&colonne-accrémentation>=0)
                                     {
                                         rep = matrice[ligne + i, colonne - accrémentation] + rep;
                                         accrémentation++;
                                     }
                                     accrémentation = 1;
-                                    while (matrice[ligne + i, colonne + accrémentation] != "_")
+                                    while (matrice[ligne + i, colonne + accrémentation] != "_"&&colonne+accrémentation<=14)
                                     {
                                         rep = rep + matrice[ligne + i, colonne + accrémentation];
                                         accrémentation++;
