@@ -202,22 +202,22 @@ namespace Scrabble
                         {
                             for (int i = 0; i < mot.Length; i++)
                             {
-                                if(matrice[ligne, colonne + i] != Convert.ToString(mot[i]))        //ne marche que si on met la lettre à la position [ligne, colonne] ---> C'est le cas a priori !
+                                if (matrice[ligne, colonne + i] != Convert.ToString(mot[i]))        //ne marche que si on met la lettre à la position [ligne, colonne] ---> C'est le cas a priori !
                                 {                                                                  //faire un int k=0 et l'augmenter progressivement au lieu de mot[i] ---> pas besoin normalement (à vérifier)
                                     verif = false;
                                 }
-                            }
-                            else
-                            {
-                                for (int j = 0; j < 7; j++)
+                                else
                                 {
-                                    if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j] || this.leJoueur.ListeJetons_lettre[j]=="*" || Convert.ToString(mot[i])==this.matrice[ligne,colonne+i])
+                                    for (int j = 0; j < 7; j++)
                                     {
-                                        compteurMain++;
-                                    }                           //chépa si tous les cas sont vérifiés ici
+                                        if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j] || this.leJoueur.ListeJetons_lettre[j] == "*" || Convert.ToString(mot[i]) == this.matrice[ligne, colonne + i])
+                                        {
+                                            compteurMain++;
+                                        }                           //chépa si tous les cas sont vérifiés ici
+                                    }
+                                    if (compteurMain == 0) verif = false;
+                                    compteurMain = 0;
                                 }
-                                if (compteurMain ==0) verif = false;
-                                compteurMain = 0;
                             }
                         }
                         for (int i = 0; i < this.matrice.GetLength(0); i++)
