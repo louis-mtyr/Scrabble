@@ -13,3 +13,5 @@ jetons "S ; A ; P ; T ; * ; L ; U" il prenne l'étoile au lieu du L par exemple
  - (galère/jsp faire) trouver toutes les manières de finir le jeu
 
  - (impossible) timer pour jouer + sauvegardes
+
+ - Quand on utilise un joker ça l'enlève pas de la main du joueur
