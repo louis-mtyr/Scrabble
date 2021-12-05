@@ -12,12 +12,11 @@ namespace Scrabble
         {
             Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
             Console.WriteLine(sac.ToString());
-            Dictionnaire leDico = new Dictionnaire("Francais.txt",3);
-            Dictionnaire[] test = new Dictionnaire[13];
+            Dictionnaire[] leDico = new Dictionnaire[13];
             for(int i=0;i<13;i++)
             {
-                test[i] = new Dictionnaire("Francais.txt", i + 2);
-                Console.WriteLine(test[i].ToString());
+                leDico[i] = new Dictionnaire("Francais.txt", i + 2);
+                Console.WriteLine(leDico[i].ToString());
             }
             Joueur leJoueur = new Joueur("Joueurs.txt");
             //Plateau lePlateau = new Plateau("TestPlateau.txt", leDico, leJoueur);

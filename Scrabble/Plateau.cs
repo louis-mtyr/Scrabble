@@ -8,7 +8,7 @@ namespace Scrabble
     public class Plateau
     {
         private string[,] matrice;
-        private Dictionnaire leDico;
+        private Dictionnaire[] leDico;
         private Joueur leJoueur;
 
         public Plateau(string[,] matrice = null) //jcomprends pas ce qu'ils demandent
@@ -16,7 +16,7 @@ namespace Scrabble
             this.matrice = matrice;
         }
         
-        public Plateau(string fichier, Dictionnaire leDico, Joueur leJoueur)
+        public Plateau(string fichier, Dictionnaire[] leDico, Joueur leJoueur)
         {
             StreamReader sr = new StreamReader(fichier);
             string mot = sr.ReadLine();
@@ -35,7 +35,7 @@ namespace Scrabble
             this.leJoueur = leJoueur;
         }
 
-        public Plateau(string[,] matrice, Dictionnaire leDico, Joueur leJoueur)
+        public Plateau(string[,] matrice, Dictionnaire[] leDico, Joueur leJoueur)
         {
             this.matrice = matrice;
             this.leDico = leDico;
@@ -46,7 +46,7 @@ namespace Scrabble
         {
             get { return this.matrice; }
         }
-        public Dictionnaire LeDico
+        public Dictionnaire[] LeDico
         {
             get { return this.leDico; }
         }
@@ -202,12 +202,12 @@ namespace Scrabble
                         {
                             for (int i = 0; i < mot.Length; i++)
                             {
-                                if (matrice[ligne, colonne + i] != "_" && matrice[ligne, colonne + i] != "*")
+                                if (matrice[ligne, colonne+i] != "_" && matrice[ligne, colonne+i] != "*")
                                 {
-                                    if (matrice[ligne, colonne + i] != Convert.ToString(mot[i]))
+                                    if (matrice[ligne, colonne+i] != Convert.ToString(mot[i]))
                                     {
                                         verif = false;
-                                        Console.WriteLine("Votre mot empiète sur un mot différent déjà posé sur le plateau");
+                                        Console.WriteLine("Votre mot va empiéter sur un mot déjà présent sur le plateau");
                                     }
                                 }
                                 else
@@ -217,139 +217,131 @@ namespace Scrabble
                                         if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j] || this.leJoueur.ListeJetons_lettre[j] == "*" || Convert.ToString(mot[i]) == this.matrice[ligne, colonne + i])
                                         {
                                             compteurMain++;
-                                        }
+                                        }                           
                                     }
                                     if (compteurMain == 0)
                                     {
                                         verif = false;
-                                        Console.WriteLine("Il vous manque une ou plusieurs des lettres de votre mot");
+                                        Console.WriteLine("Il vous manque une lettre ou plus du mot que vous voulez écrire");
                                     }
                                     compteurMain = 0;
                                 }
                             }
-
-                            for (int i = 0; i < this.matrice.GetLength(0); i++)
+                        }
+                        for (int i = 0; i < this.matrice.GetLength(0) && compteurCasesNonVides==0; i++)
+                        {
+                            for (int j = 0; j < this.matrice.GetLength(1) && compteurCasesNonVides==0; j++)
                             {
-                                for (int j = 0; j < this.matrice.GetLength(1); j++)
-                                {
-                                    if (matrice[i, j] != "_") compteurCasesNonVides++;
-                                }
+                                if (matrice[i, j] != "_") compteurCasesNonVides++;
                             }
-
-                            if (compteurCasesNonVides == 0)
+                        }
+                        if (compteurCasesNonVides == 0)
+                        {
+                            for (int k = 0; k < mot.Length; k++)
                             {
-                                for (int k = 0; k < mot.Length; k++)
-                                {
-                                    if (ligne == 7 && colonne + k == 7) compteurCasesDifferentesCentre++;
-                                }
-                                if (compteurCasesDifferentesCentre == 0)
-                                {
-                                    verif = false;
-                                    Console.WriteLine("Le premier mot à placer sur le plateau doit avoir une lettre sur la case (8;H)");
-                                }
+                                if (ligne == 7 && colonne + k == 7) compteurCasesDifferentesCentre++;
                             }
-                            else
+                            if (compteurCasesDifferentesCentre == 0)
                             {
-                                for (int k = -1; k < mot.Length+1; k++)
+                                verif = false;
+                                Console.WriteLine("Le premier mot à écrire sur le plateau doit avoir une lettre sur la case (8,H)");
+                            }
+                        }
+                        else
+                        {
+                            for (int k = -1; k < mot.Length + 1; k++)
+                            {
+                                for (int n = -1; n <= 1; n++)
                                 {
-                                    for (int n = -1; n <= 1; n++)
+                                    if ((ligne + n >= 0 && ligne + n <= 14) && (colonne + k >= 0 && colonne + k <= 14))
                                     {
-                                        if (ligne+n >=0 && ligne+n <=14 && colonne+k>=0 && colonne+k<=14) if (matrice[ligne + n, colonne + k] != "_") compteurCasesDifferentesLettresPosees++;
+                                        if (matrice[ligne + n, colonne + k] != "_") compteurCasesDifferentesLettresPosees++;
                                     }
                                 }
-                                if (compteurCasesDifferentesLettresPosees == 0)
-                                {
-                                    verif = false;
-                                    Console.WriteLine("Votre mot doit être relié d'une certaine manière à un mot déjà posé sur le plateau");
-                                }
                             }
+                            if (compteurCasesDifferentesLettresPosees == 0)
+                            {
+                                verif = false;
+                                Console.WriteLine("Votre mot doit être relié d'une certaine manière à un mot déjà présent sur le plateau");
+                            }
+
 
                             if (verif == true)
                             {
-                                if (matrice[ligne, colonne - accrémentation] != "_")
+                                if (matrice[ligne, colonne - accrémentation] != "_" && matrice[ligne, colonne + mot.Length - 1 + accrémentation] == "_")
                                 {
-                                    while (matrice[ligne, colonne - accrémentation] != "_")
+                                    while (matrice[ligne, colonne - accrémentation] != "_" && colonne - accrémentation >= 0)
                                     {
                                         rep = matrice[ligne, colonne - accrémentation] + rep;
                                         accrémentation++;
                                     }
                                     rep = rep + mot;
-                                    if (leDico.RechDichoRecursif(rep) == false)
+                                    if (leDico[rep.Length-2].RechDichoRecursif(rep) == false)
                                     {
                                         verif = false;
-                                        Console.WriteLine("L'emplacement de votre mot va créer un nouveau mot qui n'appartient pas au dictionnaire");
+                                        Console.WriteLine("L'emplacement de votre mot va créer un nouveau mot qui n'existe pas dans le dictionnaire");
                                     }
                                     accrémentation = 1;
                                     rep = "";
                                 }
-                                if (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_")
+                                if (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_" && matrice[ligne, colonne - accrémentation] == "_")
                                 {
-                                    while (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_")
+                                    while (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_" && colonne + mot.Length - 1 + accrémentation <= 14)
                                     {
                                         rep = rep + matrice[ligne, colonne + mot.Length - 1 + accrémentation];
                                         accrémentation++;
                                     }
                                     rep = mot + rep;
-                                    if (leDico.RechDichoRecursif(rep) == false)
+                                    if (leDico[rep.Length-2].RechDichoRecursif(rep) == false)
                                     {
                                         verif = false;
-                                        Console.WriteLine("L'emplacement de votre mot va créer un nouveau mot qui n'appartient pas au dictionnaire");
+                                        Console.WriteLine("L'emplacement de votre mot va créer un nouveau mot qui n'existe pas dans le dictionnaire");
+                                    }
+                                    accrémentation = 1;
+                                    rep = "";
+                                }
+                                if (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_" && matrice[ligne, colonne - accrémentation] != "_")
+                                {
+                                    while (matrice[ligne, colonne - accrémentation] != "_" && colonne - accrémentation >= 0)
+                                    {
+                                        rep = matrice[ligne, colonne - accrémentation] + rep;
+                                        accrémentation++;
+                                    }
+                                    accrémentation = 1;
+                                    rep = rep + mot;
+                                    while (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_" && colonne + mot.Length - 1 + accrémentation <= 14)
+                                    {
+                                        rep = rep + matrice[ligne, colonne + mot.Length - 1 + accrémentation];
+                                        accrémentation++;
+                                    }
+                                    if (leDico[rep.Length-2].RechDichoRecursif(rep) == false)
+                                    {
+                                        verif = false;
+                                        Console.WriteLine("L'emplacement de votre mot va créer un nouveau mot qui n'existe pas dans le dictionnaire");
                                     }
                                     accrémentation = 1;
                                     rep = "";
                                 }
                                 for (int i = 0; i < mot.Length; i++)
                                 {
-                                    if (matrice[ligne + accrémentation, colonne + i] != "_" && matrice[ligne - accrémentation, colonne + i] == "_")
+                                    if (matrice[ligne - accrémentation, colonne + i] != "_" || matrice[ligne + accrémentation, colonne + i] != "_")
                                     {
-                                        rep = matrice[ligne, colonne + i];
-                                        while (matrice[ligne + accrémentation, colonne + i] != "_")
-                                        {
-                                            rep = rep + matrice[ligne + accrémentation, colonne + i];
-                                            accrémentation++;
-                                        }
-                                        if (leDico.RechDichoRecursif(rep) == false)
-                                        {
-                                            verif = false;
-                                            Console.WriteLine("L'emplacement de votre mot va créer un nouveau mot qui n'appartient pas au dictionnaire");
-                                        }
-                                        accrémentation = 1;
-                                        rep = "";
-                                    }
-                                    if (matrice[ligne - accrémentation, colonne + i] != "_" && matrice[ligne + accrémentation, colonne + i] == "_")
-                                    {
-                                        rep = matrice[ligne, colonne + i];
-                                        while (matrice[ligne - accrémentation, colonne + i] != "_")
-                                        {
-                                            rep = matrice[ligne - accrémentation, colonne + i] + rep;
-                                            accrémentation++;
-                                        }
-                                        if (leDico.RechDichoRecursif(rep) == false)
-                                        {
-                                            verif = false;
-                                            Console.WriteLine("L'emplacement de votre mot va créer un nouveau mot qui n'appartient pas au dictionnaire");
-                                        }
-                                        accrémentation = 1;
-                                        rep = "";
-                                    }
-                                    if (matrice[ligne - accrémentation, colonne + i] != "_" && matrice[ligne + accrémentation, colonne + i] != "_")
-                                    {
-                                        rep = matrice[ligne, colonne + i];
-                                        while (matrice[ligne - accrémentation, colonne + i] != "_")
+                                        rep = Convert.ToString(mot[i]);
+                                        while (matrice[ligne - accrémentation, colonne + i] != "_" && ligne - accrémentation >= 0)
                                         {
                                             rep = matrice[ligne - accrémentation, colonne + i] + rep;
                                             accrémentation++;
                                         }
                                         accrémentation = 1;
-                                        while (matrice[ligne + accrémentation, colonne + i] != "_")
+                                        while (matrice[ligne + accrémentation, colonne + i] != "_" && ligne + accrémentation <= 14)
                                         {
                                             rep = rep + matrice[ligne + accrémentation, colonne + i];
                                             accrémentation++;
                                         }
-                                        if (leDico.RechDichoRecursif(rep) == false)
+                                        if (leDico[rep.Length-2].RechDichoRecursif(rep) == false)
                                         {
                                             verif = false;
-                                            Console.WriteLine("L'emplacement de votre mot va créer un nouveau mot qui n'appartient pas au dictionnaire");
+                                            Console.WriteLine("L'emplacement de votre mot va créer un nouveau mot qui n'existe pas dans le dictionnaire");
                                         }
                                         accrémentation = 1;
                                         rep = "";
@@ -364,156 +356,146 @@ namespace Scrabble
                             verif = false;
                             Console.WriteLine("Le mot ne rentre pas dans le plateau");
                         }
-                        else
+                        for (int i = 0; i < mot.Length; i++)
                         {
-                            for (int i = 0; i < mot.Length; i++)
+                            if (matrice[ligne+i, colonne] != "_" && matrice[ligne+i, colonne] != "*")
                             {
-                                if (matrice[ligne + i, colonne] != "_" && matrice[ligne + i, colonne] != "*")
-                                {
-                                    if (matrice[ligne + i, colonne] != Convert.ToString(mot[i]))
-                                    {
-                                        verif = false;
-                                        Console.WriteLine("Votre mot empiète sur un mot différent déjà posé sur le plateau");
-                                    }
-                                }
-                                else
-                                {
-                                    for (int j = 0; j < 7 && verif == true; j++)
-                                    {
-                                        if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j] || this.leJoueur.ListeJetons_lettre[j] == "*" || Convert.ToString(mot[i]) == this.matrice[ligne + i, colonne])
-                                        {
-                                            compteurMain++;
-                                        }
-                                    }
-                                    if (compteurMain == 0)
-                                    {
-                                        verif = false;
-                                        Console.WriteLine("Il vous manque une ou plusieurs des lettres de votre mot");
-                                    }
-                                    compteurMain = 0;
-                                }
-                            }
-                            for (int i = 0; i < this.matrice.GetLength(0); i++)
-                            {
-                                for (int j = 0; j < this.matrice.GetLength(1); j++)
-                                {
-                                    if (matrice[i, j] != "_") compteurCasesNonVides++;
-                                }
-                            }
-                            if (compteurCasesNonVides == 0)
-                            {
-                                for (int k = 0; k < mot.Length; k++)
-                                {
-                                    if (ligne + k == 7 && colonne == 7) compteurCasesDifferentesCentre++;
-                                }
-                                if (compteurCasesDifferentesCentre == 0)
+                                if (matrice[ligne+i, colonne] != Convert.ToString(mot[i]))
                                 {
                                     verif = false;
-                                    Console.WriteLine("Le premier mot à placer sur le plateau doit avoir une lettre sur la case (8;H)");
+                                    Console.WriteLine("Votre mot va empiéter sur un mot déjà présent sur le plateau");
                                 }
                             }
                             else
                             {
-                                for (int k = -1; k < mot.Length+1; k++)
+                                for (int j = 0; j < 7; j++)
                                 {
-                                    for (int n = -1; n <= 1; n++)
+                                    if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j] || this.leJoueur.ListeJetons_lettre[j] == "*" || Convert.ToString(mot[i]) == this.matrice[ligne + i, colonne])
                                     {
-                                        if (colonne+n >= 0 && colonne+n <=14 && ligne+k >= 0 && ligne+k <=15) if (matrice[ligne + k, colonne+n] == "_") compteurCasesDifferentesLettresPosees++;
+                                        compteurMain++;
                                     }
                                 }
-                                if (compteurCasesDifferentesLettresPosees == 0)
+                                if (compteurMain == 0)
                                 {
                                     verif = false;
-                                    Console.WriteLine("Votre mot doit être relié d'une certaine manière à un mot déjà posé sur le plateau");
+                                    Console.WriteLine("Il vous manque une ou plusieurs lettre pour écrire votre mot");
                                 }
+                                compteurMain = 0;
+                            }
+                        }
+                        for (int i = 0; i < this.matrice.GetLength(0); i++)
+                        {
+                            for (int j = 0; j < this.matrice.GetLength(1); j++)
+                            {
+                                if (matrice[i, j] != "_") compteurCasesNonVides++;
+                            }
+                        }
+                        if (compteurCasesNonVides == 0)
+                        {
+                            for (int k = 0; k < mot.Length; k++)
+                            {
+                                if (ligne + k == 7 && colonne == 7) compteurCasesDifferentesCentre++;
+                            }
+                            if (compteurCasesDifferentesCentre == 0)
+                            {
+                                verif = false;
+                                Console.WriteLine("Le premier mot à être placé sur le plateau doit avoir une lettre sur la case (8,H)");
+                            }
+                        }
+                        else
+                        {
+                            for (int k = -1; k < mot.Length + 1; k++)
+                            {
+                                for (int n = -1; n <= 1; n++)
+                                {
+                                    if ((ligne + k >= 0 && ligne + k <= 14) && (colonne + n >= 0 && colonne + n <= 14))
+                                    {
+                                        if (matrice[ligne + k, colonne + n] != "_") compteurCasesDifferentesLettresPosees++;
+                                    }
+                                }
+                            }
+                            if (compteurCasesDifferentesLettresPosees == 0)
+                            {
+                                verif = false;
+                                Console.WriteLine("Votre mot doit être relié d'une certaine manière à un mot déjà présent sur le plateau");
                             }
 
                             if (verif == true)
                             {
-                                if (matrice[ligne - accrémentation, colonne] != "_")
+                                if (matrice[ligne - accrémentation, colonne] != "_" && matrice[ligne + mot.Length - 1 + accrémentation, colonne] == "_")
                                 {
-                                    while (matrice[ligne - accrémentation, colonne] != "_")
+                                    while (matrice[ligne - accrémentation, colonne] != "_" && (ligne - accrémentation) >= 0)
                                     {
                                         rep = matrice[ligne - accrémentation, colonne] + rep;
                                         accrémentation++;
                                     }
                                     rep = rep + mot;
-                                    if (leDico.RechDichoRecursif(rep) == false)
+                                    if (leDico[rep.Length-2].RechDichoRecursif(rep) == false)
                                     {
                                         verif = false;
-                                        Console.WriteLine("L'emplacement de votre mot va créer un nouveau mot qui n'appartient pas au dictionnaire");
+                                        Console.WriteLine("L'emplacement de votre mot va créer un nouveau mot qui n'existe pas dans le dictionnaire");
                                     }
                                     accrémentation = 1;
                                     rep = "";
                                 }
-                                if (matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "_")
+                                if (matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "_" && matrice[ligne - accrémentation, colonne] == "_")
                                 {
-                                    while (matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "_")
+                                    while (matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "_" && ligne + mot.Length - 1 + accrémentation <= 14)
                                     {
                                         rep = rep + matrice[ligne + mot.Length - 1 + accrémentation, colonne];
                                         accrémentation++;
                                     }
                                     rep = mot + rep;
-                                    if (leDico.RechDichoRecursif(rep) == false)
+                                    if (leDico[rep.Length-2].RechDichoRecursif(rep) == false)
                                     {
                                         verif = false;
-                                        Console.WriteLine("L'emplacement de votre mot va créer un nouveau mot qui n'appartient pas au dictionnaire");
+                                        Console.WriteLine("L'emplacement de votre mot va créer un nouveau mot qui n'existe pas dans le dictionnaire");
+                                    }
+                                    accrémentation = 1;
+                                    rep = "";
+                                }
+                                if (matrice[ligne - accrémentation, colonne] != "_" && matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "_")
+                                {
+                                    while (matrice[ligne - accrémentation, colonne] != "_" && (ligne - accrémentation) >= 0)
+                                    {
+                                        rep = matrice[ligne - accrémentation, colonne] + rep;
+                                        accrémentation++;
+                                    }
+                                    accrémentation = 1;
+                                    rep = rep + mot;
+                                    while (matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "_" && ligne + mot.Length - 1 + accrémentation <= 14)
+                                    {
+                                        rep = rep + matrice[ligne + mot.Length - 1 + accrémentation, colonne];
+                                        accrémentation++;
+                                    }
+                                    if (leDico[rep.Length-2].RechDichoRecursif(rep) == false)
+                                    {
+                                        verif = false;
+                                        Console.WriteLine("L'emplacement de votre mot va créer un nouveau mot qui n'existe pas dans le dictionnaire");
                                     }
                                     accrémentation = 1;
                                     rep = "";
                                 }
                                 for (int i = 0; i < mot.Length; i++)
                                 {
-                                    if (matrice[ligne + i, colonne + accrémentation] != "_" && matrice[ligne + i, colonne - accrémentation] == "_")
+                                    if (matrice[ligne + i, colonne - accrémentation] != "_" || matrice[ligne + i, colonne + accrémentation] != "_")
                                     {
-                                        rep = matrice[ligne + i, colonne];
-                                        while (matrice[ligne + i, colonne + accrémentation] != "_")
-                                        {
-                                            rep = rep + matrice[ligne + i, colonne + accrémentation];
-                                            accrémentation++;
-                                        }
-                                        if (leDico.RechDichoRecursif(rep) == false)
-                                        {
-                                            verif = false;
-                                            Console.WriteLine("L'emplacement de votre mot va créer un nouveau mot qui n'appartient pas au dictionnaire");
-                                        }
-                                        accrémentation = 1;
-                                        rep = "";
-                                    }
-                                    if (matrice[ligne + i, colonne - accrémentation] != "_" && matrice[ligne + i, colonne + accrémentation] == "_")
-                                    {
-                                        rep = matrice[ligne + i, colonne];
-                                        while (matrice[ligne + i, colonne - accrémentation] != "_")
-                                        {
-                                            rep = matrice[ligne + i, colonne - accrémentation] + rep;
-                                            accrémentation++;
-                                        }
-                                        if (leDico.RechDichoRecursif(rep) == false)
-                                        {
-                                            verif = false;
-                                            Console.WriteLine("L'emplacement de votre mot va créer un nouveau mot qui n'appartient pas au dictionnaire");
-                                        }
-                                        accrémentation = 1;
-                                        rep = "";
-                                    }
-                                    if (matrice[ligne + i, colonne - accrémentation] != "_" && matrice[ligne + i, colonne + accrémentation] != "_")
-                                    {
-                                        rep = matrice[ligne + i, colonne];
-                                        while (matrice[ligne + i, colonne - accrémentation] != "_")
+                                        rep = Convert.ToString(mot[i]);
+                                        while (matrice[ligne + i, colonne - accrémentation] != "_" && colonne - accrémentation >= 0)
                                         {
                                             rep = matrice[ligne + i, colonne - accrémentation] + rep;
                                             accrémentation++;
                                         }
                                         accrémentation = 1;
-                                        while (matrice[ligne + i, colonne + accrémentation] != "_")
+                                        while (matrice[ligne + i, colonne + accrémentation] != "_" && colonne + accrémentation <= 14)
                                         {
                                             rep = rep + matrice[ligne + i, colonne + accrémentation];
                                             accrémentation++;
                                         }
-                                        if (leDico.RechDichoRecursif(rep) == false)
+                                        if (leDico[rep.Length-2].RechDichoRecursif(rep) == false)
                                         {
                                             verif = false;
-                                            Console.WriteLine("L'emplacement de votre mot va créer un nouveau mot qui n'appartient pas au dictionnaire");
+                                            Console.WriteLine("L'emplacement de votre mot va créer un nouveau mot qui n'existe pas dans le dictionnaire");
                                         }
                                         accrémentation = 1;
                                         rep = "";

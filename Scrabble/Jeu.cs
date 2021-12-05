@@ -228,7 +228,7 @@ namespace Scrabble
                                     listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove(Convert.ToString(motAAjouter[compteurLettre]));
                                     listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(monsac_jetons.Retire_Jeton(aleatoire).Lettre);
                                     listeJoueurs[numéroJoueur - 1].Score += monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).Score;
-                                    monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).NombreJ--;
+                                    monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).NombreJ--; //pb nombreJ
                                 }
                                 compteurLettre++;
                             }
