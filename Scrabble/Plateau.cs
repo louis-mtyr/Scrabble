@@ -243,7 +243,7 @@ namespace Scrabble
                                     if (compteurMain == 0)
                                     {
                                         verif = false;
-                                        Console.WriteLine("Il vous manque une lettre ou plus du mot que vous voulez écrire");
+                                        Console.WriteLine("Il vous manque une ou plusieurs lettre pour écrire votre mot");
                                     }
                                     compteurMain = 0;
                                 }
