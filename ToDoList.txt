@@ -4,21 +4,12 @@
 vérifier qu'il double pas ses lettres (exemple : il peut pas écrire "PULL" si il a 
 qu'un seul 'L')
 
- - (jsp faire/galère) possibilité d'annuler le choix qu'on a fait (missclick de 
-poser un mot alors qu'on peut pas)
-
- - (faisable) forcer les endroits à jouer (étoile au début + mots existants après)
-
  - (jsp faire) quand on vérifie si un joueur a bien les bons jetons, faire gaffe à 
 prendre l'étoile en dernier pour pas que si on veut écrire "SALUT" avec comme 
 jetons "S ; A ; P ; T ; * ; L ; U" il prenne l'étoile au lieu du L par exemple
 
+ - (ptet galere) tous les bails des scores
+
  - (galère/jsp faire) trouver toutes les manières de finir le jeu
 
- - (galère) empêcher d'écrire un mot si le fait de rajouter des lettres créer un 
-nouveau mot qui n'existe pas sur le plateau
-
- - (galère mais faisable) pouvoir écrire "ASSERVIS" avec que "SERVIS" sur le
-plateau
-
- - (euh jsp) checker un peu tout le bail de nombreJ etc
+ - (impossible) timer pour jouer + sauvegardes
