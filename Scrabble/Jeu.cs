@@ -56,12 +56,14 @@ namespace Scrabble
             Console.WriteLine("Quelle action voulez-vous faire ?\n 1. Piocher un nouveau jeton\n 2. Poser un mot à l'horizontale\n 3. Poser un mot à la verticale\n 4. Passer le tour");
             string réponseJoueur = Console.ReadLine();
             bool tourFini = false;
-            string motAAjouter;
+            string motAAjouter="";
+            string motAAjouterdebut;
             bool existence;
             string coordMotX;
             int nbrCoordMotX;
             string coordMotY;
             int nbrCoordMotY;
+            string lettreremplace;
             while (tourFini == false)
             {
                 switch (réponseJoueur)
@@ -125,7 +127,20 @@ namespace Scrabble
 
                     case "2":
                         Console.WriteLine("Quel est le mot que vous voulez ajouter sur le plateau ? (sans les accents)");
-                        motAAjouter = Console.ReadLine().ToUpper();
+                        motAAjouterdebut = Console.ReadLine().ToUpper();
+                        for(int i = 0; i < motAAjouterdebut.Length; i++)
+                        {
+                            if (Convert.ToString(motAAjouterdebut[i]) != "*")
+                            {
+                                motAAjouter = motAAjouter + motAAjouterdebut[i];
+                            }
+                            if(Convert.ToString(motAAjouterdebut[i])=="*")
+                            {
+                                Console.WriteLine("Votre deuxième lettre est un * pour remplacer quelle lettre?");
+                                lettreremplace = Console.ReadLine().ToUpper();
+                                motAAjouter = motAAjouter + lettreremplace;
+                            }
+                        }
                         while (motAAjouter.Length > 15 || motAAjouter.Length < 2)
                         {
                             Console.WriteLine("Ce mot ne rentre pas dans le plateau\nVeuillez choisir un mot valable :");

@@ -503,6 +503,29 @@ namespace Scrabble
                                 }
                             }
                         }
+                                        rep = matrice[ligne + i, colonne];
+                                        while (matrice[ligne + i, colonne - accrémentation] != "_")
+                                        {
+                                            rep = matrice[ligne + i, colonne - accrémentation] + rep;
+                                            accrémentation++;
+                                        }
+                                        accrémentation = 1;
+                                        while (matrice[ligne + i, colonne + accrémentation] != "_")
+                                        {
+                                            rep = rep + matrice[ligne + i, colonne + accrémentation];
+                                            accrémentation++;
+                                        }
+                                        if (leDico.RechDichoRecursif(rep) == false)
+                                        {
+                                            verif = false;
+                                            Console.WriteLine("L'emplacement de votre mot va créer un nouveau mot qui n'appartient pas au dictionnaire");
+                                        }
+                                        accrémentation = 1;
+                                        rep = "";
+                                    }
+                                }
+                            }
+                        }
                         break;
                     default:
                         Console.WriteLine("Direction entrée mauvaise");

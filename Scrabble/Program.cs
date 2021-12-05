@@ -157,7 +157,7 @@ namespace Scrabble
             }
             if (compteurVérifJetonsSac == leSac.Sac.Count) vérifJetonsSac = true;
 
-            Plateau lePlateau = new Plateau("jsp.txt", leDico, null);
+            Plateau lePlateau = new Plateau("TestPlateau.txt", leDico, null);
             while (vérifJetonsSac == false)
             {
                 for (int i = 1; i <= nombrejoueur; i++)
