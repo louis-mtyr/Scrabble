@@ -269,7 +269,6 @@ namespace Scrabble
                             Console.WriteLine("Le joueur {0} a passé son tour, appuyez sur une touche pour passer au tour suivant.", numéroJoueur);
                             tourFini = true;
                             Console.ReadKey();
-                            break;
                         }
                         else
                         {
@@ -391,8 +390,8 @@ namespace Scrabble
                                 tourFini = true;
                                 Console.ReadKey();
                             }
-                            break;
                         }
+                        break;
                     case "4":
                         Console.WriteLine("Le joueur {0} a passé son tour, appuyez sur une touche pour passer au tour suivant.", numéroJoueur);
                         tourFini = true;
