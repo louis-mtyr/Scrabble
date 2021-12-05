@@ -182,6 +182,8 @@ namespace Scrabble
             int compteurCasesNonVides = 0;
             int compteurCasesDifferentesCentre = 0;
             int compteurCasesDifferentesLettresPosees = 0;
+            string rep = "";
+            int accrémentation = 1;
             if (ligne < 0 || colonne < 0 || ligne > 14 || colonne > 14)
             {
                 verif = false;
@@ -213,7 +215,7 @@ namespace Scrabble
                                         compteurMain++;
                                     }                           //chépa si tous les cas sont vérifiés ici
                                 }
-                                if (compteurMain == 0) verif = false;
+                                if (compteurMain ==0) verif = false;
                                 compteurMain = 0;
                             }
                         }
@@ -239,6 +241,78 @@ namespace Scrabble
                                 if (matrice[ligne, colonne+k] == "_") compteurCasesDifferentesLettresPosees++;
                             }
                             if (compteurCasesDifferentesLettresPosees == 0) verif = false;
+                        }
+                        if (verif == true)
+                        {
+                            if (matrice[ligne, colonne - accrémentation] != "_")
+                            {
+                                while (matrice[ligne, colonne - accrémentation] != "_")
+                                {
+                                    rep = matrice[ligne, colonne - accrémentation] + rep;
+                                    accrémentation++;
+                                }
+                                rep = rep + mot;
+                                if (leDico.RechDichoRecursif(rep) == false) verif = false;
+                                accrémentation = 1;
+                                rep = "";
+                            }
+                            if (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_")
+                            {
+                                while (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_")
+                                {
+                                    rep = rep + matrice[ligne, colonne + mot.Length - 1 + accrémentation];
+                                    accrémentation++;
+                                }
+                                rep = mot + rep;
+                                if (leDico.RechDichoRecursif(rep) == false) verif = false;
+                                accrémentation = 1;
+                                rep = "";
+                            }
+                            for (int i = 0; i < mot.Length; i++)
+                            {
+                                if (matrice[ligne + accrémentation, colonne + i] != "_" && matrice[ligne - accrémentation, colonne + i] == "_")
+                                {
+                                    rep = matrice[ligne, colonne + i];
+                                    while (matrice[ligne + accrémentation, colonne + i] != "_")
+                                    {
+                                        rep = rep + matrice[ligne + accrémentation, colonne + i];
+                                        accrémentation++;
+                                    }
+                                    if (leDico.RechDichoRecursif(rep) == false) verif = false;
+                                    accrémentation = 1;
+                                    rep = "";
+                                }
+                                if (matrice[ligne - accrémentation, colonne + i] != "_" && matrice[ligne + accrémentation, colonne + i] == "_")
+                                {
+                                    rep = matrice[ligne, colonne + i];
+                                    while (matrice[ligne - accrémentation, colonne + i] != "_")
+                                    {
+                                        rep = matrice[ligne - accrémentation, colonne + i] + rep;
+                                        accrémentation++;
+                                    }
+                                    if (leDico.RechDichoRecursif(rep) == false) verif = false;
+                                    accrémentation = 1;
+                                    rep = "";
+                                }
+                                if (matrice[ligne - accrémentation, colonne + i] != "_" && matrice[ligne + accrémentation, colonne + i] != "_")
+                                {
+                                    rep = matrice[ligne, colonne + i];
+                                    while (matrice[ligne - accrémentation, colonne + i] != "_")
+                                    {
+                                        rep = matrice[ligne - accrémentation, colonne + i] + rep;
+                                        accrémentation++;
+                                    }
+                                    accrémentation = 1;
+                                    while (matrice[ligne + accrémentation, colonne + i] != "_")
+                                    {
+                                        rep = rep + matrice[ligne + accrémentation, colonne + i];
+                                        accrémentation++;
+                                    }
+                                    if (leDico.RechDichoRecursif(rep) == false) verif = false;
+                                    accrémentation = 1;
+                                    rep = "";
+                                }
+                            }
                         }
                         break;
                     case 'v':

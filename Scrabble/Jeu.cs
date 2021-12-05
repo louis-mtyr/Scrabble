@@ -62,7 +62,6 @@ namespace Scrabble
             int nbrCoordMotX;
             string coordMotY;
             int nbrCoordMotY;
-            int compteur=0;
             while (tourFini == false)
             {
                 switch (réponseJoueur)
@@ -217,12 +216,7 @@ namespace Scrabble
                                     break;
                             }
                         } while (coordMotY != "A" && coordMotY != "B" && coordMotY != "C" && coordMotY != "D" && coordMotY != "E" && coordMotY != "F" && coordMotY != "G" && coordMotY != "H" && coordMotY != "I" && coordMotY != "J" && coordMotY != "K" && coordMotY != "L" && coordMotY != "M" && coordMotY != "N" && coordMotY != "O");
-                        for (int i = 0; i < listeJoueurs.Count; i++) 
-                        {
-                            if (listeJoueurs[i].MotsTrouves.Count!=0) compteur++;
-                        }
-                        if (monplateau.Test_Plateau(motAAjouter, nbrCoordMotX-1, nbrCoordMotY, 'h') == false&&compteur==0) Console.WriteLine("Le premier mot doit passer par l'étoile au centre du plateau");
-                        else if (monplateau.Test_Plateau(motAAjouter, nbrCoordMotX - 1, nbrCoordMotY, 'h') == false) Console.WriteLine("Cette action est impossble");
+                        if (monplateau.Test_Plateau(motAAjouter, nbrCoordMotX-1, nbrCoordMotY, 'h') == false) Console.WriteLine("Cette action est impossible");
                         else
                         {
                             int compteurLettre = 0;
@@ -335,12 +329,11 @@ namespace Scrabble
                                     break;
                             }
                         } while (coordMotY != "A" && coordMotY != "B" && coordMotY != "C" && coordMotY != "D" && coordMotY != "E" && coordMotY != "F" && coordMotY != "G" && coordMotY != "H" && coordMotY != "I" && coordMotY != "J" && coordMotY != "K" && coordMotY != "L" && coordMotY != "M" && coordMotY != "N" && coordMotY != "O");
-
-                        if (monplateau.Test_Plateau(motAAjouter, nbrCoordMotX - 1, nbrCoordMotY, 'v') == false) Console.WriteLine("Cette action est impossible");
+                        if (monplateau.Test_Plateau(motAAjouter, nbrCoordMotX - 1, nbrCoordMotY, 'h') == false) Console.WriteLine("Cette action est impossible");
                         else
                         {
                             int compteurLettre = 0;
-                            for (int j = nbrCoordMotX-1; j < nbrCoordMotX-1 + motAAjouter.Length; j++)
+                            for (int j = nbrCoordMotX - 1; j < nbrCoordMotX - 1 + motAAjouter.Length; j++)
                             {
                                 if (monplateau.Matrice[j, nbrCoordMotY] != "*")
                                 {
