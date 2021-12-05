@@ -184,6 +184,9 @@ namespace Scrabble
             int compteurCasesDifferentesLettresPosees = 0;
             string rep = "";
             int accrémentation = 1;
+            int compteurlettre = 0;
+            int decrementation = 0;
+            int occurence = 0;
             if (ligne < 0 || colonne < 0 || ligne > 14 || colonne > 14)
             {
                 verif = false;
@@ -212,17 +215,35 @@ namespace Scrabble
                                 }
                                 else
                                 {
+                                    for (int j = 1; j < mot.Length; j++)
+                                    {
+                                        if (mot[i] == mot[i + j - decrementation])
+                                        {
+                                            compteurlettre++;
+                                        }
+                                    }
                                     for (int j = 0; j < 7; j++)
                                     {
-                                        if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j] || this.leJoueur.ListeJetons_lettre[j] == "*" || Convert.ToString(mot[i]) == this.matrice[ligne, colonne + i])
+                                        if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j] || this.leJoueur.ListeJetons_lettre[j] == "*" || Convert.ToString(mot[i]) == this.matrice[ligne + i, colonne])
                                         {
                                             compteurMain++;
-                                        }                           
+                                        }
                                     }
+                                    if (compteurlettre != 0)
+                                    {
+                                        for (int j = 0; j < 7; j++)
+                                        {
+                                            if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j]) occurence++;
+                                        }
+                                        if (occurence < compteurlettre) compteurMain = 0;
+                                    }
+                                    occurence = 0;
+                                    decrementation++;
+                                    compteurlettre = 0;
                                     if (compteurMain == 0)
                                     {
                                         verif = false;
-                                        Console.WriteLine("Il vous manque une lettre ou plus du mot que vous voulez écrire");
+                                        Console.WriteLine("Il vous manque une ou plusieurs lettre pour écrire votre mot");
                                     }
                                     compteurMain = 0;
                                 }
@@ -368,6 +389,13 @@ namespace Scrabble
                             }
                             else
                             {
+                                for (int j = 1; j < mot.Length; j++)
+                                {
+                                    if (mot[i]==mot[i+j-decrementation])
+                                    {
+                                        compteurlettre++;
+                                    }
+                                }
                                 for (int j = 0; j < 7; j++)
                                 {
                                     if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j] || this.leJoueur.ListeJetons_lettre[j] == "*" || Convert.ToString(mot[i]) == this.matrice[ligne + i, colonne])
@@ -375,6 +403,17 @@ namespace Scrabble
                                         compteurMain++;
                                     }
                                 }
+                                if (compteurlettre != 0)
+                                {
+                                    for (int j = 0; j < 7; j++)
+                                    {
+                                        if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j]) occurence++;
+                                    }
+                                    if (occurence < compteurlettre) compteurMain = 0;
+                                }
+                                occurence = 0;
+                                decrementation++;
+                                compteurlettre = 0;
                                 if (compteurMain == 0)
                                 {
                                     verif = false;
