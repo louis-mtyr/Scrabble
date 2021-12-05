@@ -250,7 +250,7 @@ namespace Scrabble
                                         listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove(Convert.ToString(motAAjouter[compteurLettre]));
                                         listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(monsac_jetons.Retire_Jeton(aleatoire).Lettre);
                                         listeJoueurs[numéroJoueur - 1].Score += monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).Score;
-                                        monsac_jetons.Sac.Remove(monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre]))); //pb nombreJ
+                                        monsac_jetons.Sac.Remove(monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])));
                                     }
                                     compteurLettre++;
                                 }
@@ -269,7 +269,6 @@ namespace Scrabble
                             Console.WriteLine("Le joueur {0} a passé son tour, appuyez sur une touche pour passer au tour suivant.", numéroJoueur);
                             tourFini = true;
                             Console.ReadKey();
-                            break;
                         }
                         else
                         {
@@ -376,7 +375,7 @@ namespace Scrabble
                                 int compteurLettre = 0;
                                 for (int j = nbrCoordMotX - 1; j < nbrCoordMotX - 1 + motAAjouter.Length; j++)
                                 {
-                                    if (monplateau.Matrice[j, nbrCoordMotY] != "*" && monplateau.Matrice[j, nbrCoordMotX] != Convert.ToString(motAAjouter[compteurLettre]))
+                                    if (monplateau.Matrice[j, nbrCoordMotY] != "*" && monplateau.Matrice[j, nbrCoordMotY] != Convert.ToString(motAAjouter[compteurLettre]))
                                     {
                                         monplateau.Matrice[j, nbrCoordMotY] = Convert.ToString(motAAjouter[compteurLettre]);
                                         listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove(Convert.ToString(motAAjouter[compteurLettre]));
@@ -391,8 +390,8 @@ namespace Scrabble
                                 tourFini = true;
                                 Console.ReadKey();
                             }
-                            break;
                         }
+                        break;
                     case "4":
                         Console.WriteLine("Le joueur {0} a passé son tour, appuyez sur une touche pour passer au tour suivant.", numéroJoueur);
                         tourFini = true;
