@@ -155,7 +155,7 @@ namespace Scrabble
                                 motAAjouter = Console.ReadLine().ToUpper();
                                 existence = mondico[motAAjouter.Length - 2].RechDichoRecursif(motAAjouter);
                             }
-
+                            Console.WriteLine("Ce mot n'existe pas dans le dictionnaire choisi\nVeuillez choisir un mot valable :");
                             Console.WriteLine("Veuillez indiquer la ligne de la 1ere lettre de votre mot sur le plateau");
                             coordMotX = Console.ReadLine();
                             do
@@ -171,6 +171,10 @@ namespace Scrabble
                                 else
                                 {
                                     nbrCoordMotX = 0;
+                                    Console.WriteLine("Cette coordonnée est invalide\nVeuillez indiquer la ligne de la 1ere lettre de votre mot sur le plateau");
+                                    coordMotX = Console.ReadLine();
+                                }
+                            } while (nbrCoordMotX < 1 || nbrCoordMotX > 15);
                                     Console.WriteLine("Cette coordonnée est invalide\nVeuillez indiquer la ligne de la 1ere lettre de votre mot sur le plateau");
                                     coordMotX = Console.ReadLine();
                                 }
