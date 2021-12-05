@@ -365,6 +365,78 @@ namespace Scrabble
                             }
                             if (compteurCasesDifferentesLettresPosees == 0) verif = false;
                         }
+                        if (verif == true)
+                        {
+                            if (matrice[ligne - accrémentation, colonne] != "_")
+                            {
+                                while (matrice[ligne - accrémentation, colonne] != "_")
+                                {
+                                    rep = matrice[ligne - accrémentation, colonne] + rep;
+                                    accrémentation++;
+                                }
+                                rep = rep + mot;
+                                if (leDico.RechDichoRecursif(rep) == false) verif = false;
+                                accrémentation = 1;
+                                rep = "";
+                            }
+                            if (matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "_")
+                            {
+                                while (matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "_")
+                                {
+                                    rep = rep + matrice[ligne + mot.Length - 1 + accrémentation, colonne];
+                                    accrémentation++;
+                                }
+                                rep = mot + rep;
+                                if (leDico.RechDichoRecursif(rep) == false) verif = false;
+                                accrémentation = 1;
+                                rep = "";
+                            }
+                            for (int i = 0; i < mot.Length; i++)
+                            {
+                                if (matrice[ligne + i, colonne + accrémentation] != "_" && matrice[ligne + i, colonne - accrémentation] == "_")
+                                {
+                                    rep = matrice[ligne + i, colonne];
+                                    while (matrice[ligne + i, colonne + accrémentation] != "_")
+                                    {
+                                        rep = rep + matrice[ligne + i, colonne + accrémentation];
+                                        accrémentation++;
+                                    }
+                                    if (leDico.RechDichoRecursif(rep) == false) verif = false;
+                                    accrémentation = 1;
+                                    rep = "";
+                                }
+                                if (matrice[ligne + i, colonne - accrémentation] != "_" && matrice[ligne + i, colonne + accrémentation] == "_")
+                                {
+                                    rep = matrice[ligne + i, colonne];
+                                    while (matrice[ligne + i, colonne - accrémentation] != "_")
+                                    {
+                                        rep = matrice[ligne + i, colonne - accrémentation] + rep;
+                                        accrémentation++;
+                                    }
+                                    if (leDico.RechDichoRecursif(rep) == false) verif = false;
+                                    accrémentation = 1;
+                                    rep = "";
+                                }
+                                if (matrice[ligne + i, colonne - accrémentation] != "_" && matrice[ligne + i, colonne + accrémentation] != "_")
+                                {
+                                    rep = matrice[ligne + i, colonne];
+                                    while (matrice[ligne + i, colonne - accrémentation] != "_")
+                                    {
+                                        rep = matrice[ligne + i, colonne - accrémentation] + rep;
+                                        accrémentation++;
+                                    }
+                                    accrémentation = 1;
+                                    while (matrice[ligne + i, colonne + accrémentation] != "_")
+                                    {
+                                        rep = rep + matrice[ligne + i, colonne + accrémentation];
+                                        accrémentation++;
+                                    }
+                                    if (leDico.RechDichoRecursif(rep) == false) verif = false;
+                                    accrémentation = 1;
+                                    rep = "";
+                                }
+                            }
+                        }
                         break;
                     default:
                         Console.WriteLine("Direction entrée mauvaise");
