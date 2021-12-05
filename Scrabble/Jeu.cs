@@ -62,6 +62,7 @@ namespace Scrabble
             int nbrCoordMotX;
             string coordMotY;
             int nbrCoordMotY;
+            int compteur=0;
             while (tourFini == false)
             {
                 switch (réponseJoueur)
@@ -216,12 +217,16 @@ namespace Scrabble
                                     break;
                             }
                         } while (coordMotY != "A" && coordMotY != "B" && coordMotY != "C" && coordMotY != "D" && coordMotY != "E" && coordMotY != "F" && coordMotY != "G" && coordMotY != "H" && coordMotY != "I" && coordMotY != "J" && coordMotY != "K" && coordMotY != "L" && coordMotY != "M" && coordMotY != "N" && coordMotY != "O");
-
-                        if (monplateau.Test_Plateau(motAAjouter, nbrCoordMotX-1, nbrCoordMotY, 'h') == false) Console.WriteLine("Cette action est impossible");
+                        for (int i = 0; i < listeJoueurs.Count; i++) 
+                        {
+                            if (listeJoueurs[i].MotsTrouves.Count!=0) compteur++;
+                        }
+                        if (monplateau.Test_Plateau(motAAjouter, nbrCoordMotX-1, nbrCoordMotY, 'h') == false&&compteur==0) Console.WriteLine("Le premier mot doit passer par l'étoile au centre du plateau");
+                        else if (monplateau.Test_Plateau(motAAjouter, nbrCoordMotX - 1, nbrCoordMotY, 'h') == false) Console.WriteLine("Cette action est impossble");
                         else
                         {
                             int compteurLettre = 0;
-                            for (int j=nbrCoordMotY; j<nbrCoordMotY+motAAjouter.Length; j++)
+                            for (int j = nbrCoordMotY; j < nbrCoordMotY + motAAjouter.Length; j++)
                             {
                                 if (monplateau.Matrice[nbrCoordMotX - 1, j] != "*")
                                 {
