@@ -19,7 +19,7 @@ namespace Scrabble
             while (mot!=null)
             {
                 ligne = mot.Split(';');
-                jeton = new Jeton(ligne[0], Convert.ToInt32(ligne[1]), Convert.ToInt32(ligne[2]));
+                jeton = new Jeton(ligne[0], Convert.ToInt32(ligne[1]));
                 for(int i=0;i< Convert.ToInt32(ligne[2]);i++) this.sac.Add(jeton);
                 mot = sr.ReadLine();
             }
@@ -39,12 +39,8 @@ namespace Scrabble
             Jeton jeton_tiré = null;
             if (this.sac != null && this.sac.Count != 0)
             {
-                do
-                {
-                    int aleatoire = r.Next(0, this.sac.Count);
-                    jeton_tiré = this.sac[aleatoire];
-                } while (jeton_tiré.NombreJ < 1);
-                jeton_tiré.NombreJ--;
+                int aleatoire = r.Next(0, this.sac.Count);
+                jeton_tiré = this.sac[aleatoire];
             }
             return jeton_tiré;
         }
@@ -54,88 +50,116 @@ namespace Scrabble
         /// <param name="lettreJeton">La lettre défaussé par le joueur</param>
         public void Ajoute_Jeton(string lettreJeton)
         {
+            Jeton nouveauJeton = null;
             switch(lettreJeton.ToUpper())
             {
                 case "A":
-                    this.sac[0].NombreJ++;
+                    nouveauJeton = new Jeton("A", 1);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "B":
-                    this.sac[1].NombreJ++;
+                    nouveauJeton = new Jeton("B", 3);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "C":
-                    this.sac[2].NombreJ++;
+                    nouveauJeton = new Jeton("C", 3);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "D":
-                    this.sac[3].NombreJ++;
+                    nouveauJeton = new Jeton("D", 2);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "E":
-                    this.sac[4].NombreJ++;
+                    nouveauJeton = new Jeton("E", 1);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "F":
-                    this.sac[5].NombreJ++;
+                    nouveauJeton = new Jeton("F", 4);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "G":
-                    this.sac[6].NombreJ++;
+                    nouveauJeton = new Jeton("G", 2);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "H":
-                    this.sac[7].NombreJ++;
+                    nouveauJeton = new Jeton("H", 4);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "I":
-                    this.sac[8].NombreJ++;
+                    nouveauJeton = new Jeton("I", 1);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "J":
-                    this.sac[9].NombreJ++;
+                    nouveauJeton = new Jeton("J", 8);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "K":
-                    this.sac[10].NombreJ++;
+                    nouveauJeton = new Jeton("K", 10);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "L":
-                    this.sac[11].NombreJ++;
+                    nouveauJeton = new Jeton("L", 1);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "M":
-                    this.sac[12].NombreJ++;
+                    nouveauJeton = new Jeton("M", 2);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "N":
-                    this.sac[13].NombreJ++;
+                    nouveauJeton = new Jeton("N", 1);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "O":
-                    this.sac[14].NombreJ++;
+                    nouveauJeton = new Jeton("O", 1);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "P":
-                    this.sac[15].NombreJ++;
+                    nouveauJeton = new Jeton("P", 3);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "Q":
-                    this.sac[16].NombreJ++;
+                    nouveauJeton = new Jeton("Q", 8);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "R":
-                    this.sac[17].NombreJ++;
+                    nouveauJeton = new Jeton("R", 1);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "S":
-                    this.sac[18].NombreJ++;
+                    nouveauJeton = new Jeton("S", 1);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "T":
-                    this.sac[19].NombreJ++;
+                    nouveauJeton = new Jeton("T", 1);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "U":
-                    this.sac[20].NombreJ++;
+                    nouveauJeton = new Jeton("U", 1);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "V":
-                    this.sac[21].NombreJ++;
+                    nouveauJeton = new Jeton("V", 4);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "W":
-                    this.sac[22].NombreJ++;
+                    nouveauJeton = new Jeton("W", 10);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "X":
-                    this.sac[23].NombreJ++;
+                    nouveauJeton = new Jeton("X", 10);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "Y":
-                    this.sac[24].NombreJ++;
+                    nouveauJeton = new Jeton("Y", 10);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "Z":
-                    this.sac[25].NombreJ++;
+                    nouveauJeton = new Jeton("Z", 10);
+                    this.sac.Add(nouveauJeton);
                     break;
                 case "*":
-                    this.sac[26].NombreJ++;
+                    nouveauJeton = new Jeton("*", 0);
+                    this.sac.Add(nouveauJeton);
                     break;
                 default:
                     break;
@@ -148,85 +172,85 @@ namespace Scrabble
             switch (lettreJeton.ToUpper())
             {
                 case "A":
-                    jetonCherche = this.sac[0];
+                    jetonCherche = new Jeton("A", 1);
                     break;
                 case "B":
-                    jetonCherche = this.sac[1];
+                    jetonCherche = new Jeton("B", 3);
                     break;
                 case "C":
-                    jetonCherche = this.sac[2];
+                    jetonCherche = new Jeton("C", 3);
                     break;
                 case "D":
-                    jetonCherche = this.sac[3];
+                    jetonCherche = new Jeton("D", 2);
                     break;
                 case "E":
-                    jetonCherche = this.sac[4];
+                    jetonCherche = new Jeton("E", 1);
                     break;
                 case "F":
-                    jetonCherche = this.sac[5];
+                    jetonCherche = new Jeton("F", 4);
                     break;
                 case "G":
-                    jetonCherche = this.sac[6];
+                    jetonCherche = new Jeton("G", 2);
                     break;
                 case "H":
-                    jetonCherche = this.sac[7];
+                    jetonCherche = new Jeton("H", 4);
                     break;
                 case "I":
-                    jetonCherche = this.sac[8];
+                    jetonCherche = new Jeton("I", 1);
                     break;
                 case "J":
-                    jetonCherche = this.sac[9];
+                    jetonCherche = new Jeton("J", 8);
                     break;
                 case "K":
-                    jetonCherche = this.sac[10];
+                    jetonCherche = new Jeton("K", 10);
                     break;
                 case "L":
-                    jetonCherche = this.sac[11];
+                    jetonCherche = new Jeton("L", 1);
                     break;
                 case "M":
-                    jetonCherche = this.sac[12];
+                    jetonCherche = new Jeton("M", 2);
                     break;
                 case "N":
-                    jetonCherche = this.sac[13];
+                    jetonCherche = new Jeton("N", 1);
                     break;
                 case "O":
-                    jetonCherche = this.sac[14];
+                    jetonCherche = new Jeton("O", 1);
                     break;
                 case "P":
-                    jetonCherche = this.sac[15];
+                    jetonCherche = new Jeton("P", 3);
                     break;
                 case "Q":
-                    jetonCherche = this.sac[16];
+                    jetonCherche = new Jeton("Q", 8);
                     break;
                 case "R":
-                    jetonCherche = this.sac[17];
+                    jetonCherche = new Jeton("R", 1);
                     break;
                 case "S":
-                    jetonCherche = this.sac[18];
+                    jetonCherche = new Jeton("S", 1);
                     break;
                 case "T":
-                    jetonCherche = this.sac[19];
+                    jetonCherche = new Jeton("T", 1);
                     break;
                 case "U":
-                    jetonCherche = this.sac[20];
+                    jetonCherche = new Jeton("U", 1);
                     break;
                 case "V":
-                    jetonCherche = this.sac[21];
+                    jetonCherche = new Jeton("V", 4);
                     break;
                 case "W":
-                    jetonCherche = this.sac[22];
+                    jetonCherche = new Jeton("W", 10);
                     break;
                 case "X":
-                    jetonCherche = this.sac[23];
+                    jetonCherche = new Jeton("X", 10);
                     break;
                 case "Y":
-                    jetonCherche = this.sac[24];
+                    jetonCherche = new Jeton("Y", 10);
                     break;
                 case "Z":
-                    jetonCherche = this.sac[25];
+                    jetonCherche = new Jeton("Z", 10);
                     break;
                 case "*":
-                    jetonCherche = this.sac[26];
+                    jetonCherche = new Jeton("*", 0);
                     break;
                 default:
                     break;
@@ -241,9 +265,21 @@ namespace Scrabble
         public override string ToString()
         {
             string rep = "Il reste dans le sac : \n";
-            for (int i=0; i<this.sac.Count; i=i+this.sac[i].NombreJ)
+            int[] compteurLettres = new int[27];
+            string[] lettres = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "*" };
+            int[] scoreLettres = { 1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 10, 1, 2, 1, 1, 3, 8, 1, 1, 1, 1, 4, 10, 10, 10, 10, 0 };
+            Jeton leJeton = null;
+            for (int j = 0; j < 27; j++)
             {
-                rep += this.sac[i].NombreJ + " jeton(s) de la lettre " + this.sac[i].Lettre + " qui valent " + this.sac[i].Score + " point(s).\n";
+                for (int i = 0; i < this.sac.Count; i++)
+                {
+                    if (this.sac[i].Lettre == lettres[j])
+                    {
+                        compteurLettres[j]++;
+                    }
+                }
+                leJeton = new Jeton(lettres[j], scoreLettres[j]);
+                rep += compteurLettres[j] + " jeton(s) de la lettre "+lettres[j]+" qui valent "+scoreLettres[j]+" point(s).\n";
             }
             return rep;
         }

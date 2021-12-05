@@ -150,12 +150,7 @@ namespace Scrabble
             }
 
             bool vérifJetonsSac = false;
-            int compteurVérifJetonsSac = 0;
-            for (int i=0; i<leSac.Sac.Count; i++)
-            {
-                if (leSac.Sac[i].NombreJ == 0) compteurVérifJetonsSac++;
-            }
-            if (compteurVérifJetonsSac == leSac.Sac.Count) vérifJetonsSac = true;
+            if (leSac.Sac.Count==0) vérifJetonsSac = true;
 
             Plateau lePlateau = new Plateau("TestPlateau.txt", leDico, null);
             while (vérifJetonsSac == false)

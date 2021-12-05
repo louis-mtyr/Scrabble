@@ -9,13 +9,19 @@ namespace Scrabble
     {
         private string lettre;
         private int score;
-        private int nombreJ;
+        //private int nombreJ;
 
-        public Jeton(string lettre, int score, int nombreJ)
+        /*public Jeton(string lettre, int score, int nombreJ)
         {
             this.lettre = lettre;
             this.score = score;
             this.nombreJ = nombreJ;
+        }*/
+
+        public Jeton(string lettre, int score)
+        {
+            this.lettre = lettre;
+            this.score = score;
         }
 
         public string Lettre
@@ -28,26 +34,28 @@ namespace Scrabble
             get { return this.score; }
         }
 
-        public int NombreJ
+        /*public int NombreJ
         {
             get { return this.nombreJ; }
             set { this.nombreJ = value; }
-        }
+        }*/
+
         /// <summary>
         /// Simule le fait qu’un joueur ait tiré au hasard une lettre, on soustrait une unité à nombreJ
         /// </summary>
-        public void Retire_un_nombre()
+        /*public void Retire_un_nombre()
         {
             if (this.nombreJ > 0) this.nombreJ--;
             else Console.WriteLine("Il n'y a plus de jetons dans le sac");
-        }
+        }*/
+
         /// <summary>
         /// Retourne une chaîne de caractères qui décrit un jeton
         /// </summary>
         /// <returns></returns>
         public override string ToString()
         {
-            return "Lettre : " + this.lettre + "\nScore : " + this.score + "\nLettres " + this.lettre + " restantes : " + this.nombreJ;
+            return "Lettre : " + this.lettre + "\nScore : " + this.score;
         }
     }
 }
