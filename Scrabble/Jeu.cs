@@ -136,7 +136,7 @@ namespace Scrabble
                             }
                             if(Convert.ToString(motAAjouterdebut[i])=="*")
                             {
-                                Console.WriteLine("Votre deuxième lettre est un * pour remplacer quelle lettre?");
+                                Console.WriteLine("Votre lettre numéro " + i + " est un * pour remplacer quelle lettre?");
                                 lettreremplace = Console.ReadLine().ToUpper();
                                 motAAjouter = motAAjouter + lettreremplace;
                             }
