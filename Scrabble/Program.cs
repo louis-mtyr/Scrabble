@@ -173,6 +173,48 @@ namespace Scrabble
                 }
                 if (leSac.Sac.Count < 7 && Jeu.CompteurPasseTour == nombrejoueur * 3) vérifJetonsSac = true;
             }
+            Joueur Vainqueur = listeJoueurs[0];
+            Joueur Deuxieme = listeJoueurs[0];
+            Joueur Troisieme = listeJoueurs[0];
+            Joueur Quatrieme = listeJoueurs[0];
+            for (int k = 0; k < nombrejoueur; k++) 
+            {
+                for (int i = 0; i < nombrejoueur - 1; i++)
+                {
+                    for (int j = i + 1; j < nombrejoueur; j++)
+                    {
+                        if (listeJoueurs[i].Score < listeJoueurs[j].Score)
+                        {
+                            if (k == 0) Vainqueur = listeJoueurs[j];
+                            if (k == 1) Deuxieme = listeJoueurs[j];
+                            if (k == 2) Troisieme = listeJoueurs[j];
+                            if (k == 3) Quatrieme = listeJoueurs[j];
+                            listeJoueurs.Remove(listeJoueurs[j]);
+                        }
+                    }
+                }
+            }
+            Console.WriteLine("Voici les résultats de cette partie : ");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            if (nombrejoueur == 2)
+            {
+                Console.WriteLine("Le gagnant de cette partie, qui  a réussi à écraser toute concurrence est " + Vainqueur.Nom + " avec un score monstrueux de " + Vainqueur.Score);
+                Console.WriteLine("Malheureusement, il faut toujours un perdant et aujourd'hui c'est " + Deuxieme.Nom + " avec un score minable de " + Deuxieme.Score);
+            }
+            if (nombrejoueur == 3)
+            {
+                Console.WriteLine("Le gagnant de cette partie, qui  a réussi à écraser toute concurrence est " + Vainqueur.Nom + " avec un score monstrueux de " + Vainqueur.Score);
+                Console.WriteLine("Le deuxième de cette partie, et qui l'a mérité est " + Deuxieme.Nom + " avec tout de même un score de " + Deuxieme.Score);
+                Console.WriteLine("Malheureusement, il faut toujours un perdant et aujourd'hui c'est " + Troisieme.Nom + " avec un score minable de " + Troisieme.Score);
+            }
+            if (nombrejoueur == 4)
+            {
+                Console.WriteLine("Le gagnant de cette partie, qui  a réussi à écraser toute concurrence est " + Vainqueur.Nom + " avec un score monstrueux de " + Vainqueur.Score);
+                Console.WriteLine("Le deuxième de cette partie, et qui l'a mérité est " + Deuxieme.Nom + " avec tout de même un score de " + Deuxieme.Score);
+                Console.WriteLine("Le troisième de cette partie, se trouvant donc sur la dernière marche du podium, c'est " + Troisieme.Nom + " avec un score qui laisse à désirer de " + Troisieme.Score);
+                Console.WriteLine("Malheureusement, il faut toujours un perdant et aujourd'hui c'est " + Quatrieme.Nom + " avec un score minable de " + Quatrieme.Score);
+            }
         }
     }
 }
