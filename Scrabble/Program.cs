@@ -197,7 +197,7 @@ namespace Scrabble
             Console.WriteLine("La partie est terminée \nVoici les résultats de cette partie : \n");
             if (nombrejoueur == 2)
             {
-                Console.Write("Le gagnant de cette partie, qui  a réussi à écraser toute concurrence est ");
+                Console.Write("Le gagnant de cette partie, qui a réussi à écraser toute concurrence est ");
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write(Vainqueur.Nom);
                 Console.ForegroundColor = ConsoleColor.White;
@@ -219,7 +219,7 @@ namespace Scrabble
             }
             if (nombrejoueur == 3)
             {
-                Console.Write("Le gagnant de cette partie, qui  a réussi à écraser toute concurrence est ");
+                Console.Write("Le gagnant de cette partie, qui a réussi à écraser toute concurrence est ");
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write(Vainqueur.Nom);
                 Console.ForegroundColor = ConsoleColor.White;
@@ -251,7 +251,7 @@ namespace Scrabble
             }
             if (nombrejoueur == 4)
             {
-                Console.Write("Le gagnant de cette partie, qui  a réussi à écraser toute concurrence est ");
+                Console.Write("Le gagnant de cette partie, qui a réussi à écraser toute concurrence est ");
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write(Vainqueur.Nom);
                 Console.ForegroundColor = ConsoleColor.White;
