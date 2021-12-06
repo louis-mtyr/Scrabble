@@ -12,6 +12,7 @@ namespace Scrabble
         private Dictionnaire[] mondico;
         private Plateau monplateau;
         private Sac_Jetons monsac_jetons;
+        private static int compteurPasseTour;
 
         public Jeu(string fichierDico, Plateau monplateau, string fichierSac_jetons)
         {
@@ -19,6 +20,7 @@ namespace Scrabble
             for (int i = 0; i < mondico.Length; i++) this.mondico[i] = new Dictionnaire(fichierDico, i+2);
             this.monplateau = monplateau;
             this.monsac_jetons = new Sac_Jetons(fichierSac_jetons);
+            compteurPasseTour = 0;
         }
 
         public Jeu(string fichierDico, Plateau monplateau, Sac_Jetons monsac_jetons)
@@ -40,6 +42,12 @@ namespace Scrabble
         {
             get { return this.monsac_jetons; }
         }
+
+        public static int CompteurPasseTour
+        {
+            get { return compteurPasseTour; }
+        }
+
         /// <summary>
         /// Simule le tour d'un joueur
         /// </summary>
@@ -50,9 +58,9 @@ namespace Scrabble
             Random aleatoire = new Random();
             Console.Clear();
             Console.WriteLine(this.monplateau.ToString());
-
             Console.WriteLine("C'est au tour du joueur {0} :", numéroJoueur);
             Console.WriteLine(listeJoueurs[numéroJoueur - 1].ToString());
+            Console.WriteLine("Il reste {0} jetons dans le sac", monsac_jetons.Sac.Count);
             Console.WriteLine("Quelle action voulez-vous faire ?\n 1. Piocher un nouveau jeton\n 2. Poser un mot à l'horizontale\n 3. Poser un mot à la verticale\n 4. Passer le tour");
             string réponseJoueur = Console.ReadLine();
             bool tourFini = false;
@@ -67,65 +75,73 @@ namespace Scrabble
                 switch (réponseJoueur)
                 {
                     case "1":
+                        compteurPasseTour++;
                         Console.Clear();
                         Console.WriteLine(this.monplateau.ToString());
                         Console.WriteLine(listeJoueurs[numéroJoueur - 1].ToString());
-                        Console.WriteLine("Combien de jetons voulez-vous défausser ? (tapez 'quitter' pour annuler votre choix et passer votre tour)");
-                        string défausse = Console.ReadLine();
-                        int nbDéfausse;
-                        do
+                        if (monsac_jetons.Sac.Count != 0)
                         {
-                            if (int.TryParse(défausse, out nbDéfausse))
+                            Console.WriteLine("Combien de jetons voulez-vous défausser ? (tapez 'quitter' pour annuler votre choix et passer votre tour)");
+                            string défausse = Console.ReadLine();
+                            int nbDéfausse;
+                            do
                             {
-                                if (nbDéfausse <= 0 || nbDéfausse >= 8)
+                                if (int.TryParse(défausse, out nbDéfausse))
                                 {
-                                    Console.WriteLine("Vous ne pouvez pas défausser autant de jetons");
-                                    Console.WriteLine("Combien de jetons voulez-vous défausser ?");
-                                    défausse = Console.ReadLine();
-                                }
-                            }
-                            else
-                            {
-                                if (défausse == "quitter")
-                                {
-                                    Console.WriteLine("Le joueur {0} a passé son tour.", numéroJoueur);
-                                    break;
+                                    if (nbDéfausse <= 0 || nbDéfausse >= 8)
+                                    {
+                                        Console.WriteLine("Vous ne pouvez pas défausser autant de jetons");
+                                        Console.WriteLine("Combien de jetons voulez-vous défausser ?");
+                                        défausse = Console.ReadLine();
+                                    }
                                 }
                                 else
                                 {
-                                    nbDéfausse = 0;
-                                    Console.WriteLine("Ce nombre n'existe pas");
-                                    Console.WriteLine("Combien de jetons voulez-vous défausser ?");
-                                    défausse = Console.ReadLine();
+                                    if (défausse == "quitter")
+                                    {
+                                        Console.WriteLine("Le joueur {0} a passé son tour.", numéroJoueur);
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        nbDéfausse = 0;
+                                        Console.WriteLine("Ce nombre n'existe pas");
+                                        Console.WriteLine("Combien de jetons voulez-vous défausser ?");
+                                        défausse = Console.ReadLine();
+                                    }
                                 }
-                            }
-                        } while (nbDéfausse <= 0 || nbDéfausse >= 8);
-                        for (int n = 0; n < nbDéfausse; n++)
-                        {
-                            Jeton jetonPioché = this.monsac_jetons.Retire_Jeton(aleatoire);
-                            Console.Write("Le jeton pioché est : ");
-                            Console.ForegroundColor = ConsoleColor.Magenta;
-                            Console.Write(jetonPioché.Lettre);
-                            Console.ForegroundColor = ConsoleColor.White;
-                            Console.WriteLine("\nLequel de vos jetons souhaitez-vous remplacer par ce nouveau jeton ?");
-                            string jetonARemplacer = Console.ReadLine().ToUpper();
-                            bool appartient = false;
-                            while (appartient == false)
+                            } while (nbDéfausse <= 0 || nbDéfausse >= 8);
+                            for (int n = 0; n < nbDéfausse; n++)
                             {
-                                for (int i = 0; i < listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Count-n; i++)
+                                Jeton jetonPioché = this.monsac_jetons.Retire_Jeton(aleatoire);
+                                Console.Write("Le jeton pioché est : ");
+                                Console.ForegroundColor = ConsoleColor.Magenta;
+                                Console.Write(jetonPioché.Lettre);
+                                Console.ForegroundColor = ConsoleColor.White;
+                                Console.WriteLine("\nLequel de vos jetons souhaitez-vous remplacer par ce nouveau jeton ?");
+                                string jetonARemplacer = Console.ReadLine().ToUpper();
+                                bool appartient = false;
+                                while (appartient == false)
                                 {
-                                    if (jetonARemplacer == listeJoueurs[numéroJoueur - 1].ListeJetons_lettre[i]) appartient = true;
+                                    for (int i = 0; i < listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Count - n; i++)
+                                    {
+                                        if (jetonARemplacer == listeJoueurs[numéroJoueur - 1].ListeJetons_lettre[i]) appartient = true;
+                                    }
+                                    if (appartient == false)
+                                    {
+                                        Console.WriteLine("Vous n'avez pas de jeton " + jetonARemplacer + " dans votre main. Veuillez choisir un de vos jetons à remplacer :");
+                                        jetonARemplacer = Console.ReadLine().ToUpper();
+                                    }
                                 }
-                                if (appartient == false)
-                                {
-                                    Console.WriteLine("Vous n'avez pas de jeton " + jetonARemplacer + " dans votre main. Veuillez choisir un de vos jetons à remplacer :");
-                                    jetonARemplacer = Console.ReadLine().ToUpper();
-                                }
+                                listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove(jetonARemplacer);
+                                this.monsac_jetons.Ajoute_Jeton(jetonARemplacer);
+                                listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(jetonPioché.Lettre);
+                                this.monsac_jetons.Sac.Remove(jetonPioché);
                             }
-                            listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove(jetonARemplacer);
-                            this.monsac_jetons.Ajoute_Jeton(jetonARemplacer);
-                            listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(jetonPioché.Lettre);
-                            this.monsac_jetons.Sac.Remove(jetonPioché);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Il n'y a plus de jetons dans le sac, vous ne pouvez plus piocher !");
                         }
                         Console.WriteLine("Le tour du joueur {0} est terminé, appuyez sur une touche pour passer au tour suivant.", numéroJoueur);
                         tourFini = true;
@@ -133,6 +149,7 @@ namespace Scrabble
                         break;
 
                     case "2":
+                        compteurPasseTour = 0;
                         Console.WriteLine("Quel est le mot que vous voulez ajouter sur le plateau ? (sans les accents) (tapez 'q' pour annuler votre choix et passer votre tour)");
                         motAAjouter = Console.ReadLine().ToUpper();
                         if (motAAjouter == "Q")
@@ -285,6 +302,7 @@ namespace Scrabble
                             break;
                         }
                     case "3":
+                        compteurPasseTour = 0;
                         Console.WriteLine("Quel est le mot que vous voulez ajouter sur le plateau ? (sans les accents) (tapez 'q' pour annuler votre choix et passer votre tour)");
                         motAAjouter = Console.ReadLine().ToUpper();
                         if (motAAjouter == "Q")
@@ -437,6 +455,7 @@ namespace Scrabble
                         }
                         break;
                     case "4":
+                        compteurPasseTour++;
                         Console.WriteLine("Le joueur {0} a passé son tour, appuyez sur une touche pour passer au tour suivant.", numéroJoueur);
                         tourFini = true;
                         Console.ReadKey();

@@ -224,7 +224,7 @@ namespace Scrabble
                                     }
                                     for (int j = 0; j < 7; j++)
                                     {
-                                        if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j] || this.leJoueur.ListeJetons_lettre[j] == "*" || Convert.ToString(mot[i]) == this.matrice[ligne + i, colonne])
+                                        if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j] || this.leJoueur.ListeJetons_lettre[j] == "*" || Convert.ToString(mot[i]) == this.matrice[ligne, colonne+i])
                                         {
                                             compteurMain++;
                                         }

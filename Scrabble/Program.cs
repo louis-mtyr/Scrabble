@@ -71,6 +71,7 @@ namespace Scrabble
                         jetonRetiré2 = leSac.Retire_Jeton(aleatoire);
                         if (joueur12joueurs.ListeJetons_lettre.Count != 7) joueur12joueurs.ListeJetons_lettre.Add(jetonRetiré2.Lettre);
                         else joueur22joueurs.ListeJetons_lettre.Add(jetonRetiré2.Lettre);
+                        leSac.Sac.Remove(jetonRetiré2);
                     }
                     break;
                 case 3:
@@ -103,6 +104,7 @@ namespace Scrabble
                         if (joueur13joueurs.ListeJetons_lettre.Count != 7) joueur13joueurs.ListeJetons_lettre.Add(jetonRetiré3.Lettre);
                         else if (joueur23joueurs.ListeJetons_lettre.Count != 7) joueur23joueurs.ListeJetons_lettre.Add(jetonRetiré3.Lettre);
                         else joueur33joueurs.ListeJetons_lettre.Add(jetonRetiré3.Lettre);
+                        leSac.Sac.Remove(jetonRetiré3);
                     }
                     break;
                 case 4:
@@ -145,13 +147,12 @@ namespace Scrabble
                         else if (joueur24joueurs.ListeJetons_lettre.Count != 7) joueur24joueurs.ListeJetons_lettre.Add(jetonRetiré4.Lettre);
                         else if (joueur34joueurs.ListeJetons_lettre.Count != 7) joueur34joueurs.ListeJetons_lettre.Add(jetonRetiré4.Lettre);
                         else joueur44joueurs.ListeJetons_lettre.Add(jetonRetiré4.Lettre);
+                        leSac.Sac.Remove(jetonRetiré4);
                     }
                     break;
             }
 
             bool vérifJetonsSac = false;
-            if (leSac.Sac.Count==0) vérifJetonsSac = true;
-
             Plateau lePlateau = new Plateau("TestPlateau.txt", leDico, null);
             while (vérifJetonsSac == false)
             {
@@ -161,6 +162,16 @@ namespace Scrabble
                     Jeu leJeu = new Jeu("Francais.txt", lePlateau, leSac);
                     leJeu.Jouer(i, listeJoueurs); //c'est pas la bonne boucle mais on a l'idée
                 }
+                int compteurMainJoueurVide = 0;
+                if (leSac.Sac.Count == 0)
+                {
+                    for (int i = 0; i < listeJoueurs.Count; i++)
+                    {
+                        if (listeJoueurs[i].ListeJetons_lettre.Count == 0) compteurMainJoueurVide++;
+                    }
+                    if (compteurMainJoueurVide != 0) vérifJetonsSac = true;
+                }
+                if (leSac.Sac.Count < 7 && Jeu.CompteurPasseTour == nombrejoueur * 3) vérifJetonsSac = true;
             }
         }
     }

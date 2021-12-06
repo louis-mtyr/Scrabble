@@ -1,5 +1,3 @@
- - (jsp faire) afficher l'étoile sur le plateau quand on utilise un joker
-
  - (besoin de reflexion) quand on vérifie les jetons dans la main du joueur faut 
 vérifier qu'il double pas ses lettres (exemple : il peut pas écrire "PULL" si il a 
 qu'un seul 'L')
@@ -14,6 +12,4 @@ jetons "S ; A ; P ; T ; * ; L ; U" il prenne l'étoile au lieu du L par exemple
 
  - (impossible) timer pour jouer + sauvegardes
 
- - Quand on utilise un joker ça l'enlève pas de la main du joueur
-
- - les mots trouvés prennent pas un mot que tu crées en en posant un autre
+ - (galère) la liste des mots trouvés prennent pas un mot que tu crées en en posant un autre
