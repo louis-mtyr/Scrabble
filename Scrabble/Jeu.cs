@@ -150,11 +150,24 @@ namespace Scrabble
                             }
                             existence = mondico[motAAjouter.Length - 2].RechDichoRecursif(motAAjouter);
                             while (existence == false)
-                            {                                                           //problème : à quoi sert la langue dans les attributs du Dictionnaire ?
+                            {                                                           
                                 Console.WriteLine("Ce mot n'existe pas dans le dictionnaire choisi\nVeuillez choisir un mot valable :");
                                 motAAjouter = Console.ReadLine().ToUpper();
-                                existence = mondico[motAAjouter.Length - 2].RechDichoRecursif(motAAjouter);
+                                while ((motAAjouter.Length > 15 || motAAjouter.Length < 2) && motAAjouter != "Q")
+                                {
+                                    Console.WriteLine("Ce mot ne rentre pas dans le plateau\nVeuillez choisir un mot valable :");
+                                    motAAjouter = Console.ReadLine().ToUpper();
+                                }
+                                if (motAAjouter == "Q")
+                                {
+                                    Console.WriteLine("Le joueur {0} a passé son tour, appuyez sur une touche pour passer au tour suivant.", numéroJoueur);
+                                    tourFini = true;
+                                    Console.ReadKey();
+                                    break;
+                                }
+                                else existence = mondico[motAAjouter.Length - 2].RechDichoRecursif(motAAjouter);
                             }
+                            if (motAAjouter == "Q") break;
                             Console.WriteLine("Veuillez indiquer la ligne de la 1ere lettre de votre mot sur le plateau");
                             coordMotX = Console.ReadLine();
                             do
@@ -242,15 +255,24 @@ namespace Scrabble
                             else
                             {
                                 int compteurLettre = 0;
+                                Jeton nouveauJetonTire = null;
                                 for (int j = nbrCoordMotY; j < nbrCoordMotY + motAAjouter.Length; j++)
                                 {
-                                    if (monplateau.Matrice[nbrCoordMotX - 1, j] != "*" && monplateau.Matrice[nbrCoordMotX - 1, j] != Convert.ToString(motAAjouter[compteurLettre]))
+                                    if (monplateau.Matrice[nbrCoordMotX - 1, j] != Convert.ToString(motAAjouter[compteurLettre]))
                                     {
                                         monplateau.Matrice[nbrCoordMotX - 1, j] = Convert.ToString(motAAjouter[compteurLettre]);
-                                        listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove(Convert.ToString(motAAjouter[compteurLettre]));
-                                        listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(monsac_jetons.Retire_Jeton(aleatoire).Lettre);
-                                        listeJoueurs[numéroJoueur - 1].Score += monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).Score;
-                                        monsac_jetons.Sac.Remove(monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])));
+                                        if (monplateau.Matrice[nbrCoordMotX - 1, j] != "*")
+                                        {
+                                            listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove(Convert.ToString(motAAjouter[compteurLettre]));
+                                            listeJoueurs[numéroJoueur - 1].Score += monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).Score;
+                                        }
+                                        else
+                                        {
+                                            listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove("*");
+                                        }
+                                        nouveauJetonTire = monsac_jetons.Retire_Jeton(aleatoire);
+                                        listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(nouveauJetonTire.Lettre);
+                                        monsac_jetons.Sac.Remove(nouveauJetonTire);
                                     }
                                     compteurLettre++;
                                 }
@@ -282,9 +304,21 @@ namespace Scrabble
                             {
                                 Console.WriteLine("Ce mot n'existe pas dans le dictionnaire choisi\nVeuillez choisir un mot valable :");
                                 motAAjouter = Console.ReadLine().ToUpper();
-                                existence = mondico[motAAjouter.Length - 2].RechDichoRecursif(motAAjouter);
+                                while ((motAAjouter.Length > 15 || motAAjouter.Length < 2) && motAAjouter != "Q")
+                                {
+                                    Console.WriteLine("Ce mot ne rentre pas dans le plateau\nVeuillez choisir un mot valable :");
+                                    motAAjouter = Console.ReadLine().ToUpper();
+                                }
+                                if (motAAjouter == "Q")
+                                {
+                                    Console.WriteLine("Le joueur {0} a passé son tour, appuyez sur une touche pour passer au tour suivant.", numéroJoueur);
+                                    tourFini = true;
+                                    Console.ReadKey();
+                                    break;
+                                }
+                                else existence = mondico[motAAjouter.Length - 2].RechDichoRecursif(motAAjouter);
                             }
-
+                            if (motAAjouter == "Q") break;
                             Console.WriteLine("Veuillez indiquer la ligne de la 1ere lettre de votre mot sur le plateau");
                             coordMotX = Console.ReadLine();
                             do
@@ -373,15 +407,24 @@ namespace Scrabble
                             else
                             {
                                 int compteurLettre = 0;
+                                Jeton nouveauJetonTire = null;
                                 for (int j = nbrCoordMotX - 1; j < nbrCoordMotX - 1 + motAAjouter.Length; j++)
                                 {
                                     if (monplateau.Matrice[j, nbrCoordMotY] != "*" && monplateau.Matrice[j, nbrCoordMotY] != Convert.ToString(motAAjouter[compteurLettre]))
                                     {
                                         monplateau.Matrice[j, nbrCoordMotY] = Convert.ToString(motAAjouter[compteurLettre]);
-                                        listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove(Convert.ToString(motAAjouter[compteurLettre]));
-                                        listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(monsac_jetons.Retire_Jeton(aleatoire).Lettre);
-                                        listeJoueurs[numéroJoueur - 1].Score += monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).Score;
-                                        monsac_jetons.Sac.Remove(monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])));
+                                        if (monplateau.Matrice[j, nbrCoordMotY] != "*")
+                                        {
+                                            listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove(Convert.ToString(motAAjouter[compteurLettre]));
+                                            listeJoueurs[numéroJoueur - 1].Score += monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).Score;
+                                        }
+                                        else
+                                        {
+                                            listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove("*");
+                                        }
+                                        nouveauJetonTire = monsac_jetons.Retire_Jeton(aleatoire);
+                                        listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(nouveauJetonTire.Lettre);
+                                        monsac_jetons.Sac.Remove(nouveauJetonTire);
                                     }
                                     compteurLettre++;
                                 }

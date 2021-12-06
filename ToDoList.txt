@@ -15,3 +15,5 @@ jetons "S ; A ; P ; T ; * ; L ; U" il prenne l'étoile au lieu du L par exemple
  - (impossible) timer pour jouer + sauvegardes
 
  - Quand on utilise un joker ça l'enlève pas de la main du joueur
+
+ - les mots trouvés prennent pas un mot que tu crées en en posant un autre

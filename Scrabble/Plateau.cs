@@ -214,7 +214,7 @@ namespace Scrabble
                                 }
                                 else
                                 {
-                                    for (int j = i+1; j < mot.Length; j++)
+                                    for (int j = i; j < mot.Length; j++)
                                     {
                                         if (mot[i] == mot[j])
                                         {
@@ -387,7 +387,7 @@ namespace Scrabble
                             }
                             else
                             {
-                                for (int j = i+1; j < mot.Length; j++)
+                                for (int j = i; j < mot.Length; j++)
                                 {
                                     if (mot[i]==mot[j])
                                     {
