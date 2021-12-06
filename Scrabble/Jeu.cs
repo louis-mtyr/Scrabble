@@ -519,7 +519,9 @@ namespace Scrabble
                                     {
                                         compteurMotsTrouves = 0;
                                         rep = "";
-                                        if (nbrCoordMotY + j + i >= 0 && nbrCoordMotY + j <= 14)
+                                        incrementation = 1;
+                                        decrementation = 1;
+                                        if (nbrCoordMotY + j >= 0 && nbrCoordMotY + j <= 14)
                                         {
                                             if (monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + j] != "_")
                                             {

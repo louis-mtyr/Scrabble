@@ -253,6 +253,7 @@ namespace Scrabble
                     jetonCherche = new Jeton("*", 0);
                     break;
                 default:
+                    jetonCherche = new Jeton("null", 0);
                     break;
             }
             return jetonCherche;
