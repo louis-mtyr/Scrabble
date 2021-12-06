@@ -1,3 +1,5 @@
+ Potentiellement finis :
+ 
  - (besoin de reflexion) quand on vérifie les jetons dans la main du joueur faut 
 vérifier qu'il double pas ses lettres (exemple : il peut pas écrire "PULL" si il a 
 qu'un seul 'L')
@@ -6,10 +8,12 @@ qu'un seul 'L')
 prendre l'étoile en dernier pour pas que si on veut écrire "SALUT" avec comme 
 jetons "S ; A ; P ; T ; * ; L ; U" il prenne l'étoile au lieu du L par exemple
 
- - (ptet galere) tous les bails des scores
+ - (galère) la liste des mots trouvés prend pas un mot que tu crées en en posant un autre
 
- - (galère/jsp faire) trouver toutes les manières de finir le jeu
 
- - (impossible) timer pour jouer + sauvegardes
 
- - (galère) la liste des mots trouvés prennent pas un mot que tu crées en en posant un autre
+  A faire :
+
+  - (ptet galere) tous les bails des scores
+
+  - (impossible) timer pour jouer + sauvegardes
