@@ -60,7 +60,11 @@ namespace Scrabble
             Console.WriteLine(this.monplateau.ToString());
             Console.WriteLine("C'est au tour du joueur {0} :", numéroJoueur);
             Console.WriteLine(listeJoueurs[numéroJoueur - 1].ToString());
-            Console.WriteLine("Il reste {0} jetons dans le sac", monsac_jetons.Sac.Count);
+            Console.Write("Il reste ");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.Write(monsac_jetons.Sac.Count);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(" jetons dans le sac");
             Console.WriteLine("Quelle action voulez-vous faire ?\n 1. Piocher un nouveau jeton\n 2. Poser un mot à l'horizontale\n 3. Poser un mot à la verticale\n 4. Passer le tour");
             string réponseJoueur = Console.ReadLine();
             bool tourFini = false;

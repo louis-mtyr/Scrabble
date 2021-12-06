@@ -10,6 +10,8 @@ namespace Scrabble
     {
         static void Main(string[] args)
         {
+            Console.WindowHeight = 50;
+            Console.WindowWidth = 200;
             Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
             Console.WriteLine(sac.ToString());
             Dictionnaire[] leDico = new Dictionnaire[13];
@@ -154,7 +156,7 @@ namespace Scrabble
 
             bool vérifJetonsSac = false;
             Plateau lePlateau = new Plateau("TestPlateau.txt", leDico, null);
-            while (vérifJetonsSac == false)
+            /*while (vérifJetonsSac == false)
             {
                 for (int i = 1; i <= nombrejoueur; i++)
                 {
@@ -172,7 +174,7 @@ namespace Scrabble
                     if (compteurMainJoueurVide != 0) vérifJetonsSac = true;
                 }
                 if (leSac.Sac.Count < 7 && Jeu.CompteurPasseTour == nombrejoueur * 3) vérifJetonsSac = true;
-            }
+            }*/
             Joueur Vainqueur = listeJoueurs[0];
             Joueur Deuxieme = listeJoueurs[0];
             Joueur Troisieme = listeJoueurs[0];
@@ -194,26 +196,104 @@ namespace Scrabble
                     }
                 }
             }
-            Console.WriteLine("La partie est terminée \n Voici les résultats de cette partie : ");
-            Console.WriteLine("");
-            Console.WriteLine("");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Clear();
+            Console.WriteLine("La partie est terminée \nVoici les résultats de cette partie : \n");
             if (nombrejoueur == 2)
             {
-                Console.WriteLine("Le gagnant de cette partie, qui  a réussi à écraser toute concurrence est " + Vainqueur.Nom + " avec un score monstrueux de " + Vainqueur.Score +"\n");
-                Console.WriteLine("Malheureusement, il faut toujours un perdant et aujourd'hui c'est " + Deuxieme.Nom + " avec un score minable de " + Deuxieme.Score + "\n");
+                Console.Write("Le gagnant de cette partie, qui  a réussi à écraser toute concurrence est ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write(Vainqueur.Nom);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(" avec un score monstrueux de ");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write(Vainqueur.Score);
+                Console.ForegroundColor = ConsoleColor.White; 
+                Console.Write(" points.\n");
+
+                Console.Write("Malheureusement, il faut toujours un perdant et aujourd'hui c'est ");
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.Write(Deuxieme.Nom);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(" avec un score décevant de ");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write(Deuxieme.Score);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(" points.\n");
             }
             if (nombrejoueur == 3)
             {
-                Console.WriteLine("Le gagnant de cette partie, qui  a réussi à écraser toute concurrence est " + Vainqueur.Nom + " avec un score monstrueux de " + Vainqueur.Score + "\n");
-                Console.WriteLine("Le deuxième de cette partie, et qui l'a mérité est " + Deuxieme.Nom + " avec tout de même un score de " + Deuxieme.Score + "\n");
-                Console.WriteLine("Malheureusement, il faut toujours un perdant et aujourd'hui c'est " + Troisieme.Nom + " avec un score minable de " + Troisieme.Score + "\n");
+                Console.Write("Le gagnant de cette partie, qui  a réussi à écraser toute concurrence est ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write(Vainqueur.Nom);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(" avec un score monstrueux de ");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write(Vainqueur.Score);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(" points.\n");
+
+                Console.Write("Le deuxième de cette partie, et qui l'a mérité est ");
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.Write(Deuxieme.Nom);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(" avec tout de même un score de ");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write(Deuxieme.Score);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(" points.\n");
+
+                Console.Write("Malheureusement, il faut toujours un perdant et aujourd'hui c'est ");
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.Write(Troisieme.Nom);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(" avec un score décevant de ");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write(Troisieme.Score);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(" points.\n");
             }
             if (nombrejoueur == 4)
             {
-                Console.WriteLine("Le gagnant de cette partie, qui  a réussi à écraser toute concurrence est " + Vainqueur.Nom + " avec un score monstrueux de " + Vainqueur.Score + "\n");
-                Console.WriteLine("Le deuxième de cette partie, et qui l'a mérité est " + Deuxieme.Nom + " avec tout de même un score de " + Deuxieme.Score + "\n");
-                Console.WriteLine("Le troisième de cette partie, se trouvant donc sur la dernière marche du podium, c'est " + Troisieme.Nom + " avec un score qui laisse à désirer de " + Troisieme.Score + "\n");
-                Console.WriteLine("Malheureusement, il faut toujours un perdant et aujourd'hui c'est " + Quatrieme.Nom + " avec un score minable de " + Quatrieme.Score + "\n");
+                Console.Write("Le gagnant de cette partie, qui  a réussi à écraser toute concurrence est ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write(Vainqueur.Nom);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(" avec un score monstrueux de ");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write(Vainqueur.Score);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(" points.\n");
+
+                Console.Write("Le deuxième de cette partie, et qui l'a mérité est ");
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.Write(Deuxieme.Nom);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(" avec tout de même un score de ");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write(Deuxieme.Score);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(" points.\n");
+
+                Console.Write("Le troisième de cette partie, se trouvant donc sur la dernière marche du podium, c'est ");
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.Write(Troisieme.Nom);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(" avec un score qui laisse à désirer de ");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write(Troisieme.Score);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(" points.\n");
+
+                Console.Write("Malheureusement, il faut toujours un perdant et aujourd'hui c'est ");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write(Quatrieme.Nom);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(" avec un score décevant de ");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write(Quatrieme.Score);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(" points.\n");
             }
         }
     }
