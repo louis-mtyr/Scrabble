@@ -185,7 +185,6 @@ namespace Scrabble
             string rep = "";
             int accrémentation = 1;
             int compteurlettre = 0;
-            int decrementation = 0;
             int occurence = 0;
             if (ligne < 0 || colonne < 0 || ligne > 14 || colonne > 14)
             {
@@ -215,9 +214,9 @@ namespace Scrabble
                                 }
                                 else
                                 {
-                                    for (int j = 1; j < mot.Length; j++)
+                                    for (int j = i+1; j < mot.Length; j++)
                                     {
-                                        if (mot[i] == mot[i + j - decrementation])
+                                        if (mot[i] == mot[j])
                                         {
                                             compteurlettre++;
                                         }
@@ -238,7 +237,6 @@ namespace Scrabble
                                         if (occurence < compteurlettre) compteurMain = 0;
                                     }
                                     occurence = 0;
-                                    decrementation++;
                                     compteurlettre = 0;
                                     if (compteurMain == 0)
                                     {
@@ -389,9 +387,9 @@ namespace Scrabble
                             }
                             else
                             {
-                                for (int j = 1; j < mot.Length; j++)
+                                for (int j = i+1; j < mot.Length; j++)
                                 {
-                                    if (mot[i]==mot[i+j-decrementation])
+                                    if (mot[i]==mot[j])
                                     {
                                         compteurlettre++;
                                     }
@@ -412,7 +410,6 @@ namespace Scrabble
                                     if (occurence < compteurlettre) compteurMain = 0;
                                 }
                                 occurence = 0;
-                                decrementation++;
                                 compteurlettre = 0;
                                 if (compteurMain == 0)
                                 {
