@@ -186,6 +186,7 @@ namespace Scrabble
             int accrémentation = 1;
             int compteurlettre = 0;
             int occurence = 0;
+            int recurrencejoker = 0;
             if (ligne < 0 || colonne < 0 || ligne > 14 || colonne > 14)
             {
                 verif = false;
@@ -233,6 +234,16 @@ namespace Scrabble
                                         for (int j = 0; j < 7; j++)
                                         {
                                             if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j]) occurence++;
+                                            if (this.leJoueur.ListeJetons_lettre[j] == "*" && recurrencejoker == 0)
+                                            {
+                                                occurence++;
+                                                recurrencejoker++;
+                                            }
+                                            if(recurrencejoker==1 && this.leJoueur.ListeJetons_lettre[j] == "*")
+                                            {
+                                                occurence++;
+                                                recurrencejoker++;
+                                            }
                                         }
                                         if (occurence < compteurlettre) compteurMain = 0;
                                     }
@@ -406,6 +417,16 @@ namespace Scrabble
                                     for (int j = 0; j < 7; j++)
                                     {
                                         if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j]) occurence++;
+                                        if (this.leJoueur.ListeJetons_lettre[j] == "*"&&recurrencejoker==0)
+                                        {
+                                            occurence++;
+                                            recurrencejoker++;
+                                        }
+                                        if (recurrencejoker == 1 && this.leJoueur.ListeJetons_lettre[j] == "*")
+                                        {
+                                            occurence++;
+                                            recurrencejoker++;
+                                        }
                                     }
                                     if (occurence < compteurlettre) compteurMain = 0;
                                 }
