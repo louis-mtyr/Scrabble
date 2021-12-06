@@ -232,7 +232,7 @@ namespace Scrabble
                                     {
                                         for (int j = 0; j < 7; j++)
                                         {
-                                            if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j]) occurence++;
+                                            if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j]|| this.leJoueur.ListeJetons_lettre[j] == "*") occurence++;
                                         }
                                         if (occurence < compteurlettre) compteurMain = 0;
                                     }
@@ -405,7 +405,7 @@ namespace Scrabble
                                 {
                                     for (int j = 0; j < 7; j++)
                                     {
-                                        if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j]) occurence++;
+                                        if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j] || this.leJoueur.ListeJetons_lettre[j] == "*") occurence++;
                                     }
                                     if (occurence < compteurlettre) compteurMain = 0;
                                 }
