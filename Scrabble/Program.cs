@@ -156,7 +156,7 @@ namespace Scrabble
 
             bool vérifJetonsSac = false;
             Plateau lePlateau = new Plateau("TestPlateau.txt", leDico, null);
-            /*while (vérifJetonsSac == false)
+            while (vérifJetonsSac == false)
             {
                 for (int i = 1; i <= nombrejoueur; i++)
                 {
@@ -174,7 +174,7 @@ namespace Scrabble
                     if (compteurMainJoueurVide != 0) vérifJetonsSac = true;
                 }
                 if (leSac.Sac.Count < 7 && Jeu.CompteurPasseTour == nombrejoueur * 3) vérifJetonsSac = true;
-            }*/
+            }
             Joueur stock;
             for (int i = 0; i < nombrejoueur - 1; i++)
             {
