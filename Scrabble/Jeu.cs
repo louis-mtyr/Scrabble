@@ -125,6 +125,7 @@ namespace Scrabble
                             listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove(jetonARemplacer);
                             this.monsac_jetons.Ajoute_Jeton(jetonARemplacer);
                             listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(jetonPioché.Lettre);
+                            this.monsac_jetons.Sac.Remove(jetonPioché);
                         }
                         Console.WriteLine("Le tour du joueur {0} est terminé, appuyez sur une touche pour passer au tour suivant.", numéroJoueur);
                         tourFini = true;
