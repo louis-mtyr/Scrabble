@@ -10,8 +10,8 @@ namespace Scrabble
     {
         static void Main(string[] args)
         {
-            Console.WindowHeight = 50;
-            Console.WindowWidth = 200;
+            /*Console.WindowHeight = 44;
+            Console.WindowWidth = 165;*/
             Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
             Console.WriteLine(sac.ToString());
             Dictionnaire[] leDico = new Dictionnaire[13];
@@ -175,27 +175,23 @@ namespace Scrabble
                 }
                 if (leSac.Sac.Count < 7 && Jeu.CompteurPasseTour == nombrejoueur * 3) vérifJetonsSac = true;
             }*/
-            Joueur Vainqueur = listeJoueurs[0];
-            Joueur Deuxieme = listeJoueurs[0];
-            Joueur Troisieme = listeJoueurs[0];
-            Joueur Quatrieme = listeJoueurs[0];
-            for (int k = 0; k < nombrejoueur; k++) 
+            Joueur stock;
+            for (int i = 0; i < nombrejoueur - 1; i++)
             {
-                for (int i = 0; i < nombrejoueur - 1; i++)
+                for (int j = i+1; j<nombrejoueur; j++)
                 {
-                    for (int j = i + 1; j < nombrejoueur; j++)
+                    if(listeJoueurs[i].Score<listeJoueurs[j].Score)
                     {
-                        if (listeJoueurs[i].Score < listeJoueurs[j].Score)
-                        {
-                            if (k == 0) Vainqueur = listeJoueurs[j];
-                            if (k == 1) Deuxieme = listeJoueurs[j];
-                            if (k == 2) Troisieme = listeJoueurs[j];
-                            if (k == 3) Quatrieme = listeJoueurs[j];
-                            listeJoueurs.Remove(listeJoueurs[j]);
-                        }
+                        stock = listeJoueurs[i];
+                        listeJoueurs[i] = listeJoueurs[j];
+                        listeJoueurs[j] = stock;
                     }
                 }
             }
+            Joueur Vainqueur = listeJoueurs[0];
+            Joueur Deuxieme = listeJoueurs[1];
+            Joueur Troisieme = listeJoueurs[2];
+            Joueur Quatrieme = listeJoueurs[3];
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
             Console.WriteLine("La partie est terminée \nVoici les résultats de cette partie : \n");
