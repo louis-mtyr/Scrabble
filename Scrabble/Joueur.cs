@@ -96,7 +96,7 @@ namespace Scrabble
             Console.Write("\nMots trouvés : ");
             for(int i=0; i<this.motsTrouves.Count; i++)
             {
-                if (i != this.motsTrouves.Count - 1)
+                if (i != this.motsTrouves.Count - 1 && this.motsTrouves[i]!="")
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write(this.motsTrouves[i]);
@@ -153,5 +153,71 @@ namespace Scrabble
         {
             this.listeJetons_lettre.Remove(monjeton);
         }
+
+        public void WriteFile(string filename)
+        {
+            string[] texte = new string[3];
+            FileStream fichier=null;
+            if (this.nom != null && this.score != null && this.motsTrouves != null && this.listeJetons_lettre != null)
+            {
+                try
+                {
+                    fichier = new FileStream(filename, FileMode.Open, FileAccess.Write, FileShare.Write);
+                    for (int i = 0; i < texte.Length; i++)
+                    {
+                        if (i == 0) AddText(fichier,this.nom+";"+this.score+";\n");
+                        if (i == 1)
+                        {
+                            if (motsTrouves.Count != 0)
+                            {
+                                for (int j = 0; j < motsTrouves.Count; j++)
+                                {
+                                    if (j != motsTrouves.Count - 1)
+                                    {
+                                        AddText(fichier,this.motsTrouves[j] + ";");
+                                    }
+                                    else
+                                    {
+                                        AddText(fichier,this.motsTrouves[j] + "\n");
+                                    }
+                                }
+                            }
+                            else AddText(fichier,"\n");
+                        }
+                        if (i == 2)
+                        {
+                            for (int k=0; k<7; k++)
+                            {
+                                if (k != 6)
+                                {
+                                    AddText(fichier,this.listeJetons_lettre[k] + ";");
+                                }
+                                else
+                                {
+                                    AddText(fichier,this.listeJetons_lettre[k]+"\n");
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (FileNotFoundException f)
+                {
+                    Console.WriteLine("Le fichier n'existe pas.\n" + f.Message);
+                }
+                catch (FormatException fe)
+                {
+                    Console.WriteLine("Problème(s) de type de valeurs entrées.\n" + fe.Message);
+                }
+            }
+            fichier.Close();
+        }
+
+        private static void AddText(FileStream fs, string value)
+        {
+            byte[] info = new UTF8Encoding(true).GetBytes(value);
+            fs.Write(info, 0, info.Length);
+        }
     }
+
+
 }

@@ -547,5 +547,43 @@ namespace Scrabble
             }
             return verif;
         }
+
+        public void WriteFile(string filename)
+        {
+            string[,] texte = new string[15,15];
+            FileStream fichier=null;
+            if (this.matrice != null)
+            {
+                try
+                {
+                    fichier = new FileStream(filename, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
+                    {
+                        for (int i = 0; i < this.matrice.GetLength(0); i++)
+                        {
+                            for (int j = 0; j < this.matrice.GetLength(1); j++)
+                            {
+                                if (j != 14) AddText(fichier, matrice[i, j] + ";");
+                                else AddText(fichier, matrice[i, j] + "\n");
+                            }
+                        }
+                    }
+                }
+                catch (FileNotFoundException f)
+                {
+                    Console.WriteLine("Le fichier n'existe pas.\n" + f.Message);
+                }
+                catch (FormatException fe)
+                {
+                    Console.WriteLine("Problème(s) de type de valeurs entrées.\n" + fe.Message);
+                }
+            }
+            fichier.Close();
+        }
+
+        private static void AddText(FileStream fs, string value)
+        {
+            byte[] info = new UTF8Encoding(true).GetBytes(value);
+            fs.Write(info, 0, info.Length);
+        }
     }
 }
