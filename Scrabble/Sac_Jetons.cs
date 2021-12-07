@@ -8,6 +8,7 @@ namespace Scrabble
     public class Sac_Jetons
     {
         private List<Jeton> sac;
+        private static int nbJetons=0;
 
         public Sac_Jetons(string fichier)
         {
@@ -20,7 +21,11 @@ namespace Scrabble
             {
                 ligne = mot.Split(';');
                 jeton = new Jeton(ligne[0], Convert.ToInt32(ligne[1]));
-                for(int i=0;i< Convert.ToInt32(ligne[2]);i++) this.sac.Add(jeton);
+                for (int i = 0; i < Convert.ToInt32(ligne[2]); i++)
+                {
+                    this.sac.Add(jeton);
+                    nbJetons++;
+                }
                 mot = sr.ReadLine();
             }
         }
@@ -28,6 +33,12 @@ namespace Scrabble
         {
             get { return this.sac; }
             set { this.sac = value; }
+        }
+
+        public static int NbJetons
+        {
+            get { return nbJetons; }
+            set { nbJetons = value; }
         }
         /// <summary>
         /// Permet de tirer au hasard un jeton parmi tous les jetons possibles
@@ -283,6 +294,20 @@ namespace Scrabble
                 rep += compteurLettres[j] + " jeton(s) de la lettre "+lettres[j]+" qui valent "+scoreLettres[j]+" point(s).\n";
             }
             return rep;
+        }
+
+        public void ReadFile(string filename)
+        {
+            StreamReader fichier = new StreamReader(filename);
+            string ligne = fichier.ReadLine();
+            nbJetons = Convert.ToInt32(ligne);
+        }
+
+        public void WriteFile(string filename)
+        {
+            StreamWriter fichier = new StreamWriter(filename);
+            fichier.Write(nbJetons);
+            fichier.Close();
         }
     }
 }

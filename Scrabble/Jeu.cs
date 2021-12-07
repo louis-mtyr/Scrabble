@@ -62,7 +62,7 @@ namespace Scrabble
             Console.WriteLine(listeJoueurs[numéroJoueur - 1].ToString());
             Console.Write("Il reste ");
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.Write(monsac_jetons.Sac.Count);
+            Console.Write(Sac_Jetons.NbJetons);
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(" jetons dans le sac");
             Console.WriteLine("Quelle action voulez-vous faire ?\n 1. Piocher un nouveau jeton\n 2. Poser un mot à l'horizontale\n 3. Poser un mot à la verticale\n 4. Passer le tour");
@@ -301,6 +301,7 @@ namespace Scrabble
                                         nouveauJetonTire = monsac_jetons.Retire_Jeton(aleatoire);
                                         listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(nouveauJetonTire.Lettre);
                                         monsac_jetons.Sac.Remove(nouveauJetonTire);
+                                        Sac_Jetons.NbJetons--;
                                     }
                                     compteurLettre++;
                                 }
@@ -310,25 +311,25 @@ namespace Scrabble
                                 string rep = "";
                                 for (int i = 0; i < motAAjouter.Length; i++)
                                 {
-                                    for (int j = -1; j <= 1; j += 2)
-                                    {
+                                    //for (int j = -1; j <= 1; j += 2)
+                                    //{
                                         compteurMotsTrouves = 0;
                                         rep = "";
                                         incrementation = 1;
-                                        decrementation = 1;
-                                        if (nbrCoordMotX - 1 + j >= 0 && nbrCoordMotX - 1 + j <= 14)
+                                        decrementation = -1;
+                                        if (nbrCoordMotX - 1 + 1 >= 0 && nbrCoordMotX - 1 + 1 <= 14 && nbrCoordMotX - 1 - 1 >= 0 && nbrCoordMotX - 1 - 1 <= 14)
                                         {
-                                            if (monplateau.Matrice[nbrCoordMotX - 1 + j, nbrCoordMotY + i] != "_")
+                                            if (monplateau.Matrice[nbrCoordMotX - 1 + 1, nbrCoordMotY + i] != "_" || monplateau.Matrice[nbrCoordMotX - 1 - 1, nbrCoordMotY + i] != "_")
                                             {
-                                                while (monplateau.Matrice[nbrCoordMotX - 1 + incrementation, nbrCoordMotY + i] != "_")
+                                                while (nbrCoordMotX-1 + incrementation <= 14 && monplateau.Matrice[nbrCoordMotX - 1 + incrementation, nbrCoordMotY + i] != "_")
                                                 {
                                                     incrementation++;
                                                 }
-                                                while (monplateau.Matrice[nbrCoordMotX - 1 - decrementation, nbrCoordMotY + i] != "_")
+                                                while (nbrCoordMotX-1 - decrementation >= 0 && monplateau.Matrice[nbrCoordMotX - 1 + decrementation, nbrCoordMotY + i] != "_")
                                                 {
                                                     decrementation--;
                                                 }
-                                                for (int n = decrementation - 1; n < incrementation; n++)
+                                                for (int n = decrementation+1; n < incrementation; n++)
                                                 {
                                                     rep += monplateau.Matrice[nbrCoordMotX - 1 + n, nbrCoordMotY + i];
                                                     listeJoueurs[numéroJoueur - 1].Score += monsac_jetons.TrouveJeton(monplateau.Matrice[nbrCoordMotX - 1 + n, nbrCoordMotY + i]).Score;
@@ -343,14 +344,14 @@ namespace Scrabble
                                                 if (compteurMotsTrouves == 0) listeJoueurs[numéroJoueur - 1].MotsTrouves.Add(rep);
                                                 else
                                                 {
-                                                    for (int n = decrementation - 1; n < incrementation; n++)
+                                                    for (int n = decrementation+1; n < incrementation; n++)
                                                     {
                                                         listeJoueurs[numéroJoueur - 1].Score -= monsac_jetons.TrouveJeton(monplateau.Matrice[nbrCoordMotX - 1 + n, nbrCoordMotY + i]).Score;
                                                     }
                                                 }
                                             }
                                         }
-                                    }
+                                    //}
                                 }
                                 listeJoueurs[numéroJoueur - 1].MotsTrouves.Add(motAAjouter);
                                 Console.WriteLine("Le tour du joueur {0} est terminé, appuyez sur une touche pour passer au tour suivant.", numéroJoueur);
@@ -508,6 +509,7 @@ namespace Scrabble
                                         nouveauJetonTire = monsac_jetons.Retire_Jeton(aleatoire);
                                         listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(nouveauJetonTire.Lettre);
                                         monsac_jetons.Sac.Remove(nouveauJetonTire);
+                                        Sac_Jetons.NbJetons--;
                                     }
                                     compteurLettre++;
                                 }
@@ -517,25 +519,25 @@ namespace Scrabble
                                 string rep = "";
                                 for (int i=0; i<motAAjouter.Length; i++)
                                 {
-                                    for (int j = -1; j <= 1; j+=2)
-                                    {
+                                    //for (int j = -1; j <= 1; j+=2)
+                                    //{
                                         compteurMotsTrouves = 0;
                                         rep = "";
                                         incrementation = 1;
-                                        decrementation = 1;
-                                        if (nbrCoordMotY + j >= 0 && nbrCoordMotY + j <= 14)
+                                        decrementation = -1;
+                                        if (nbrCoordMotY + 1 >= 0 && nbrCoordMotY + 1 <= 14 && nbrCoordMotY - 1 >= 0 && nbrCoordMotY - 1 <= 14)
                                         {
-                                            if (monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + j] != "_")
+                                            if (monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + 1] != "_" || monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY - 1] != "_")
                                             {
                                                 while (monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + incrementation] != "_")
                                                 {
                                                     incrementation++;
                                                 }
-                                                while (monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY - decrementation] != "_")
+                                                while (monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + decrementation] != "_")
                                                 {
                                                     decrementation--;
                                                 }
-                                                for (int n = decrementation-1; n < incrementation; n++)
+                                                for (int n = decrementation+1; n < incrementation; n++)
                                                 {
                                                     rep += monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + n];
                                                     listeJoueurs[numéroJoueur - 1].Score += monsac_jetons.TrouveJeton(monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + n]).Score;
@@ -550,14 +552,14 @@ namespace Scrabble
                                                 if (compteurMotsTrouves==0) listeJoueurs[numéroJoueur - 1].MotsTrouves.Add(rep);
                                                 else
                                                 {
-                                                    for (int n = decrementation - 1; n < incrementation; n++)
+                                                    for (int n = decrementation+1; n < incrementation; n++)
                                                     {
                                                         listeJoueurs[numéroJoueur - 1].Score -= monsac_jetons.TrouveJeton(monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + n]).Score;
                                                     }
                                                 }
                                             }
                                         }
-                                    }
+                                    //}
                                 }
                                 listeJoueurs[numéroJoueur - 1].MotsTrouves.Add(motAAjouter);
                                 Console.WriteLine("Le tour du joueur {0} est terminé, appuyez sur une touche pour passer au tour suivant.", numéroJoueur);

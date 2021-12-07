@@ -17,3 +17,6 @@ jetons "S ; A ; P ; T ; * ; L ; U" il prenne l'étoile au lieu du L par exemple
   - (ptet galere) tous les bails des scores
 
   - (impossible) timer pour jouer + sauvegardes
+
+  - Quand on écrit un mot qui utilise une lettre, si on a déjà cette lettre ça fout le bordel
+exemple : ecrire RUEE avec R,U,E dans son jeu et un E sur le plateau (en dernière lettre ?)
