@@ -73,6 +73,7 @@ namespace Scrabble
             string coordMotX;
             int nbrCoordMotX;
             string coordMotY;
+            int etatmot = 1;
             int nbrCoordMotY;
             while (tourFini == false)
             {
@@ -276,6 +277,11 @@ namespace Scrabble
                             }
                             else
                             {
+                                for (int k = 0; k < motAAjouter.Length; k++)
+                                {
+                                    if (monplateau.Matrice[nbrCoordMotX - 1, k] == "4") etatmot = etatmot * 2;
+                                    if (monplateau.Matrice[nbrCoordMotX - 1, k] == "5") etatmot = etatmot * 3;
+                                }
                                 int compteurLettre = 0;
                                 int compteurJoker = 0;
                                 Jeton nouveauJetonTire = null;
@@ -292,7 +298,9 @@ namespace Scrabble
                                         if (compteurJoker!=0)
                                         {
                                             listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove(Convert.ToString(motAAjouter[compteurLettre]));
-                                            listeJoueurs[numéroJoueur - 1].Score += monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).Score;
+                                            if(monplateau.Matrice[nbrCoordMotX - 1, j] == "_") listeJoueurs[numéroJoueur - 1].Score += monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).Score;
+                                            if (monplateau.Matrice[nbrCoordMotX - 1, j] == "2") listeJoueurs[numéroJoueur - 1].Score += monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).Score*2;
+                                            if (monplateau.Matrice[nbrCoordMotX - 1, j] == "3") listeJoueurs[numéroJoueur - 1].Score += monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).Score*3;
                                         }
                                         else
                                         {
@@ -305,6 +313,7 @@ namespace Scrabble
                                     }
                                     compteurLettre++;
                                 }
+                                listeJoueurs[numéroJoueur - 1].Score = listeJoueurs[numéroJoueur - 1].Score * etatmot;
                                 int incrementation = 0;
                                 int decrementation = 0;
                                 int compteurMotsTrouves = 0;
@@ -484,6 +493,11 @@ namespace Scrabble
                             }
                             else
                             {
+                                for (int k = 0; k < motAAjouter.Length; k++)
+                                {
+                                    if (monplateau.Matrice[k,nbrCoordMotY - 1] == "4") etatmot = etatmot * 2;
+                                    if (monplateau.Matrice[k, nbrCoordMotY - 1] == "5") etatmot = etatmot * 3;
+                                }
                                 int compteurLettre = 0;
                                 int compteurJoker = 0;
                                 Jeton nouveauJetonTire = null;
@@ -500,7 +514,9 @@ namespace Scrabble
                                         if (compteurJoker != 0)
                                         {
                                             listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove(Convert.ToString(motAAjouter[compteurLettre]));
-                                            listeJoueurs[numéroJoueur - 1].Score += monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).Score;
+                                            if (monplateau.Matrice[j, nbrCoordMotY - 1] == "_") listeJoueurs[numéroJoueur - 1].Score += monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).Score;
+                                            if (monplateau.Matrice[j, nbrCoordMotY - 1] == "2") listeJoueurs[numéroJoueur - 1].Score += monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).Score * 2;
+                                            if (monplateau.Matrice[j, nbrCoordMotY - 1] == "3") listeJoueurs[numéroJoueur - 1].Score += monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).Score * 3;
                                         }
                                         else
                                         {
@@ -513,6 +529,7 @@ namespace Scrabble
                                     }
                                     compteurLettre++;
                                 }
+                                listeJoueurs[numéroJoueur - 1].Score = listeJoueurs[numéroJoueur - 1].Score * etatmot;
                                 int incrementation = 0;
                                 int decrementation = 0;
                                 int compteurMotsTrouves=0;

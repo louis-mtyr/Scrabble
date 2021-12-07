@@ -30,23 +30,23 @@ namespace Scrabble
 
         public Joueur(string fichier)
         {
-            StreamReader sr = new StreamReader(fichier);
-            string mot = sr.ReadLine();
+            StreamReader sr = new StreamReader(fichier); //permet de lire le fichier mis en paramètre
+            string mot = sr.ReadLine(); //Le mot prend la première ligne du fichier
             string[] ligne;
 
-            ligne = mot.Split(';');
+            ligne = mot.Split(';'); //On rentre dans le tableau les termes du mot séparé par des ;
             this.nom = ligne[0];
             this.score = Convert.ToInt32(ligne[1]);
 
-            mot = sr.ReadLine();
+            mot = sr.ReadLine(); 
             ligne = mot.Split(';');
             this.motsTrouves = new List<string>();
-            foreach (string mots in ligne) this.motsTrouves.Add(mots);
+            foreach (string mots in ligne) this.motsTrouves.Add(mots); //On rentre dans une liste les mots du fichier
 
             mot = sr.ReadLine();
             ligne = mot.Split(';');
             this.listeJetons_lettre = new List<string>();
-            foreach (string lettres in ligne) this.listeJetons_lettre.Add(lettres);   
+            foreach (string lettres in ligne) this.listeJetons_lettre.Add(lettres); //On rentre dans une liste les lettres du fichier
         }
 
         public string Nom
@@ -132,7 +132,7 @@ namespace Scrabble
         /// <summary>
         /// Ajoute une valeur au score
         /// </summary>
-        /// <param name="val">Valeur à ajouté au score </param>
+        /// <param name="val">Valeur à ajouté au score</param>
         public void Add_Score(int val)
         {
             this.score += val;

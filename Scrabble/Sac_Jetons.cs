@@ -17,9 +17,9 @@ namespace Scrabble
             string mot = sr.ReadLine();
             string[] ligne;
             Jeton jeton = null;
-            while (mot!=null)
+            while (mot!=null) //La boucle permet de remplir note sac de jetons avec les caractéristiques de jetons mis en paramètre dans le fichier
             {
-                ligne = mot.Split(';');
+                ligne = mot.Split(';'); 
                 jeton = new Jeton(ligne[0], Convert.ToInt32(ligne[1]));
                 for (int i = 0; i < Convert.ToInt32(ligne[2]); i++)
                 {
@@ -176,7 +176,11 @@ namespace Scrabble
                     break;
             }
         }
-
+        /// <summary>
+        /// Retourne le jeton cherché avec toutes ces caractéristiques
+        /// </summary>
+        /// <param name="lettreJeton">Nom du jeton cherché</param>
+        /// <returns></returns>
         public Jeton TrouveJeton(string lettreJeton)
         {
             Jeton jetonCherche = null;

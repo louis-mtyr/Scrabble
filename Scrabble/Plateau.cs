@@ -22,7 +22,7 @@ namespace Scrabble
             string mot = sr.ReadLine();
             string[] ligne;
             this.matrice = new string[15, 15];
-            for(int i=0; i<15; i++)
+            for(int i=0; i<15; i++) //Permet de remplir la matrice avec les valeurs mis dans le fichier
             {
                 for (int j = 0; j < 15; j++)
                 {
@@ -75,7 +75,7 @@ namespace Scrabble
                 {
                     if (this.matrice[i, j] == "_")
                     {
-                        switch (i, j)
+                        switch (i, j) //Permet de différencier les cas pour les cases spéciales
                         {
                             case (0, 0):
                             case (0, 7):
@@ -192,17 +192,17 @@ namespace Scrabble
             }
             else 
             {
-                switch (direction)
+                switch (direction) //Permet de différencier les différentes directions
                 {
                     case 'h':
-                        if (colonne + mot.Length > 15)
+                        if (colonne + mot.Length > 15) //Vérifie que le mot ne sort pas du plateau
                         {
                             verif = false;
                             Console.WriteLine("Le mot ne rentre pas dans le plateau");
                         }
                         else
                         {
-                            for (int i = 0; i < mot.Length; i++)
+                            for (int i = 0; i < mot.Length; i++) //Véifie que le mot ne rentre pas en conflit avec un autre mot (une lettre se trouve sur le même case qu'une autre et sont différentes
                             {
                                 if (matrice[ligne, colonne+i] != "_" && matrice[ligne, colonne+i] != "*")
                                 {
@@ -212,7 +212,7 @@ namespace Scrabble
                                         Console.WriteLine("Votre mot va empiéter sur un mot déjà présent sur le plateau");
                                     }
                                 }
-                                else
+                                else //Vérifie que vous ayez bien les bonnes lettres en main pour pouvoir placer votre mot
                                 {
                                     for (int j = i; j < mot.Length; j++)
                                     {
@@ -247,14 +247,14 @@ namespace Scrabble
                                 }
                             }
                         }
-                        for (int i = 0; i < this.matrice.GetLength(0) && compteurCasesNonVides==0; i++)
+                        for (int i = 0; i < this.matrice.GetLength(0) && compteurCasesNonVides==0; i++) //Regarde si le plateau est vide ou non (aucun mot n'a encore été posé)
                         {
                             for (int j = 0; j < this.matrice.GetLength(1) && compteurCasesNonVides==0; j++)
                             {
                                 if (matrice[i, j] != "_") compteurCasesNonVides++;
                             }
                         }
-                        if (compteurCasesNonVides == 0)
+                        if (compteurCasesNonVides == 0) //Vérifie que vous le premier mot placé soit bien au centre du plateau
                         {
                             for (int k = 0; k < mot.Length; k++)
                             {
@@ -266,7 +266,7 @@ namespace Scrabble
                                 Console.WriteLine("Le premier mot à écrire sur le plateau doit avoir une lettre sur la case (8,H)");
                             }
                         }
-                        else
+                        else //Vérifie que le mot placé est bien relié à un autre mot en regardant si autour il y a une lettre qui touche le mot ou que le mot passe parune lettre
                         {
                             for (int k = -1; k < mot.Length + 1; k++)
                             {
@@ -284,10 +284,9 @@ namespace Scrabble
                                 Console.WriteLine("Votre mot doit être relié d'une certaine manière à un mot déjà présent sur le plateau");
                             }
 
-
-                            if (verif == true)
+                            if (verif == true) 
                             {
-                                if (matrice[ligne, colonne - accrémentation] != "_" && matrice[ligne, colonne + mot.Length - 1 + accrémentation] == "_")
+                                if (matrice[ligne, colonne - accrémentation] != "_" && matrice[ligne, colonne + mot.Length - 1 + accrémentation] == "_") //Vérifie que le mot engendré par le mot placé appartient bien au dictionnaire dans le cas où la liaison est à gauche du mot placé
                                 {
                                     while (matrice[ligne, colonne - accrémentation] != "_" && colonne - accrémentation >= 0)
                                     {
@@ -303,7 +302,7 @@ namespace Scrabble
                                     accrémentation = 1;
                                     rep = "";
                                 }
-                                if (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_" && matrice[ligne, colonne - accrémentation] == "_")
+                                if (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_" && matrice[ligne, colonne - accrémentation] == "_") //Vérifie que le mot engendré par le mot placé appartient bien au dictionnaire dans le cas où la liaison est à droite du mot placé
                                 {
                                     while (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_" && colonne + mot.Length - 1 + accrémentation <= 14)
                                     {
@@ -319,7 +318,7 @@ namespace Scrabble
                                     accrémentation = 1;
                                     rep = "";
                                 }
-                                if (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_" && matrice[ligne, colonne - accrémentation] != "_")
+                                if (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_" && matrice[ligne, colonne - accrémentation] != "_") //Vérifie que le mot engendré par le mot placé appartient bien au dictionnaire dans le cas où la liaison est à droite et à gauche du mot placé
                                 {
                                     while (matrice[ligne, colonne - accrémentation] != "_" && colonne - accrémentation >= 0)
                                     {
@@ -343,7 +342,7 @@ namespace Scrabble
                                 }
                                 for (int i = 0; i < mot.Length; i++)
                                 {
-                                    if (matrice[ligne - accrémentation, colonne + i] != "_" || matrice[ligne + accrémentation, colonne + i] != "_")
+                                    if (matrice[ligne - accrémentation, colonne + i] != "_" || matrice[ligne + accrémentation, colonne + i] != "_") //Vérifie que le mot engendré par le mot placé appartient bien au dictionnaire dans le cas où le mot croise un autre mot ou à une liaison au dessus ou en dessous
                                     {
                                         rep = Convert.ToString(mot[i]);
                                         while (matrice[ligne - accrémentation, colonne + i] != "_" && ligne - accrémentation >= 0)
@@ -369,7 +368,7 @@ namespace Scrabble
                             }
                         }
                         break;
-                    case 'v':
+                    case 'v': //Voir case h pour les commentaires qui sont exactement les mêmes la seule différence entre les deux cas est au niveau des indices de la matrice (les indices ligne et colonne sont inversés)
                         if (ligne + mot.Length > 15)
                         {
                             verif = false;
