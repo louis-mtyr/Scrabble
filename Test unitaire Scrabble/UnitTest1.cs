@@ -49,18 +49,6 @@ namespace Scrabble
             Assert.AreEqual(rep, true);
         }
         /*[TestMethod]
-        public void TestTo_StringJoueur()
-        {
-            bool rep = true;
-            List<string> motstrouv?s = new List<string>();
-            List<string> listeJetons_lettre = new List<string>();
-            listeJetons_lettre.Add("A");
-            motstrouv?s.Add("Bonjour");
-            Joueur joueur = new Joueur("L?o", 0, motstrouv?s, listeJetons_lettre);
-            if ((joueur.ToString() != "Nom du joueur : L?o" + "\nScore : 0" + "\nMots trouv?s : Bonjour" + "\nLettres disponibles dans sa main : A ") rep = false;
-            Assert.AreEqual(rep, true);
-        }
-        /*[TestMethod]
         public void TestRetire_un_nombre()
         {
             bool rep = true;
@@ -132,29 +120,6 @@ namespace Scrabble
             Assert.AreEqual(rep, true);
         }/*
         [TestMethod]
-        public void TestToString_SacJetons()
-        {
-            bool rep = true;
-            Sac_Jetons sac = new Sac_Jetons("Jetonstest.txt");
-            if (sac.ToString() != "Il reste dans le sac : "+ 9 +" jeton(s) de la lettre A qui valent "+1+" point(s).\n") rep = false;
-            Assert.AreEqual(rep, true);
-        }
-        [TestMethod]
-        public void TestToStringPlateau()
-        {
-            bool rep = true;
-            Dictionnaire[] ledico = null;
-            Joueur joueur = new Joueur("Léo");
-            string reponse="";
-            Plateau plateau = new Plateau("TestPlateau.txt", ledico, joueur);
-            for(int i=0;i<15;i++)
-            {
-                reponse = reponse+ "_; _; _; _; _; _; _; _; _; _; _; _; _; _; _ \n";
-            }
-            if (reponse != plateau.ToString()) rep = false;
-            Assert.AreEqual(rep, true);
-        }
-        [TestMethod]
         public void Test_Test_Plateau()
         {
             string mot1 = "djjzz";
@@ -168,14 +133,6 @@ namespace Scrabble
             bool rep = true;
             Random r = new Random();
     
-            Assert.AreEqual(rep, true);
-        }
-        [TestMethod]
-        public void TestJouer()
-        {
-            bool rep = true;
-            
-            
             Assert.AreEqual(rep, true);
         }*/
     }
