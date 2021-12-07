@@ -165,7 +165,11 @@ namespace Scrabble
                     break;
             }
         }
-
+        /// <summary>
+        /// Retourne le jeton cherché avec toutes ces caractéristiques
+        /// </summary>
+        /// <param name="lettreJeton">Nom du jeton cherché</param>
+        /// <returns></returns>
         public Jeton TrouveJeton(string lettreJeton)
         {
             Jeton jetonCherche = null;
