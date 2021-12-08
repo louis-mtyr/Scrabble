@@ -115,32 +115,49 @@ namespace Scrabble
                                     }
                                 }
                             } while (nbDéfausse <= 0 || nbDéfausse >= 8);
-                            for (int n = 0; n < nbDéfausse; n++)
+
+                            if (nbDéfausse != 7)
                             {
-                                Jeton jetonPioché = this.monsac_jetons.Retire_Jeton(aleatoire);
-                                Console.Write("Le jeton pioché est : ");
-                                Console.ForegroundColor = ConsoleColor.Magenta;
-                                Console.Write(jetonPioché.Lettre);
-                                Console.ForegroundColor = ConsoleColor.White;
-                                Console.WriteLine("\nLequel de vos jetons souhaitez-vous remplacer par ce nouveau jeton ?");
-                                string jetonARemplacer = Console.ReadLine().ToUpper();
-                                bool appartient = false;
-                                while (appartient == false)
+                                for (int n = 0; n < nbDéfausse; n++)
                                 {
-                                    for (int i = 0; i < listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Count - n; i++)
+                                    Jeton jetonPioché = this.monsac_jetons.Retire_Jeton(aleatoire);
+                                    Console.Write("Le jeton pioché est : ");
+                                    Console.ForegroundColor = ConsoleColor.Magenta;
+                                    Console.Write(jetonPioché.Lettre);
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                    Console.WriteLine("\nLequel de vos jetons souhaitez-vous remplacer par ce nouveau jeton ?");
+                                    string jetonARemplacer = Console.ReadLine().ToUpper();
+                                    bool appartient = false;
+                                    while (appartient == false)
                                     {
-                                        if (jetonARemplacer == listeJoueurs[numéroJoueur - 1].ListeJetons_lettre[i]) appartient = true;
+                                        for (int i = 0; i < listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Count - n; i++)
+                                        {
+                                            if (jetonARemplacer == listeJoueurs[numéroJoueur - 1].ListeJetons_lettre[i]) appartient = true;
+                                        }
+                                        if (appartient == false)
+                                        {
+                                            Console.WriteLine("Vous n'avez pas de jeton " + jetonARemplacer + " dans votre main. Veuillez choisir un de vos jetons à remplacer :");
+                                            jetonARemplacer = Console.ReadLine().ToUpper();
+                                        }
                                     }
-                                    if (appartient == false)
-                                    {
-                                        Console.WriteLine("Vous n'avez pas de jeton " + jetonARemplacer + " dans votre main. Veuillez choisir un de vos jetons à remplacer :");
-                                        jetonARemplacer = Console.ReadLine().ToUpper();
-                                    }
+                                    listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove(jetonARemplacer);
+                                    this.monsac_jetons.Ajoute_Jeton(jetonARemplacer);
+                                    listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(jetonPioché.Lettre);
+                                    this.monsac_jetons.Sac.Remove(jetonPioché);
                                 }
-                                listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove(jetonARemplacer);
-                                this.monsac_jetons.Ajoute_Jeton(jetonARemplacer);
-                                listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(jetonPioché.Lettre);
-                                this.monsac_jetons.Sac.Remove(jetonPioché);
+                            }
+                            else
+                            {
+                                for (int n=0; n<7; n++)
+                                {
+                                    Jeton jetonPioché = this.monsac_jetons.Retire_Jeton(aleatoire);
+                                    string jetonARetirer = listeJoueurs[numéroJoueur - 1].ListeJetons_lettre[0];
+                                    listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove(jetonARetirer);
+                                    this.monsac_jetons.Ajoute_Jeton(jetonARetirer);
+                                    listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(jetonPioché.Lettre);
+                                    this.monsac_jetons.Sac.Remove(jetonPioché);
+                                }
+                                Console.WriteLine("Votre jeu a été complètement changé");
                             }
                         }
                         else
@@ -319,13 +336,13 @@ namespace Scrabble
                                         decrementation = -1;
                                         if (nbrCoordMotX - 1 + 1 >= 0 && nbrCoordMotX - 1 + 1 <= 14 && nbrCoordMotX - 1 - 1 >= 0 && nbrCoordMotX - 1 - 1 <= 14)
                                         {
-                                            if (monplateau.Matrice[nbrCoordMotX - 1 + 1, nbrCoordMotY + i] != "_" || monplateau.Matrice[nbrCoordMotX - 1 - 1, nbrCoordMotY + i] != "_")
+                                            if ((monplateau.Matrice[nbrCoordMotX - 1 + 1, nbrCoordMotY + i] != "_" && monplateau.Matrice[nbrCoordMotX - 1 + 1, nbrCoordMotY + i] != "2" && monplateau.Matrice[nbrCoordMotX - 1 + 1, nbrCoordMotY + i] != "3" && monplateau.Matrice[nbrCoordMotX - 1 + 1, nbrCoordMotY + i] != "4" && monplateau.Matrice[nbrCoordMotX - 1 + 1, nbrCoordMotY + i] != "5") || (monplateau.Matrice[nbrCoordMotX - 1 - 1, nbrCoordMotY + i] != "_" && monplateau.Matrice[nbrCoordMotX - 1 - 1, nbrCoordMotY + i] != "2" && monplateau.Matrice[nbrCoordMotX - 1 - 1, nbrCoordMotY + i] != "3" && monplateau.Matrice[nbrCoordMotX - 1 - 1, nbrCoordMotY + i] != "4" && monplateau.Matrice[nbrCoordMotX - 1 - 1, nbrCoordMotY + i] != "5"))
                                             {
-                                                while (nbrCoordMotX-1 + incrementation <= 14 && monplateau.Matrice[nbrCoordMotX - 1 + incrementation, nbrCoordMotY + i] != "_")
+                                                while (nbrCoordMotX-1 + incrementation <= 14 && monplateau.Matrice[nbrCoordMotX - 1 + incrementation, nbrCoordMotY + i] != "_" && monplateau.Matrice[nbrCoordMotX - 1 + incrementation, nbrCoordMotY + i] != "2" && monplateau.Matrice[nbrCoordMotX - 1 + incrementation, nbrCoordMotY + i] != "3" && monplateau.Matrice[nbrCoordMotX - 1 + incrementation, nbrCoordMotY + i] != "4" && monplateau.Matrice[nbrCoordMotX - 1 + incrementation, nbrCoordMotY + i] != "5")
                                                 {
                                                     incrementation++;
                                                 }
-                                                while (nbrCoordMotX-1 - decrementation >= 0 && monplateau.Matrice[nbrCoordMotX - 1 + decrementation, nbrCoordMotY + i] != "_")
+                                                while (nbrCoordMotX-1 + decrementation >= 0 && monplateau.Matrice[nbrCoordMotX - 1 + decrementation, nbrCoordMotY + i] != "_" && monplateau.Matrice[nbrCoordMotX - 1 + decrementation, nbrCoordMotY + i] != "2" && monplateau.Matrice[nbrCoordMotX - 1 + decrementation, nbrCoordMotY + i] != "3" && monplateau.Matrice[nbrCoordMotX - 1 + decrementation, nbrCoordMotY + i] != "4" && monplateau.Matrice[nbrCoordMotX - 1 + decrementation, nbrCoordMotY + i] != "5")
                                                 {
                                                     decrementation--;
                                                 }
@@ -527,13 +544,13 @@ namespace Scrabble
                                         decrementation = -1;
                                         if (nbrCoordMotY + 1 >= 0 && nbrCoordMotY + 1 <= 14 && nbrCoordMotY - 1 >= 0 && nbrCoordMotY - 1 <= 14)
                                         {
-                                            if (monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + 1] != "_" || monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY - 1] != "_")
+                                            if ((monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + 1] != "_" && monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + 1] != "2" && monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + 1] != "3" && monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + 1] != "4" && monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + 1] != "5") || (monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY - 1] != "_" && monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY - 1] != "2" && monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY - 1] != "3" && monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY - 1] != "4" && monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY - 1] != "5"))
                                             {
-                                                while (monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + incrementation] != "_")
+                                                while (nbrCoordMotY + incrementation <= 14 && monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + incrementation] != "_" && monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + incrementation] != "2" && monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + incrementation] != "3" && monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + incrementation] != "4" && monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + incrementation] != "5")
                                                 {
                                                     incrementation++;
                                                 }
-                                                while (monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + decrementation] != "_")
+                                                while (nbrCoordMotY + decrementation >= 0 && monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + decrementation] != "_" && monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + decrementation] != "2" && monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + decrementation] != "3" && monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + decrementation] != "4" && monplateau.Matrice[nbrCoordMotX - 1 + i, nbrCoordMotY + decrementation] != "5")
                                                 {
                                                     decrementation--;
                                                 }
