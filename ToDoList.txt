@@ -9,7 +9,8 @@ prendre l'étoile en dernier pour pas que si on veut écrire "SALUT" avec comme
 jetons "S ; A ; P ; T ; * ; L ; U" il prenne l'étoile au lieu du L par exemple
 
  - (galère) la liste des mots trouvés prend pas un mot que tu crées en en posant un autre
-
+ 
+ -voir pour le test unitaire problème delecture de fichier
 
 
   A faire :
