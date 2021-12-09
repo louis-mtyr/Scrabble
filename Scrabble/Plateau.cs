@@ -73,7 +73,7 @@ namespace Scrabble
                 Console.Write("|");
                 for (int j = 0; j < 15; j++)
                 {
-                    if (this.matrice[i, j] == "_")
+                    if (this.matrice[i, j] == "_" || matrice[i,j] == "2" || matrice[i, j] == "3" || matrice[i, j] == "4" || matrice[i, j] == "5")
                     {
                         switch (i, j) //Permet de différencier les cas pour les cases spéciales
                         {
@@ -142,6 +142,10 @@ namespace Scrabble
                             case (11, 7):
                             case (12, 6):
                             case (12, 8):
+                            case (6, 6):
+                            case (6, 8):
+                            case (8, 6):
+                            case (8, 8):
                                 Console.ForegroundColor = ConsoleColor.Cyan;
                                 Console.Write("2 ");
                                 break;
@@ -204,7 +208,7 @@ namespace Scrabble
                         {
                             for (int i = 0; i < mot.Length; i++) //Véifie que le mot ne rentre pas en conflit avec un autre mot (une lettre se trouve sur le même case qu'une autre et sont différentes
                             {
-                                if (matrice[ligne, colonne+i] != "_" && matrice[ligne, colonne+i] != "*")
+                                if (matrice[ligne, colonne+i] != "_" && matrice[ligne, colonne + i] != "2" && matrice[ligne, colonne + i] != "3" && matrice[ligne, colonne + i] != "4" && matrice[ligne, colonne + i] != "5")
                                 {
                                     if (matrice[ligne, colonne+i] != Convert.ToString(mot[i]))
                                     {
@@ -223,20 +227,29 @@ namespace Scrabble
                                     }
                                     for (int j = 0; j < 7; j++)
                                     {
-                                        if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j] || this.leJoueur.ListeJetons_lettre[j] == "*" || Convert.ToString(mot[i]) == this.matrice[ligne, colonne+i])
+                                        if (j==0)
+                                        {
+                                            for (int k=i+1; k<mot.Length; k++)
+                                            {
+                                                if (Convert.ToString(mot[i]) == this.matrice[ligne, colonne + k]) occurence++;
+                                            }
+                                        }
+                                        if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j] || this.leJoueur.ListeJetons_lettre[j] == "*")
                                         {
                                             compteurMain++;
                                         }
+                                        compteurMain += occurence;
+                                        occurence = 0;
                                     }
                                     if (compteurlettre != 0)
                                     {
-                                        for (int j = 0; j < 7; j++)
+                                        /*for (int j = 0; j < 7; j++)
                                         {
                                             if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j]|| this.leJoueur.ListeJetons_lettre[j] == "*") occurence++;
-                                        }
-                                        if (occurence < compteurlettre) compteurMain = 0;
+                                        }*/
+                                        if (compteurMain < compteurlettre) compteurMain = 0;
                                     }
-                                    occurence = 0;
+                                    //occurence = 0;
                                     compteurlettre = 0;
                                     if (compteurMain == 0)
                                     {
@@ -251,7 +264,7 @@ namespace Scrabble
                         {
                             for (int j = 0; j < this.matrice.GetLength(1) && compteurCasesNonVides==0; j++)
                             {
-                                if (matrice[i, j] != "_") compteurCasesNonVides++;
+                                if (matrice[i, j] != "_" && matrice[i,j] != "2" && matrice[i,j] != "3" && matrice[i,j] != "4" && matrice[i,j] != "5") compteurCasesNonVides++;
                             }
                         }
                         if (compteurCasesNonVides == 0) //Vérifie que vous le premier mot placé soit bien au centre du plateau
@@ -274,7 +287,7 @@ namespace Scrabble
                                 {
                                     if ((ligne + n >= 0 && ligne + n <= 14) && (colonne + k >= 0 && colonne + k <= 14))
                                     {
-                                        if (matrice[ligne + n, colonne + k] != "_") compteurCasesDifferentesLettresPosees++;
+                                        if (matrice[ligne + n, colonne + k] != "_" && matrice[ligne + n, colonne + k] != "2" && matrice[ligne + n, colonne + k] != "3" && matrice[ligne + n, colonne + k] != "4" && matrice[ligne + n, colonne + k] != "5") compteurCasesDifferentesLettresPosees++;
                                     }
                                 }
                             }
@@ -286,9 +299,9 @@ namespace Scrabble
 
                             if (verif == true) 
                             {
-                                if (matrice[ligne, colonne - accrémentation] != "_" && matrice[ligne, colonne + mot.Length - 1 + accrémentation] == "_") //Vérifie que le mot engendré par le mot placé appartient bien au dictionnaire dans le cas où la liaison est à gauche du mot placé
+                                if ((matrice[ligne, colonne - accrémentation] != "_" && matrice[ligne, colonne - accrémentation] != "2" && matrice[ligne, colonne - accrémentation] != "3" && matrice[ligne, colonne - accrémentation] != "4" && matrice[ligne, colonne - accrémentation] != "5") && (matrice[ligne, colonne + mot.Length - 1 + accrémentation] == "_" || matrice[ligne, colonne + mot.Length - 1 + accrémentation] == "2" || matrice[ligne, colonne + mot.Length - 1 + accrémentation] == "3" || matrice[ligne, colonne + mot.Length - 1 + accrémentation] == "4" || matrice[ligne, colonne + mot.Length - 1 + accrémentation] == "5")) //Vérifie que le mot engendré par le mot placé appartient bien au dictionnaire dans le cas où la liaison est à gauche du mot placé
                                 {
-                                    while (matrice[ligne, colonne - accrémentation] != "_" && colonne - accrémentation >= 0)
+                                    while (matrice[ligne, colonne - accrémentation] != "_" && matrice[ligne, colonne - accrémentation] != "2" && matrice[ligne, colonne - accrémentation] != "3" && matrice[ligne, colonne - accrémentation] != "4" && matrice[ligne, colonne - accrémentation] != "5" && colonne - accrémentation >= 0)
                                     {
                                         rep = matrice[ligne, colonne - accrémentation] + rep;
                                         accrémentation++;
@@ -302,9 +315,9 @@ namespace Scrabble
                                     accrémentation = 1;
                                     rep = "";
                                 }
-                                if (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_" && matrice[ligne, colonne - accrémentation] == "_") //Vérifie que le mot engendré par le mot placé appartient bien au dictionnaire dans le cas où la liaison est à droite du mot placé
+                                if ((matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_" && matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "2" && matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "3" && matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "4" && matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "5") && (matrice[ligne, colonne - accrémentation] == "_" || matrice[ligne, colonne - accrémentation] == "2" || matrice[ligne, colonne - accrémentation] == "3" || matrice[ligne, colonne - accrémentation] == "4" || matrice[ligne, colonne - accrémentation] == "5")) //Vérifie que le mot engendré par le mot placé appartient bien au dictionnaire dans le cas où la liaison est à droite du mot placé
                                 {
-                                    while (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_" && colonne + mot.Length - 1 + accrémentation <= 14)
+                                    while (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_" && matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "2" && matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "3" && matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "4" && matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "5" && colonne + mot.Length - 1 + accrémentation <= 14)
                                     {
                                         rep = rep + matrice[ligne, colonne + mot.Length - 1 + accrémentation];
                                         accrémentation++;
@@ -320,14 +333,14 @@ namespace Scrabble
                                 }
                                 if (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_" && matrice[ligne, colonne - accrémentation] != "_") //Vérifie que le mot engendré par le mot placé appartient bien au dictionnaire dans le cas où la liaison est à droite et à gauche du mot placé
                                 {
-                                    while (matrice[ligne, colonne - accrémentation] != "_" && colonne - accrémentation >= 0)
+                                    while (matrice[ligne, colonne - accrémentation] != "_" && matrice[ligne, colonne - accrémentation] != "2" && matrice[ligne, colonne - accrémentation] != "3" && matrice[ligne, colonne - accrémentation] != "4" && matrice[ligne, colonne - accrémentation] != "5" && colonne - accrémentation >= 0)
                                     {
                                         rep = matrice[ligne, colonne - accrémentation] + rep;
                                         accrémentation++;
                                     }
                                     accrémentation = 1;
                                     rep = rep + mot;
-                                    while (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_" && colonne + mot.Length - 1 + accrémentation <= 14)
+                                    while (matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "_" && matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "2" && matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "3" && matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "4" && matrice[ligne, colonne + mot.Length - 1 + accrémentation] != "5" && colonne + mot.Length - 1 + accrémentation <= 14)
                                     {
                                         rep = rep + matrice[ligne, colonne + mot.Length - 1 + accrémentation];
                                         accrémentation++;
@@ -342,16 +355,16 @@ namespace Scrabble
                                 }
                                 for (int i = 0; i < mot.Length; i++)
                                 {
-                                    if (matrice[ligne - accrémentation, colonne + i] != "_" || matrice[ligne + accrémentation, colonne + i] != "_") //Vérifie que le mot engendré par le mot placé appartient bien au dictionnaire dans le cas où le mot croise un autre mot ou à une liaison au dessus ou en dessous
+                                    if ((matrice[ligne - accrémentation, colonne + i] != "_" && matrice[ligne - accrémentation, colonne + i] != "2" && matrice[ligne - accrémentation, colonne + i] != "3" && matrice[ligne - accrémentation, colonne + i] != "4" && matrice[ligne - accrémentation, colonne + i] != "5") || (matrice[ligne + accrémentation, colonne + i] != "_" && matrice[ligne + accrémentation, colonne + i] != "2" && matrice[ligne + accrémentation, colonne + i] != "3" && matrice[ligne + accrémentation, colonne + i] != "4" && matrice[ligne + accrémentation, colonne + i] != "5")) //Vérifie que le mot engendré par le mot placé appartient bien au dictionnaire dans le cas où le mot croise un autre mot ou à une liaison au dessus ou en dessous
                                     {
                                         rep = Convert.ToString(mot[i]);
-                                        while (matrice[ligne - accrémentation, colonne + i] != "_" && ligne - accrémentation >= 0)
+                                        while (matrice[ligne - accrémentation, colonne + i] != "_" && matrice[ligne - accrémentation, colonne + i] != "2" && matrice[ligne - accrémentation, colonne + i] != "3" && matrice[ligne - accrémentation, colonne + i] != "4" && matrice[ligne - accrémentation, colonne + i] != "5" && ligne - accrémentation >= 0)
                                         {
                                             rep = matrice[ligne - accrémentation, colonne + i] + rep;
                                             accrémentation++;
                                         }
                                         accrémentation = 1;
-                                        while (matrice[ligne + accrémentation, colonne + i] != "_" && ligne + accrémentation <= 14)
+                                        while (matrice[ligne + accrémentation, colonne + i] != "_" && matrice[ligne + accrémentation, colonne + i] != "2" && matrice[ligne + accrémentation, colonne + i] != "3" && matrice[ligne + accrémentation, colonne + i] != "4" && matrice[ligne + accrémentation, colonne + i] != "5" && ligne + accrémentation <= 14)
                                         {
                                             rep = rep + matrice[ligne + accrémentation, colonne + i];
                                             accrémentation++;
@@ -376,7 +389,7 @@ namespace Scrabble
                         }
                         for (int i = 0; i < mot.Length; i++)
                         {
-                            if (matrice[ligne+i, colonne] != "_" && matrice[ligne+i, colonne] != "*")
+                            if (matrice[ligne+i, colonne] != "_" && matrice[ligne + i, colonne] != "2" && matrice[ligne + i, colonne] != "3" && matrice[ligne + i, colonne] != "4" && matrice[ligne + i, colonne] != "5")
                             {
                                 if (matrice[ligne+i, colonne] != Convert.ToString(mot[i]))
                                 {
@@ -395,20 +408,29 @@ namespace Scrabble
                                 }
                                 for (int j = 0; j < 7; j++)
                                 {
-                                    if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j] || this.leJoueur.ListeJetons_lettre[j] == "*" || Convert.ToString(mot[i]) == this.matrice[ligne + i, colonne])
+                                    if (j == 0)
+                                    {
+                                        for (int k = i + 1; k < mot.Length; k++)
+                                        {
+                                            if (Convert.ToString(mot[i]) == this.matrice[ligne + k, colonne]) occurence++;
+                                        }
+                                    }
+                                    if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j] || this.leJoueur.ListeJetons_lettre[j] == "*")
                                     {
                                         compteurMain++;
                                     }
+                                    compteurMain+=occurence;
+                                    occurence = 0;
                                 }
                                 if (compteurlettre != 0)
                                 {
-                                    for (int j = 0; j < 7; j++)
+                                    /*for (int j = 0; j < 7; j++)
                                     {
                                         if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j] || this.leJoueur.ListeJetons_lettre[j] == "*") occurence++;
-                                    }
-                                    if (occurence < compteurlettre) compteurMain = 0;
+                                    }*/
+                                    if (compteurMain < compteurlettre) compteurMain = 0;
                                 }
-                                occurence = 0;
+                                //occurence = 0;
                                 compteurlettre = 0;
                                 if (compteurMain == 0)
                                 {
@@ -422,7 +444,7 @@ namespace Scrabble
                         {
                             for (int j = 0; j < this.matrice.GetLength(1); j++)
                             {
-                                if (matrice[i, j] != "_") compteurCasesNonVides++;
+                                if (matrice[i, j] != "_" && matrice[i, j] != "2" && matrice[i, j] != "3" && matrice[i, j] != "4" && matrice[i, j] != "5") compteurCasesNonVides++;
                             }
                         }
                         if (compteurCasesNonVides == 0)
@@ -445,7 +467,7 @@ namespace Scrabble
                                 {
                                     if ((ligne + k >= 0 && ligne + k <= 14) && (colonne + n >= 0 && colonne + n <= 14))
                                     {
-                                        if (matrice[ligne + k, colonne + n] != "_") compteurCasesDifferentesLettresPosees++;
+                                        if (matrice[ligne + k, colonne + n] != "_" && matrice[ligne + k, colonne + n] != "2" && matrice[ligne + k, colonne + n] != "3" && matrice[ligne + k, colonne + n] != "4" && matrice[ligne + k, colonne + n] != "5") compteurCasesDifferentesLettresPosees++;
                                     }
                                 }
                             }
@@ -457,9 +479,9 @@ namespace Scrabble
 
                             if (verif == true)
                             {
-                                if (matrice[ligne - accrémentation, colonne] != "_" && matrice[ligne + mot.Length - 1 + accrémentation, colonne] == "_")
+                                if ((matrice[ligne - accrémentation, colonne] != "_" && matrice[ligne - accrémentation, colonne] != "2" && matrice[ligne - accrémentation, colonne] != "3" && matrice[ligne - accrémentation, colonne] != "4" && matrice[ligne - accrémentation, colonne] != "5") && (matrice[ligne + mot.Length - 1 + accrémentation, colonne] == "_" || matrice[ligne + mot.Length - 1 + accrémentation, colonne] == "2" || matrice[ligne + mot.Length - 1 + accrémentation, colonne] == "3" || matrice[ligne + mot.Length - 1 + accrémentation, colonne] == "4" || matrice[ligne + mot.Length - 1 + accrémentation, colonne] == "5"))
                                 {
-                                    while (matrice[ligne - accrémentation, colonne] != "_" && (ligne - accrémentation) >= 0)
+                                    while (matrice[ligne - accrémentation, colonne] != "_" && matrice[ligne - accrémentation, colonne] != "2" && matrice[ligne - accrémentation, colonne] != "3" && matrice[ligne - accrémentation, colonne] != "4" && matrice[ligne - accrémentation, colonne] != "5" && (ligne - accrémentation) >= 0)
                                     {
                                         rep = matrice[ligne - accrémentation, colonne] + rep;
                                         accrémentation++;
@@ -473,9 +495,9 @@ namespace Scrabble
                                     accrémentation = 1;
                                     rep = "";
                                 }
-                                if (matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "_" && matrice[ligne - accrémentation, colonne] == "_")
+                                if ((matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "_" && matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "2" && matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "3" && matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "4" && matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "5") && (matrice[ligne - accrémentation, colonne] == "_" || matrice[ligne - accrémentation, colonne] == "2" || matrice[ligne - accrémentation, colonne] == "3" || matrice[ligne - accrémentation, colonne] == "4" || matrice[ligne - accrémentation, colonne] == "5"))
                                 {
-                                    while (matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "_" && ligne + mot.Length - 1 + accrémentation <= 14)
+                                    while (matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "_" && matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "2" && matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "3" && matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "4" && matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "5" && ligne + mot.Length - 1 + accrémentation <= 14)
                                     {
                                         rep = rep + matrice[ligne + mot.Length - 1 + accrémentation, colonne];
                                         accrémentation++;
@@ -489,16 +511,16 @@ namespace Scrabble
                                     accrémentation = 1;
                                     rep = "";
                                 }
-                                if (matrice[ligne - accrémentation, colonne] != "_" && matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "_")
+                                if (matrice[ligne - accrémentation, colonne] != "_" && matrice[ligne - accrémentation, colonne] != "2" && matrice[ligne - accrémentation, colonne] != "3" && matrice[ligne - accrémentation, colonne] != "4" && matrice[ligne - accrémentation, colonne] != "5" && matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "_" && matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "2" && matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "3" && matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "4" && matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "5")
                                 {
-                                    while (matrice[ligne - accrémentation, colonne] != "_" && (ligne - accrémentation) >= 0)
+                                    while (matrice[ligne - accrémentation, colonne] != "_" && matrice[ligne - accrémentation, colonne] != "2" && matrice[ligne - accrémentation, colonne] != "3" && matrice[ligne - accrémentation, colonne] != "4" && matrice[ligne - accrémentation, colonne] != "5" && (ligne - accrémentation) >= 0)
                                     {
                                         rep = matrice[ligne - accrémentation, colonne] + rep;
                                         accrémentation++;
                                     }
                                     accrémentation = 1;
                                     rep = rep + mot;
-                                    while (matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "_" && ligne + mot.Length - 1 + accrémentation <= 14)
+                                    while (matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "_" && matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "2" && matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "3" && matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "4" && matrice[ligne + mot.Length - 1 + accrémentation, colonne] != "5" && ligne + mot.Length - 1 + accrémentation <= 14)
                                     {
                                         rep = rep + matrice[ligne + mot.Length - 1 + accrémentation, colonne];
                                         accrémentation++;
@@ -513,16 +535,16 @@ namespace Scrabble
                                 }
                                 for (int i = 0; i < mot.Length; i++)
                                 {
-                                    if (matrice[ligne + i, colonne - accrémentation] != "_" || matrice[ligne + i, colonne + accrémentation] != "_")
+                                    if ((matrice[ligne + i, colonne - accrémentation] != "_" && matrice[ligne + i, colonne - accrémentation] != "2" && matrice[ligne + i, colonne - accrémentation] != "3" && matrice[ligne + i, colonne - accrémentation] != "4" && matrice[ligne + i, colonne - accrémentation] != "5") || (matrice[ligne + i, colonne + accrémentation] != "_" && matrice[ligne + i, colonne + accrémentation] != "2" && matrice[ligne + i, colonne + accrémentation] != "3" && matrice[ligne + i, colonne + accrémentation] != "4" && matrice[ligne + i, colonne + accrémentation] != "5"))
                                     {
                                         rep = Convert.ToString(mot[i]);
-                                        while (matrice[ligne + i, colonne - accrémentation] != "_" && colonne - accrémentation >= 0)
+                                        while (matrice[ligne + i, colonne - accrémentation] != "_" && matrice[ligne + i, colonne - accrémentation] != "2" && matrice[ligne + i, colonne - accrémentation] != "3" && matrice[ligne + i, colonne - accrémentation] != "4" && matrice[ligne + i, colonne - accrémentation] != "5" && colonne - accrémentation >= 0)
                                         {
                                             rep = matrice[ligne + i, colonne - accrémentation] + rep;
                                             accrémentation++;
                                         }
                                         accrémentation = 1;
-                                        while (matrice[ligne + i, colonne + accrémentation] != "_" && colonne + accrémentation <= 14)
+                                        while (matrice[ligne + i, colonne + accrémentation] != "_" && matrice[ligne + i, colonne + accrémentation] != "2" && matrice[ligne + i, colonne + accrémentation] != "3" && matrice[ligne + i, colonne + accrémentation] != "4" && matrice[ligne + i, colonne + accrémentation] != "5" && colonne + accrémentation <= 14)
                                         {
                                             rep = rep + matrice[ligne + i, colonne + accrémentation];
                                             accrémentation++;
@@ -551,19 +573,19 @@ namespace Scrabble
         public void WriteFile(string filename)
         {
             string[,] texte = new string[15,15];
-            FileStream fichier=null;
+            StreamWriter fichier=null;
             if (this.matrice != null)
             {
                 try
                 {
-                    fichier = new FileStream(filename, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
+                    fichier = new StreamWriter(filename);//, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
                     {
                         for (int i = 0; i < this.matrice.GetLength(0); i++)
                         {
                             for (int j = 0; j < this.matrice.GetLength(1); j++)
                             {
-                                if (j != 14) AddText(fichier, matrice[i, j] + ";");
-                                else AddText(fichier, matrice[i, j] + "\n");
+                                if (j != 14) fichier.Write(matrice[i, j] + ";");
+                                else fichier.WriteLine(matrice[i, j]);
                             }
                         }
                     }
@@ -578,12 +600,6 @@ namespace Scrabble
                 }
             }
             fichier.Close();
-        }
-
-        private static void AddText(FileStream fs, string value)
-        {
-            byte[] info = new UTF8Encoding(true).GetBytes(value);
-            fs.Write(info, 0, info.Length);
         }
     }
 }

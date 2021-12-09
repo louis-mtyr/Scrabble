@@ -26,12 +26,14 @@ namespace Scrabble
             //Jeu leJeu = new Jeu("Francais.txt", lePlateau, leSac);
 
             Random aleatoire = new Random();
-            Console.WriteLine("Voulez-vous reprendre une partie déjà commencée ? (O/N)");
+            Console.WriteLine("Voulez-vous reprendre une partie déjà commencée ? (O/N) (Pensez à bien finir un tour complet avant de quitter où certains joueurs se feront sauter leur tour !)");
             bool recommencerBool = false;
-            string recommencer = Console.ReadLine().ToUpper();
+            string recommencer;
             int nombrejoueur=0;
             do
             {
+
+                recommencer = Console.ReadLine().ToUpper();
                 switch (recommencer)
                 {
                     case "O":
@@ -63,10 +65,10 @@ namespace Scrabble
                         break;
                     default:
                         Console.WriteLine("Veuillez écrire 'O' ou 'N' pour répondre à la question");
-                        recommencer = Console.ReadLine().ToUpper();
                         break;
                 }
             } while (recommencer != "O" && recommencer != "N" && recommencer != "OUI" && recommencer != "NON");
+
             if (recommencerBool == true)
             {
                 Console.WriteLine("A combien voulez-vous jouer ? (le nombre de joueurs maximum est de 4)");
@@ -271,15 +273,16 @@ namespace Scrabble
                 {
                     //lePlateau = new Plateau(lePlateau.Matrice, leDico, listeJoueurs[i-1]);
                     //Jeu leJeu = new Jeu("Francais.txt", lePlateau, leSac);
-                    if (i == 1) listeJoueursSauvegarde[i - 1].WriteFile("Joueur1.txt");
-                    if (i == 2) listeJoueursSauvegarde[i - 1].WriteFile("Joueur2.txt");
-                    if (i == 3) listeJoueursSauvegarde[i - 1].WriteFile("Joueur3.txt");
-                    if (i == 4) listeJoueursSauvegarde[i - 1].WriteFile("Joueur4.txt");
                     leSac.WriteFile("NombreJetonsSac.txt");
                     lePlateau.WriteFile("NouveauPlateau.txt");
                     lePlateau = new Plateau("NouveauPlateau.txt", leDico, listeJoueursSauvegarde[i - 1]);
                     leJeu = new Jeu("Francais.txt", lePlateau, leSac);
                     leJeu.Jouer(i, listeJoueursSauvegarde);
+
+                    if (i == 1) listeJoueursSauvegarde[i - 1].WriteFile("Joueur1.txt");
+                    if (i == 2) listeJoueursSauvegarde[i - 1].WriteFile("Joueur2.txt");
+                    if (i == 3) listeJoueursSauvegarde[i - 1].WriteFile("Joueur3.txt");
+                    if (i == 4) listeJoueursSauvegarde[i - 1].WriteFile("Joueur4.txt");
 
                     int compteurMainJoueurVide = 0;
                     if (leSac.Sac.Count == 0)
@@ -291,11 +294,6 @@ namespace Scrabble
                         if (compteurMainJoueurVide != 0) vérifJetonsSac = true;
                     }
                     if (leSac.Sac.Count < 7 && Jeu.CompteurPasseTour == nombrejoueur * 3) vérifJetonsSac = true;
-
-                    if (i == 1) listeJoueursSauvegarde[i - 1].WriteFile("Joueur1.txt");
-                    if (i == 2) listeJoueursSauvegarde[i - 1].WriteFile("Joueur2.txt");
-                    if (i == 3) listeJoueursSauvegarde[i - 1].WriteFile("Joueur3.txt");
-                    if (i == 4) listeJoueursSauvegarde[i - 1].WriteFile("Joueur4.txt");
                 }
             }
             Joueur stock;

@@ -158,7 +158,7 @@ namespace Scrabble
         {
             string[] texte = new string[3];
             FileStream fichier=null;
-            if (this.nom != null && this.score != null && this.motsTrouves != null && this.listeJetons_lettre != null)
+            if (this.nom != null && this.motsTrouves != null && this.listeJetons_lettre != null)
             {
                 try
                 {
