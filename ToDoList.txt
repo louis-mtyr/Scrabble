@@ -1,23 +1,5 @@
- Potentiellement finis :
- 
- - (besoin de reflexion) quand on vérifie les jetons dans la main du joueur faut 
-vérifier qu'il double pas ses lettres (exemple : il peut pas écrire "PULL" si il a 
-qu'un seul 'L')
+ - timer pour jouer
 
- - (jsp faire) quand on vérifie si un joueur a bien les bons jetons, faire gaffe à 
-prendre l'étoile en dernier pour pas que si on veut écrire "SALUT" avec comme 
-jetons "S ; A ; P ; T ; * ; L ; U" il prenne l'étoile au lieu du L par exemple
+ - commentaires partout
 
- - (galère) la liste des mots trouvés prend pas un mot que tu crées en en posant un autre
-
- - sauvegardes
-
- - scooooores
-
- - Quand on écrit un mot qui utilise une lettre, si on a déjà cette lettre ça fout le bordel
-exemple : ecrire RUEE avec R,U,E dans son jeu et un E sur le plateau (en dernière lettre ?)
-
-
-  A faire :
-
-  - (impossible) timer pour jouer
+ - tests unitaires ?
