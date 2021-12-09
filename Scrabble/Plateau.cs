@@ -142,6 +142,10 @@ namespace Scrabble
                             case (11, 7):
                             case (12, 6):
                             case (12, 8):
+                            case (6, 6):
+                            case (6, 8):
+                            case (8, 6):
+                            case (8, 8):
                                 Console.ForegroundColor = ConsoleColor.Cyan;
                                 Console.Write("2 ");
                                 break;

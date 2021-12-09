@@ -10,13 +10,14 @@ jetons "S ; A ; P ; T ; * ; L ; U" il prenne l'étoile au lieu du L par exemple
 
  - (galère) la liste des mots trouvés prend pas un mot que tu crées en en posant un autre
 
+ - sauvegardes
 
 
   A faire :
 
-  - (ptet galere) tous les bails des scores
+  - (ptet galere) tous les bails des scores --> léo a tout cassé
 
-  - (impossible) timer pour jouer + sauvegardes
+  - (impossible) timer pour jouer
 
   - Quand on écrit un mot qui utilise une lettre, si on a déjà cette lettre ça fout le bordel
 exemple : ecrire RUEE avec R,U,E dans son jeu et un E sur le plateau (en dernière lettre ?)
