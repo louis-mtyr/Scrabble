@@ -189,6 +189,7 @@ namespace Scrabble
             string rep = "";
             int accrémentation = 1;
             int compteurlettre = 0;
+            int occurenceetoile= 0;
             int occurence = 0;
             if (ligne < 0 || colonne < 0 || ligne > 14 || colonne > 14)
             {
@@ -225,6 +226,13 @@ namespace Scrabble
                                             compteurlettre++;
                                         }
                                     }
+                                    for (int j = 0; j < this.leJoueur.ListeJetons_lettre.Count; j++)
+                                    {
+                                        if (this.leJoueur.ListeJetons_lettre[j] == "*")
+                                        {
+                                            occurenceetoile++;
+                                        }
+                                    }
                                     for (int j = 0; j < 7; j++)
                                     {
                                         if (j==0)
@@ -234,9 +242,14 @@ namespace Scrabble
                                                 if (Convert.ToString(mot[i]) == this.matrice[ligne, colonne + k]) occurence++;
                                             }
                                         }
-                                        if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j] || this.leJoueur.ListeJetons_lettre[j] == "*")
+                                        if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j])
                                         {
                                             compteurMain++;
+                                        }
+                                        if(this.leJoueur.ListeJetons_lettre[j] == "*"&&occurenceetoile>0)
+                                        {
+                                            compteurMain++;
+                                            occurenceetoile--;
                                         }
                                         compteurMain += occurence;
                                         occurence = 0;
