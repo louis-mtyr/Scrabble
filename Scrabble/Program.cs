@@ -26,7 +26,7 @@ namespace Scrabble
             //Jeu leJeu = new Jeu("Francais.txt", lePlateau, leSac);
 
             Random aleatoire = new Random();
-            Console.WriteLine("Voulez-vous reprendre une partie déjà commencée ? (O/N) (Si l'un ou plusieurs des joueurs a joué avant qu'un tour complet n'ait été fait, son dernier tour ne sera pas pris en compte)");
+            Console.WriteLine("Voulez-vous reprendre une partie déjà commencée ? (O/N) (Pensez à bien finir un tour complet avant de quitter où certains joueurs se feront sauter leur tour !)");
             bool recommencerBool = false;
             string recommencer;
             int nombrejoueur=0;

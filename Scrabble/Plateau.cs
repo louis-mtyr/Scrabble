@@ -573,19 +573,19 @@ namespace Scrabble
         public void WriteFile(string filename)
         {
             string[,] texte = new string[15,15];
-            FileStream fichier=null;
+            StreamWriter fichier=null;
             if (this.matrice != null)
             {
                 try
                 {
-                    fichier = new FileStream(filename, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
+                    fichier = new StreamWriter(filename);//, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
                     {
                         for (int i = 0; i < this.matrice.GetLength(0); i++)
                         {
                             for (int j = 0; j < this.matrice.GetLength(1); j++)
                             {
-                                if (j != 14) AddText(fichier, matrice[i, j] + ";");
-                                else AddText(fichier, matrice[i, j] + "\n");
+                                if (j != 14) fichier.Write(matrice[i, j] + ";");
+                                else fichier.WriteLine(matrice[i, j]);
                             }
                         }
                     }
@@ -600,12 +600,6 @@ namespace Scrabble
                 }
             }
             fichier.Close();
-        }
-
-        private static void AddText(FileStream fs, string value)
-        {
-            byte[] info = new UTF8Encoding(true).GetBytes(value);
-            fs.Write(info, 0, info.Length);
         }
     }
 }
