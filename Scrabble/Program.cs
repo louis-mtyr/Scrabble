@@ -285,7 +285,7 @@ namespace Scrabble
                     if (i == 4) listeJoueursSauvegarde[i - 1].WriteFile("Joueur4.txt");
 
                     int compteurMainJoueurVide = 0;
-                    if (leSac.Sac.Count == 0)
+                    if (leSac.Sac.Count <= 0)
                     {
                         for (int j = 0; j < listeJoueursSauvegarde.Count; j++)
                         {
@@ -293,7 +293,7 @@ namespace Scrabble
                         }
                         if (compteurMainJoueurVide != 0) vérifJetonsSac = true;
                     }
-                    if (leSac.Sac.Count < 7 && Jeu.CompteurPasseTour == nombrejoueur * 3) vérifJetonsSac = true;
+                    if (leSac.Sac.Count < 7 && Jeu.CompteurPasseTour >= nombrejoueur * 3) vérifJetonsSac = true;
                 }
             }
             Joueur stock;
