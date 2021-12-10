@@ -412,6 +412,13 @@ namespace Scrabble
                             }
                             else
                             {
+                                for (int j = 0; j < this.leJoueur.ListeJetons_lettre.Count; j++)
+                                {
+                                    if (this.leJoueur.ListeJetons_lettre[j] == "*")
+                                    {
+                                        occurenceetoile++;
+                                    }
+                                }
                                 for (int j = i; j < mot.Length; j++)
                                 {
                                     if (mot[i]==mot[j])
@@ -428,13 +435,19 @@ namespace Scrabble
                                             if (Convert.ToString(mot[i]) == this.matrice[ligne + k, colonne]) occurence++;
                                         }
                                     }
-                                    if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j] || this.leJoueur.ListeJetons_lettre[j] == "*")
+                                    if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j])
                                     {
                                         compteurMain++;
                                     }
-                                    compteurMain+=occurence;
+                                    if (this.leJoueur.ListeJetons_lettre[j] == "*" && occurenceetoile > 0)
+                                    {
+                                        compteurMain++;
+                                        occurenceetoile--;
+                                    }
+                                    compteurMain +=occurence;
                                     occurence = 0;
                                 }
+
                                 if (compteurlettre != 0)
                                 {
                                     /*for (int j = 0; j < 7; j++)
