@@ -95,7 +95,7 @@ namespace Scrabble
                             {
                                 if (int.TryParse(défausse, out nbDéfausse))
                                 {
-                                    if (nbDéfausse <= 0 || nbDéfausse >= 8)
+                                    if (nbDéfausse <= 0 || nbDéfausse >= 8 || nbDéfausse >= monsac_jetons.Sac.Count)
                                     {
                                         Console.WriteLine("Vous ne pouvez pas défausser autant de jetons");
                                         Console.WriteLine("Combien de jetons voulez-vous défausser ?");
@@ -117,7 +117,7 @@ namespace Scrabble
                                         défausse = Console.ReadLine();
                                     }
                                 }
-                            } while (nbDéfausse <= 0 || nbDéfausse >= 8);
+                            } while (nbDéfausse <= 0 || nbDéfausse >= 8 || nbDéfausse >= monsac_jetons.Sac.Count);
 
                             if (nbDéfausse != 7)
                             {
@@ -187,8 +187,18 @@ namespace Scrabble
                         {
                             while (motAAjouter.Length > 15 || motAAjouter.Length < 2)
                             {
-                                Console.WriteLine("Ce mot ne rentre pas dans le plateau\nVeuillez choisir un mot valable :");
-                                motAAjouter = Console.ReadLine().ToUpper();
+                                if (motAAjouter == "Q")
+                                {
+                                    Console.WriteLine("Le joueur {0} a passé son tour, appuyez sur une touche pour passer au tour suivant.", numéroJoueur);
+                                    tourFini = true;
+                                    Console.ReadKey();
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Ce mot ne rentre pas dans le plateau\nVeuillez choisir un mot valable :");
+                                    motAAjouter = Console.ReadLine().ToUpper();
+                                }
                             }
                             existence = mondico[motAAjouter.Length - 2].RechDichoRecursif(motAAjouter);
                             while (existence == false)
@@ -293,6 +303,7 @@ namespace Scrabble
                                 Console.Clear();
                                 Console.WriteLine(this.monplateau.ToString());
                                 Console.WriteLine(listeJoueurs[numéroJoueur - 1].ToString());
+                                Console.WriteLine("Vous allez placer un mot à l'horizontale");
                             }
                             else
                             {
@@ -453,8 +464,18 @@ namespace Scrabble
                         {
                             while (motAAjouter.Length > 15 || motAAjouter.Length < 2)
                             {
-                                Console.WriteLine("Ce mot ne rentre pas dans le plateau\nVeuillez choisir un mot valable :");
-                                motAAjouter = Console.ReadLine().ToUpper();
+                                if (motAAjouter == "Q")
+                                {
+                                    Console.WriteLine("Le joueur {0} a passé son tour, appuyez sur une touche pour passer au tour suivant.", numéroJoueur);
+                                    tourFini = true;
+                                    Console.ReadKey();
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Ce mot ne rentre pas dans le plateau\nVeuillez choisir un mot valable :");
+                                    motAAjouter = Console.ReadLine().ToUpper();
+                                }
                             }
                             existence = mondico[motAAjouter.Length - 2].RechDichoRecursif(motAAjouter);
                             while (existence == false)
@@ -560,6 +581,7 @@ namespace Scrabble
                                 Console.Clear();
                                 Console.WriteLine(this.monplateau.ToString());
                                 Console.WriteLine(listeJoueurs[numéroJoueur - 1].ToString());
+                                Console.WriteLine("Vous allez placer un mot à la verticale");
                             }
                             else
                             {
@@ -710,7 +732,7 @@ namespace Scrabble
                         Console.ReadKey();
                         break;
                     default:
-                        Console.WriteLine("Action non reconnue, veuillez taper '1', '2' ou '3' pour réaliser une action.");
+                        Console.WriteLine("Action non reconnue, veuillez taper '1', '2', '3' ou '4' pour réaliser une action.");
                         réponseJoueur = Console.ReadLine();
                         break;
                 }

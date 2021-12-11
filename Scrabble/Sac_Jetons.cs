@@ -29,6 +29,12 @@ namespace Scrabble
                 mot = sr.ReadLine();
             }
         }
+
+        public Sac_Jetons(List<Jeton> sac)
+        {
+            this.sac = sac;
+        }
+
         public List<Jeton> Sac
         {
             get { return this.sac; }
