@@ -296,6 +296,13 @@ namespace Scrabble
                     if (leSac.Sac.Count < 7 && Jeu.CompteurPasseTour >= nombrejoueur * 3) vérifJetonsSac = true;
                 }
             }
+            for (int i = 0; i < nombrejoueur; i++)
+            {
+                for (int j = 0; j < listeJoueursSauvegarde[i].ListeJetons_lettre.Count; j++)
+                {
+                    listeJoueursSauvegarde[i].Score -= leSac.TrouveJeton(listeJoueursSauvegarde[i].ListeJetons_lettre[j]).Score;
+                }
+            }
             Joueur stock;
             for (int i = 0; i < nombrejoueur - 1; i++)
             {
