@@ -123,7 +123,7 @@ namespace Scrabble
                             {
                                 for (int n = 0; n < nbDéfausse; n++)
                                 {
-                                    Jeton jetonPioché = this.monsac_jetons.Retire_Jeton(aleatoire);
+                                    Jeton jetonPioché = monsac_jetons.Retire_Jeton(aleatoire);
                                     Console.Write("Le jeton pioché est : ");
                                     Console.ForegroundColor = ConsoleColor.Magenta;
                                     Console.Write(jetonPioché.Lettre);
@@ -144,21 +144,21 @@ namespace Scrabble
                                         }
                                     }
                                     listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove(jetonARemplacer);
-                                    this.monsac_jetons.Ajoute_Jeton(jetonARemplacer);
+                                    monsac_jetons.Ajoute_Jeton(jetonARemplacer);
                                     listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(jetonPioché.Lettre);
-                                    this.monsac_jetons.Sac.Remove(jetonPioché);
+                                    monsac_jetons.Sac.Remove(jetonPioché);
                                 }
                             }
                             else
                             {
                                 for (int n=0; n<7; n++)
                                 {
-                                    Jeton jetonPioché = this.monsac_jetons.Retire_Jeton(aleatoire);
+                                    Jeton jetonPioché = monsac_jetons.Retire_Jeton(aleatoire);
                                     string jetonARetirer = listeJoueurs[numéroJoueur - 1].ListeJetons_lettre[0];
                                     listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove(jetonARetirer);
-                                    this.monsac_jetons.Ajoute_Jeton(jetonARetirer);
+                                    monsac_jetons.Ajoute_Jeton(jetonARetirer);
                                     listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(jetonPioché.Lettre);
-                                    this.monsac_jetons.Sac.Remove(jetonPioché);
+                                    monsac_jetons.Sac.Remove(jetonPioché);
                                 }
                                 Console.WriteLine("Votre jeu a été complètement changé");
                             }
@@ -200,7 +200,8 @@ namespace Scrabble
                                     motAAjouter = Console.ReadLine().ToUpper();
                                 }
                             }
-                            existence = mondico[motAAjouter.Length - 2].RechDichoRecursif(motAAjouter);
+                            if (motAAjouter != "Q") existence = mondico[motAAjouter.Length - 2].RechDichoRecursif(motAAjouter);
+                            else existence = true;
                             while (existence == false)
                             {                                                           
                                 Console.WriteLine("Ce mot n'existe pas dans le dictionnaire choisi\nVeuillez choisir un mot valable :");
@@ -348,11 +349,11 @@ namespace Scrabble
                                     compteurJoker = 0;
                                     if (monplateau.Matrice[nbrCoordMotX - 1, j] != Convert.ToString(motAAjouter[compteurLettre]))
                                     {
-                                        for (int i=0; i<7; i++)
+                                        for (int i = 0; i < listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Count; i++)
                                         {
                                             if (listeJoueurs[numéroJoueur - 1].ListeJetons_lettre[i] == Convert.ToString(motAAjouter[compteurLettre])) compteurJoker++;
                                         }
-                                        if (compteurJoker!=0)
+                                        if (compteurJoker != 0)
                                         {
                                             listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Remove(Convert.ToString(motAAjouter[compteurLettre]));
                                         }
@@ -363,12 +364,12 @@ namespace Scrabble
                                             if (monplateau.Matrice[nbrCoordMotX - 1, j] == "2") scoreMot -= monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).Score * 2;
                                             if (monplateau.Matrice[nbrCoordMotX - 1, j] == "3") scoreMot -= monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).Score * 3;
                                         }
-                                        nouveauJetonTire = monsac_jetons.Retire_Jeton(aleatoire);
+                                        if (monsac_jetons.Sac.Count > 0) nouveauJetonTire = monsac_jetons.Retire_Jeton(aleatoire);
                                         monplateau.Matrice[nbrCoordMotX - 1, j] = Convert.ToString(motAAjouter[compteurLettre]);
-                                        listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(nouveauJetonTire.Lettre);
-                                        monsac_jetons.Sac.Remove(nouveauJetonTire);
+                                        if (monsac_jetons.Sac.Count > 0) listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(nouveauJetonTire.Lettre);
+                                        if (monsac_jetons.Sac.Count > 0) Sac_Jetons.NbJetons--;
+                                        if (monsac_jetons.Sac.Count > 0) monsac_jetons.Sac.Remove(nouveauJetonTire);
                                         compteurJetonPose++;
-                                        Sac_Jetons.NbJetons--;
                                     }
                                     compteurLettre++;
                                 }
@@ -477,7 +478,8 @@ namespace Scrabble
                                     motAAjouter = Console.ReadLine().ToUpper();
                                 }
                             }
-                            existence = mondico[motAAjouter.Length - 2].RechDichoRecursif(motAAjouter);
+                            if (motAAjouter != "Q") existence = mondico[motAAjouter.Length - 2].RechDichoRecursif(motAAjouter);
+                            else existence = true;
                             while (existence == false)
                             {
                                 Console.WriteLine("Ce mot n'existe pas dans le dictionnaire choisi\nVeuillez choisir un mot valable :");
@@ -626,7 +628,7 @@ namespace Scrabble
                                     compteurJoker = 0;
                                     if (monplateau.Matrice[j, nbrCoordMotY] != "*" && monplateau.Matrice[j, nbrCoordMotY] != Convert.ToString(motAAjouter[compteurLettre]))
                                     {
-                                        for (int i = 0; i < 7; i++)
+                                        for (int i = 0; i < listeJoueurs[numéroJoueur-1].ListeJetons_lettre.Count; i++)
                                         {
                                             if (listeJoueurs[numéroJoueur - 1].ListeJetons_lettre[i] == Convert.ToString(motAAjouter[compteurLettre])) compteurJoker++;
                                         }
@@ -641,12 +643,12 @@ namespace Scrabble
                                             if (monplateau.Matrice[j, nbrCoordMotY] == "2") scoreMot -= monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).Score * 2;
                                             if (monplateau.Matrice[j, nbrCoordMotY] == "3") scoreMot -= monsac_jetons.TrouveJeton(Convert.ToString(motAAjouter[compteurLettre])).Score * 3;
                                         }
-                                        nouveauJetonTire = monsac_jetons.Retire_Jeton(aleatoire);
+                                        if (monsac_jetons.Sac.Count>0) nouveauJetonTire = monsac_jetons.Retire_Jeton(aleatoire);
                                         monplateau.Matrice[j, nbrCoordMotY] = Convert.ToString(motAAjouter[compteurLettre]);
-                                        listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(nouveauJetonTire.Lettre);
-                                        monsac_jetons.Sac.Remove(nouveauJetonTire);
+                                        if (monsac_jetons.Sac.Count > 0) listeJoueurs[numéroJoueur - 1].ListeJetons_lettre.Add(nouveauJetonTire.Lettre);
+                                        if (monsac_jetons.Sac.Count > 0) Sac_Jetons.NbJetons--;
+                                        if (monsac_jetons.Sac.Count > 0) monsac_jetons.Sac.Remove(nouveauJetonTire);
                                         compteurJetonPose++;
-                                        Sac_Jetons.NbJetons--;
                                     }
                                     compteurLettre++;
                                 }

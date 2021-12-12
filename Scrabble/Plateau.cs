@@ -233,7 +233,7 @@ namespace Scrabble
                                             occurenceetoile++;
                                         }
                                     }
-                                    for (int j = 0; j < 7; j++)
+                                    for (int j = 0; j < this.leJoueur.ListeJetons_lettre.Count; j++)
                                     {
                                         if (j==0)
                                         {
@@ -426,7 +426,7 @@ namespace Scrabble
                                         compteurlettre++;
                                     }
                                 }
-                                for (int j = 0; j < 7; j++)
+                                for (int j = 0; j < this.leJoueur.ListeJetons_lettre.Count; j++)
                                 {
                                     if (j == 0)
                                     {

@@ -186,9 +186,9 @@ namespace Scrabble
                         }
                         if (i == 2)
                         {
-                            for (int k=0; k<7; k++)
+                            for (int k=0; k<this.listeJetons_lettre.Count; k++)
                             {
-                                if (k != 6)
+                                if (k != this.listeJetons_lettre.Count-1)
                                 {
                                     AddText(fichier,this.listeJetons_lettre[k] + ";");
                                 }

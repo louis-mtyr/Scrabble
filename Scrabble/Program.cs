@@ -117,7 +117,9 @@ namespace Scrabble
                             if (joueur12joueurs.ListeJetons_lettre.Count != 7) joueur12joueurs.ListeJetons_lettre.Add(jetonRetiré2.Lettre);
                             else joueur22joueurs.ListeJetons_lettre.Add(jetonRetiré2.Lettre);
                             leSac.Sac.Remove(jetonRetiré2);
+                            leSac.WriteFileSac("NouveauSacJetons.txt");
                             Sac_Jetons.NbJetons--;
+                            leSac = new Sac_Jetons("NouveauSacJetons.txt", Sac_Jetons.NbJetons);
                         }
                         joueur12joueurs.WriteFile("Joueur1.txt");
                         joueur22joueurs.WriteFile("Joueur2.txt");
@@ -153,7 +155,9 @@ namespace Scrabble
                             else if (joueur23joueurs.ListeJetons_lettre.Count != 7) joueur23joueurs.ListeJetons_lettre.Add(jetonRetiré3.Lettre);
                             else joueur33joueurs.ListeJetons_lettre.Add(jetonRetiré3.Lettre);
                             leSac.Sac.Remove(jetonRetiré3);
+                            leSac.WriteFileSac("NouveauSacJetons.txt");
                             Sac_Jetons.NbJetons--;
+                            leSac = new Sac_Jetons("NouveauSacJetons.txt", Sac_Jetons.NbJetons);
                         }
                         joueur13joueurs.WriteFile("Joueur1.txt");
                         joueur23joueurs.WriteFile("Joueur2.txt");
@@ -200,7 +204,9 @@ namespace Scrabble
                             else if (joueur34joueurs.ListeJetons_lettre.Count != 7) joueur34joueurs.ListeJetons_lettre.Add(jetonRetiré4.Lettre);
                             else joueur44joueurs.ListeJetons_lettre.Add(jetonRetiré4.Lettre);
                             leSac.Sac.Remove(jetonRetiré4);
+                            leSac.WriteFileSac("NouveauSacJetons.txt");
                             Sac_Jetons.NbJetons--;
+                            leSac = new Sac_Jetons("NouveauSacJetons.txt", Sac_Jetons.NbJetons);
                         }
                         joueur14joueurs.WriteFile("Joueur1.txt");
                         joueur24joueurs.WriteFile("Joueur2.txt");
@@ -222,25 +228,31 @@ namespace Scrabble
             if (recommencerBool == false)
             {
                 lePlateau = new Plateau("NouveauPlateau.txt", leDico, listeJoueursSauvegarde[0]);
-                leSac.ReadFile("NombreJetonsSac.txt");
+                leSac.ReadFileNbJetons("NombreJetonsSac.txt");
+                leSac = new Sac_Jetons("NouveauSacJetons.txt", Sac_Jetons.NbJetons);
             }
             else
             {
                 lePlateau = new Plateau("TestPlateau.txt", leDico, listeJoueursSauvegarde[0]);
                 lePlateau.WriteFile("NouveauPlateau.txt");
+                leSac.WriteFileNbJetons("NombreJetonsSac.txt");
             }
 
             Jeu leJeu = new Jeu("Francais.txt", lePlateau, leSac);
             leJeu.Jouer(1, listeJoueursSauvegarde);
+            leSac.WriteFileSac("NouveauSacJetons.txt");
+            leSac = new Sac_Jetons("NouveauSacJetons.txt", Sac_Jetons.NbJetons);
             listeJoueursSauvegarde[0].WriteFile("Joueur1.txt");
-            leSac.WriteFile("NombreJetonsSac.txt");
+            leSac.WriteFileNbJetons("NombreJetonsSac.txt");
 
             lePlateau.WriteFile("NouveauPlateau.txt");
             lePlateau = new Plateau("NouveauPlateau.txt", leDico, listeJoueursSauvegarde[1]);
             leJeu = new Jeu("Francais.txt", lePlateau, leSac);
             leJeu.Jouer(2, listeJoueursSauvegarde);
+            leSac.WriteFileSac("NouveauSacJetons.txt");
+            leSac = new Sac_Jetons("NouveauSacJetons.txt", Sac_Jetons.NbJetons);
             listeJoueursSauvegarde[1].WriteFile("Joueur2.txt");
-            leSac.WriteFile("NombreJetonsSac.txt");
+            leSac.WriteFileNbJetons("NombreJetonsSac.txt");
 
             if (nombrejoueur==3)
             {
@@ -248,8 +260,10 @@ namespace Scrabble
                 lePlateau = new Plateau("NouveauPlateau.txt", leDico, listeJoueursSauvegarde[2]);
                 leJeu = new Jeu("Francais.txt", lePlateau, leSac);
                 leJeu.Jouer(3, listeJoueursSauvegarde);
+                leSac.WriteFileSac("NouveauSacJetons.txt");
+                leSac = new Sac_Jetons("NouveauSacJetons.txt", Sac_Jetons.NbJetons);
                 listeJoueursSauvegarde[2].WriteFile("Joueur3.txt");
-                leSac.WriteFile("NombreJetonsSac.txt");
+                leSac.WriteFileNbJetons("NombreJetonsSac.txt");
             }
             if (nombrejoueur==4)
             {
@@ -257,14 +271,18 @@ namespace Scrabble
                 lePlateau = new Plateau("NouveauPlateau.txt", leDico, listeJoueursSauvegarde[2]);
                 leJeu = new Jeu("Francais.txt", lePlateau, leSac);
                 leJeu.Jouer(3, listeJoueursSauvegarde);
+                leSac.WriteFileSac("NouveauSacJetons.txt");
+                leSac = new Sac_Jetons("NouveauSacJetons.txt", Sac_Jetons.NbJetons);
                 listeJoueursSauvegarde[2].WriteFile("Joueur3.txt");
-                leSac.WriteFile("NombreJetonsSac.txt");
+                leSac.WriteFileNbJetons("NombreJetonsSac.txt");
                 lePlateau.WriteFile("NouveauPlateau.txt");
                 lePlateau = new Plateau("NouveauPlateau.txt", leDico, listeJoueursSauvegarde[3]);
                 leJeu = new Jeu("Francais.txt", lePlateau, leSac);
                 leJeu.Jouer(4, listeJoueursSauvegarde);
+                leSac.WriteFileSac("NouveauSacJetons.txt");
+                leSac = new Sac_Jetons("NouveauSacJetons.txt", Sac_Jetons.NbJetons);
                 listeJoueursSauvegarde[3].WriteFile("Joueur4.txt");
-                leSac.WriteFile("NombreJetonsSac.txt");
+                leSac.WriteFileNbJetons("NombreJetonsSac.txt");
             }
 
             while (vérifJetonsSac == false)
@@ -273,8 +291,9 @@ namespace Scrabble
                 {
                     //lePlateau = new Plateau(lePlateau.Matrice, leDico, listeJoueurs[i-1]);
                     //Jeu leJeu = new Jeu("Francais.txt", lePlateau, leSac);
-                    leSac.WriteFile("NombreJetonsSac.txt");
-                    leSac = new Sac_Jetons(leSac.Sac);
+                    leSac.WriteFileNbJetons("NombreJetonsSac.txt");
+                    leSac.WriteFileSac("NouveauSacJetons.txt");
+                    leSac = new Sac_Jetons("NouveauSacJetons.txt", Sac_Jetons.NbJetons);
                     lePlateau.WriteFile("NouveauPlateau.txt");
                     lePlateau = new Plateau("NouveauPlateau.txt", leDico, listeJoueursSauvegarde[i - 1]);
                     leJeu = new Jeu("Francais.txt", lePlateau, leSac);
@@ -286,11 +305,13 @@ namespace Scrabble
                     if (i == 4) listeJoueursSauvegarde[i - 1].WriteFile("Joueur4.txt");
 
                     int compteurMainJoueurVide = 0;
-                    if (leSac.Sac.Count <= 0)
+                    List<string> listeComparaison = new List<string>();
+                    listeComparaison.Add("");
+                    if (leSac.Sac.Count == 0)
                     {
                         for (int j = 0; j < listeJoueursSauvegarde.Count; j++)
                         {
-                            if (listeJoueursSauvegarde[j].ListeJetons_lettre.Count == 0) compteurMainJoueurVide++;
+                            if (listeJoueursSauvegarde[j].ListeJetons_lettre[0] == listeComparaison[0]) compteurMainJoueurVide++;
                         }
                         if (compteurMainJoueurVide != 0) vérifJetonsSac = true;
                     }

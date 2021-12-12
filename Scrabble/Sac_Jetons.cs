@@ -30,6 +30,109 @@ namespace Scrabble
             }
         }
 
+        public Sac_Jetons(string fichier, int nbrJetons)
+        {
+            this.sac = new List<Jeton>();
+            StreamReader sr = new StreamReader(fichier);
+            string mot = sr.ReadLine();
+            if (mot != null)
+            { 
+                string[] ligne = mot.Split(';');
+                Jeton jeton = null;
+                for (int i = 0; i < ligne.Length; i++)
+                {
+                    switch (ligne[i])
+                    {
+                        case "A":
+                            jeton = new Jeton("A", 1);
+                            break;
+                        case "B":
+                            jeton = new Jeton("B", 3);
+                            break;
+                        case "C":
+                            jeton = new Jeton("C", 3);
+                            break;
+                        case "D":
+                            jeton = new Jeton("D", 2);
+                            break;
+                        case "E":
+                            jeton = new Jeton("E", 1);
+                            break;
+                        case "F":
+                            jeton = new Jeton("F", 4);
+                            break;
+                        case "G":
+                            jeton = new Jeton("G", 2);
+                            break;
+                        case "H":
+                            jeton = new Jeton("H", 4);
+                            break;
+                        case "I":
+                            jeton = new Jeton("I", 1);
+                            break;
+                        case "J":
+                            jeton = new Jeton("J", 8);
+                            break;
+                        case "K":
+                            jeton = new Jeton("K", 10);
+                            break;
+                        case "L":
+                            jeton = new Jeton("L", 1);
+                            break;
+                        case "M":
+                            jeton = new Jeton("M", 2);
+                            break;
+                        case "N":
+                            jeton = new Jeton("N", 1);
+                            break;
+                        case "O":
+                            jeton = new Jeton("O", 1);
+                            break;
+                        case "P":
+                            jeton = new Jeton("P", 3);
+                            break;
+                        case "Q":
+                            jeton = new Jeton("Q", 8);
+                            break;
+                        case "R":
+                            jeton = new Jeton("R", 1);
+                            break;
+                        case "S":
+                            jeton = new Jeton("S", 1);
+                            break;
+                        case "T":
+                            jeton = new Jeton("T", 1);
+                            break;
+                        case "U":
+                            jeton = new Jeton("U", 1);
+                            break;
+                        case "V":
+                            jeton = new Jeton("V", 4);
+                            break;
+                        case "W":
+                            jeton = new Jeton("W", 10);
+                            break;
+                        case "X":
+                            jeton = new Jeton("X", 10);
+                            break;
+                        case "Y":
+                            jeton = new Jeton("Y", 10);
+                            break;
+                        case "Z":
+                            jeton = new Jeton("Z", 10);
+                            break;
+                        case "*":
+                            jeton = new Jeton("*", 0);
+                            break;
+                        default:
+                            break;
+                    }
+                    this.sac.Add(jeton);
+                }
+            }
+            sr.Close();
+        }
+
         public Sac_Jetons(List<Jeton> sac)
         {
             this.sac = sac;
@@ -306,17 +409,29 @@ namespace Scrabble
             return rep;
         }
 
-        public void ReadFile(string filename)
+        public void ReadFileNbJetons(string filename)
         {
             StreamReader fichier = new StreamReader(filename);
             string ligne = fichier.ReadLine();
             nbJetons = Convert.ToInt32(ligne);
+            fichier.Close();
         }
 
-        public void WriteFile(string filename)
+        public void WriteFileNbJetons(string filename)
         {
             StreamWriter fichier = new StreamWriter(filename);
             fichier.Write(nbJetons);
+            fichier.Close();
+        }
+
+        public void WriteFileSac(string filename)
+        {
+            StreamWriter fichier = new StreamWriter(filename);
+            for (int i=0; i<sac.Count; i++)
+            {
+                if (i!=sac.Count-1) fichier.Write(sac[i].Lettre + ";");
+                else fichier.Write(sac[i].Lettre);
+            }
             fichier.Close();
         }
     }
