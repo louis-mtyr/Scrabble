@@ -244,7 +244,6 @@ namespace Scrabble
             leSac = new Sac_Jetons("NouveauSacJetons.txt", Sac_Jetons.NbJetons);
             listeJoueursSauvegarde[0].WriteFile("Joueur1.txt");
             leSac.WriteFileNbJetons("NombreJetonsSac.txt");
-
             lePlateau.WriteFile("NouveauPlateau.txt");
             lePlateau = new Plateau("NouveauPlateau.txt", leDico, listeJoueursSauvegarde[1]);
             leJeu = new Jeu("Francais.txt", lePlateau, leSac);
