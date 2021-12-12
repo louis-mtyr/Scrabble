@@ -96,7 +96,7 @@ namespace Scrabble
                             {
                                 if (int.TryParse(défausse, out nbDéfausse))
                                 {
-                                    if (nbDéfausse <= 0 || nbDéfausse >= 8 || nbDéfausse >= monsac_jetons.Sac.Count)
+                                    if (nbDéfausse <= 0 || nbDéfausse >= 8 || nbDéfausse > monsac_jetons.Sac.Count)
                                     {
                                         Console.WriteLine("Vous ne pouvez pas défausser autant de jetons");
                                         Console.WriteLine("Combien de jetons voulez-vous défausser ?");
@@ -118,7 +118,7 @@ namespace Scrabble
                                         défausse = Console.ReadLine();
                                     }
                                 }
-                            } while (nbDéfausse <= 0 || nbDéfausse >= 8 || nbDéfausse >= monsac_jetons.Sac.Count);
+                            } while (nbDéfausse <= 0 || nbDéfausse >= 8 || nbDéfausse > monsac_jetons.Sac.Count);
 
                             if (nbDéfausse != 7)
                             {
