@@ -38,7 +38,7 @@ namespace Scrabble
                         string nombreJoueursRecommencer = Console.ReadLine();
                         do
                         {
-                            if (int.TryParse(nombreJoueursRecommencer, out nombrejoueur))
+                            if (int.TryParse(nombreJoueursRecommencer, out nombrejoueur)) //vérifie que la réponse écrite par l'utilisateur peut être transformée en int
                             {
                                 if (nombrejoueur != 2 && nombrejoueur != 3 && nombrejoueur != 4)
                                 {
@@ -56,7 +56,6 @@ namespace Scrabble
                         break;
                     case "N":
                     case "NON":
-                        //Plateau plateauVide = new Plateau("TestPlateau.txt", leDico, null);
                         recommencerBool = true;
                         break;
                     default:
@@ -72,7 +71,7 @@ namespace Scrabble
                 do
                 {
                     Console.Clear();
-                    if (int.TryParse(réponse, out nombrejoueur))
+                    if (int.TryParse(réponse, out nombrejoueur)) //vérifie que la réponse écrite par l'utilisateur peut être transformée en int
                     {
                         if (nombrejoueur > 4 || nombrejoueur <= 1)
                         {
@@ -90,13 +89,13 @@ namespace Scrabble
                     }
                 } while (nombrejoueur > 4 || nombrejoueur <= 1);
                 List<Joueur> listeJoueurs = new List<Joueur>();
-                switch (nombrejoueur)
+                switch (nombrejoueur) //crée chaque joueur un par un en fonction du nombre de joueurs choisi
                 {
                     case 2:
-                        Console.WriteLine("Quel est le nom du premier joueur ?");
+                        Console.WriteLine("Quel est le nom du premier joueur ?"); //d'abord on demande leur nom
                         string nom12joueurs = Console.ReadLine();
-                        Joueur joueur12joueurs = new Joueur(nom12joueurs, 0);
-                        listeJoueurs.Add(joueur12joueurs);
+                        Joueur joueur12joueurs = new Joueur(nom12joueurs, 0); //on crée la variable de classe Joueur avec le nom entré (on précise le score à 0 pour différencier du constructeur ne prenant qu'un string mais qui permet de lire un fichier)
+                        listeJoueurs.Add(joueur12joueurs); //on ajoute le nouveau joueur dans notre première liste des joueurs présents (elle ne va être utilisée que si on commence une nouvelle partie)
                         Console.WriteLine("Quel est le nom du deuxième joueur ?");
                         string nom22joueurs = Console.ReadLine();
                         while (nom22joueurs == nom12joueurs)
@@ -107,21 +106,21 @@ namespace Scrabble
                         Joueur joueur22joueurs = new Joueur(nom22joueurs, 0);
                         listeJoueurs.Add(joueur22joueurs);
                         Jeton jetonRetiré2;
-                        while (joueur12joueurs.ListeJetons_lettre.Count < 7 || joueur22joueurs.ListeJetons_lettre.Count < 7)
+                        while (joueur12joueurs.ListeJetons_lettre.Count < 7 || joueur22joueurs.ListeJetons_lettre.Count < 7) //on distribue automatiquement 7 jetons tirés aléatoirement à chaque joueur
                         {
-                            jetonRetiré2 = leSac.Retire_Jeton(aleatoire);
-                            if (joueur12joueurs.ListeJetons_lettre.Count != 7) joueur12joueurs.ListeJetons_lettre.Add(jetonRetiré2.Lettre);
-                            else joueur22joueurs.ListeJetons_lettre.Add(jetonRetiré2.Lettre);
-                            leSac.Sac.Remove(jetonRetiré2);
-                            leSac.WriteFileSac("NouveauSacJetons.txt");
-                            Sac_Jetons.NbJetons--;
-                            leSac = new Sac_Jetons("NouveauSacJetons.txt", Sac_Jetons.NbJetons);
+                            jetonRetiré2 = leSac.Retire_Jeton(aleatoire); //tire un jeton aléatoirement du sac
+                            if (joueur12joueurs.ListeJetons_lettre.Count != 7) joueur12joueurs.ListeJetons_lettre.Add(jetonRetiré2.Lettre); //ajoute ce jeton à la main du joueur 1 si le joueur 1 a moins de 7 jetons dans sa main
+                            else joueur22joueurs.ListeJetons_lettre.Add(jetonRetiré2.Lettre); //ajoute ce jeton a la main du joueur 2 si le joueur 1 a déjà 7 jetons dans sa main
+                            leSac.Sac.Remove(jetonRetiré2); //retire le jeton tiré du sac pour ne pas retomber dessus
+                            leSac.WriteFileSac("NouveauSacJetons.txt"); //écrit la nouvelle valeur du sac dans le fichier NouveauSacJetons.txt pour la sauvegarder
+                            Sac_Jetons.NbJetons--; //on réduit de 1 le nombre de jetons qu'il reste dans le sac
+                            leSac = new Sac_Jetons("NouveauSacJetons.txt", Sac_Jetons.NbJetons); //on assimile à notre variable leSac la nouvelle valeur écrite dans le fichier NouveauSacJetons.txt
                         }
-                        joueur12joueurs.WriteFile("Joueur1.txt");
-                        joueur22joueurs.WriteFile("Joueur2.txt");
+                        joueur12joueurs.WriteFile("Joueur1.txt"); //on sauvegarde les données du joueur 1 dans le fichier Joueur1.txt
+                        joueur22joueurs.WriteFile("Joueur2.txt"); //on sauvegarde les données du joueur 2 dans le fichier Joueur2.txt
                         break;
                     case 3:
-                        Console.WriteLine("Quel est le nom du premier joueur ?");
+                        Console.WriteLine("Quel est le nom du premier joueur ?"); //idem mais pour 3 joueurs
                         string nom13joueurs = Console.ReadLine();
                         Joueur joueur13joueurs = new Joueur(nom13joueurs, 0);
                         listeJoueurs.Add(joueur13joueurs);
@@ -160,7 +159,7 @@ namespace Scrabble
                         joueur33joueurs.WriteFile("Joueur3.txt");
                         break;
                     case 4:
-                        Console.WriteLine("Quel est le nom du premier joueur ?");
+                        Console.WriteLine("Quel est le nom du premier joueur ?"); //idem mais pour 4 joueurs
                         string nom14joueurs = Console.ReadLine();
                         Joueur joueur14joueurs = new Joueur(nom14joueurs, 0);
                         listeJoueurs.Add(joueur14joueurs);
@@ -211,45 +210,47 @@ namespace Scrabble
                         break;
                 }
             }
-            List<Joueur> listeJoueursSauvegarde = new List<Joueur>();
+            List<Joueur> listeJoueursSauvegarde = new List<Joueur>(); //on crée la liste de joueurs avec les données sauvegardées pour pouvoir continuer notre partie sans soucis
             for (int i=0; i<nombrejoueur; i++)
             {
-                if (i == 0) listeJoueursSauvegarde.Add(new Joueur("Joueur1.txt"));
-                if (i == 1) listeJoueursSauvegarde.Add(new Joueur("Joueur2.txt"));
+                if (i == 0) listeJoueursSauvegarde.Add(new Joueur("Joueur1.txt")); //on ajoute les valeurs sauvegardées dans les fichiers Joueurx.txt dans notre liste de joueurs sauvegardés
+                if (i == 1) listeJoueursSauvegarde.Add(new Joueur("Joueur2.txt")); //n'ajoute que le nombre de joueurs qui a été précisé au début
                 if (i == 2) listeJoueursSauvegarde.Add(new Joueur("Joueur3.txt"));
                 if (i == 3) listeJoueursSauvegarde.Add(new Joueur("Joueur4.txt"));
             }
-            bool vérifJetonsSac = false;
-            Plateau lePlateau;
-            if (recommencerBool == false)
+            bool vérifJetonsSac = false; //initialisition de condition de fin de jeu
+            Plateau lePlateau; //création de notre plateau que nous allons utiliser
+            if (recommencerBool == false) //si l'utilisateur a choisi de reprendre une ancienne partie
             {
-                lePlateau = new Plateau("NouveauPlateau.txt", leDico, listeJoueursSauvegarde[0]);
-                leSac.ReadFileNbJetons("NombreJetonsSac.txt");
-                leSac = new Sac_Jetons("NouveauSacJetons.txt", Sac_Jetons.NbJetons);
+                lePlateau = new Plateau("NouveauPlateau.txt", leDico, listeJoueursSauvegarde[0]); //on assimile notre plateau au plateau sauvegardé de la dernière partie contenu dans le fichier NouveauPlateau.txt
+                leSac.ReadFileNbJetons("NombreJetonsSac.txt"); //sauvegarde et met à jour le nombre de jetons restants dans notre sac
+                leSac = new Sac_Jetons("NouveauSacJetons.txt", Sac_Jetons.NbJetons); //assimile le sac au sac sauvegardé dans le fichier NouveauSacJetons.txt pour garder les mêmes jetons dedans qu'au moment où on a quitté la partie
             }
-            else
+            else //si l'utilisateur a choisi de recommencer une nouvelle partie
             {
-                lePlateau = new Plateau("TestPlateau.txt", leDico, listeJoueursSauvegarde[0]);
-                lePlateau.WriteFile("NouveauPlateau.txt");
-                leSac.WriteFileNbJetons("NombreJetonsSac.txt");
+                lePlateau = new Plateau("TestPlateau.txt", leDico, listeJoueursSauvegarde[0]); //on assimile notre plateau à un plateau vide type contenu dans le fichier TestPlateau.txt
+                lePlateau.WriteFile("NouveauPlateau.txt"); //on sauvegarde ce plateau dans le fichier NouveauPlateau.txt qui va être celui que nous allons utiliser pour sauvegarder les changements après
+                leSac.WriteFileNbJetons("NombreJetonsSac.txt"); //sauvegarde le nombre de jetons restants dans le sac dans le fichier NombreJetonsSac.txt
             }
 
-            Jeu leJeu = new Jeu("Francais.txt", lePlateau, leSac);
-            leJeu.Jouer(1, listeJoueursSauvegarde);
-            leSac.WriteFileSac("NouveauSacJetons.txt");
-            leSac = new Sac_Jetons("NouveauSacJetons.txt", Sac_Jetons.NbJetons);
-            listeJoueursSauvegarde[0].WriteFile("Joueur1.txt");
-            leSac.WriteFileNbJetons("NombreJetonsSac.txt");
-            lePlateau.WriteFile("NouveauPlateau.txt");
-            lePlateau = new Plateau("NouveauPlateau.txt", leDico, listeJoueursSauvegarde[1]);
+            //on fait d'abord un premier tour hors de la boucle pour correctement sauvegarder toutes les données nécessaires pour reprendre une partie
+
+            Jeu leJeu = new Jeu("Francais.txt", lePlateau, leSac); //créé une classe jeu se basant sur le dictionnaire contenu dans le fichier Francais.txt, le plateau donné et le sac donné
+            leJeu.Jouer(1, listeJoueursSauvegarde); //exécute un premier tour du jeu pour le joueur 1
+            leSac.WriteFileSac("NouveauSacJetons.txt"); //sauvegarde du contenu du sac
+            leSac = new Sac_Jetons("NouveauSacJetons.txt", Sac_Jetons.NbJetons); //nouvelle valeur du sac
+            listeJoueursSauvegarde[0].WriteFile("Joueur1.txt"); //sauvegarde du joueur 1
+            leSac.WriteFileNbJetons("NombreJetonsSac.txt"); //sauvegarde du nombre de jetons du sac restants
+            lePlateau.WriteFile("NouveauPlateau.txt"); //sauvegarde du plateau
+            lePlateau = new Plateau("NouveauPlateau.txt", leDico, listeJoueursSauvegarde[1]); //assimiliation nouvelle valeur au plateau + passage au joueur suivant
             leJeu = new Jeu("Francais.txt", lePlateau, leSac);
-            leJeu.Jouer(2, listeJoueursSauvegarde);
+            leJeu.Jouer(2, listeJoueursSauvegarde); //idem pour le joueur 2
             leSac.WriteFileSac("NouveauSacJetons.txt");
             leSac = new Sac_Jetons("NouveauSacJetons.txt", Sac_Jetons.NbJetons);
             listeJoueursSauvegarde[1].WriteFile("Joueur2.txt");
             leSac.WriteFileNbJetons("NombreJetonsSac.txt");
 
-            if (nombrejoueur==3)
+            if (nombrejoueur==3) //idem pour le joueur 3 s'il y a 3 joueurs ou plus
             {
                 lePlateau.WriteFile("NouveauPlateau.txt");
                 lePlateau = new Plateau("NouveauPlateau.txt", leDico, listeJoueursSauvegarde[2]);
@@ -260,7 +261,7 @@ namespace Scrabble
                 listeJoueursSauvegarde[2].WriteFile("Joueur3.txt");
                 leSac.WriteFileNbJetons("NombreJetonsSac.txt");
             }
-            if (nombrejoueur==4)
+            if (nombrejoueur==4) //idem pour le joueur 4 s'il y a 4 joueurs
             {
                 lePlateau.WriteFile("NouveauPlateau.txt");
                 lePlateau = new Plateau("NouveauPlateau.txt", leDico, listeJoueursSauvegarde[2]);
@@ -280,40 +281,36 @@ namespace Scrabble
                 leSac.WriteFileNbJetons("NombreJetonsSac.txt");
             }
 
-            while (vérifJetonsSac == false)
+            while (vérifJetonsSac == false) //répète tant que la condition de fin n'est pas vérifiée
             {
-                for (int i = 1; i <= nombrejoueur && vérifJetonsSac == false; i++)
+                for (int i = 1; i <= nombrejoueur && vérifJetonsSac == false; i++) //alterne entre tous les joueurs de la partie
                 {
-                    //lePlateau = new Plateau(lePlateau.Matrice, leDico, listeJoueurs[i-1]);
-                    //Jeu leJeu = new Jeu("Francais.txt", lePlateau, leSac);
-                    leSac.WriteFileNbJetons("NombreJetonsSac.txt");
-                    leSac.WriteFileSac("NouveauSacJetons.txt");
-                    leSac = new Sac_Jetons("NouveauSacJetons.txt", Sac_Jetons.NbJetons);
-                    lePlateau.WriteFile("NouveauPlateau.txt");
-                    lePlateau = new Plateau("NouveauPlateau.txt", leDico, listeJoueursSauvegarde[i - 1]);
-                    leJeu = new Jeu("Francais.txt", lePlateau, leSac);
-                    leJeu.Jouer(i, listeJoueursSauvegarde);
+                    leSac.WriteFileNbJetons("NombreJetonsSac.txt"); //sauvegarde le nombre de jetons dans le sac
+                    leSac.WriteFileSac("NouveauSacJetons.txt"); //sauvegarde le contenu du sac
+                    leSac = new Sac_Jetons("NouveauSacJetons.txt", Sac_Jetons.NbJetons); //assimile sa nouvelle valeur au sac
+                    lePlateau.WriteFile("NouveauPlateau.txt"); //sauvegarde du plateau
+                    lePlateau = new Plateau("NouveauPlateau.txt", leDico, listeJoueursSauvegarde[i - 1]); //assimile sa nouvelle valeur au plateau + s'assure que c'est le bon joueur qui est observé
+                    leJeu = new Jeu("Francais.txt", lePlateau, leSac); //assimile la classe jeu aux bons éléments à jour en paramètre
+                    leJeu.Jouer(i, listeJoueursSauvegarde); //tour du i-ème joueur
 
-                    if (i == 1) listeJoueursSauvegarde[i - 1].WriteFile("Joueur1.txt");
+                    if (i == 1) listeJoueursSauvegarde[i - 1].WriteFile("Joueur1.txt"); //sauvegarde de chaque joueur ayant joué
                     if (i == 2) listeJoueursSauvegarde[i - 1].WriteFile("Joueur2.txt");
                     if (i == 3) listeJoueursSauvegarde[i - 1].WriteFile("Joueur3.txt");
                     if (i == 4) listeJoueursSauvegarde[i - 1].WriteFile("Joueur4.txt");
 
-                    int compteurMainJoueurVide = 0;
-                    List<string> listeComparaison = new List<string>();
-                    listeComparaison.Add("");
-                    if (leSac.Sac.Count == 0)
+                    int compteurMainJoueurVide = 0; //compte le nombre de joueurs n'ayant plus aucun jeton dans leur main
+                    if (leSac.Sac.Count == 0) //si le sac n'a plus aucun jeton
                     {
-                        for (int j = 0; j < listeJoueursSauvegarde.Count; j++)
+                        for (int j = 0; j < listeJoueursSauvegarde.Count; j++) //vérifie pour chaque joueur s'il leur reste des jetons dans leur main
                         {
-                            if (listeJoueursSauvegarde[j].ListeJetons_lettre[0] == listeComparaison[0]) compteurMainJoueurVide++;
+                            if (listeJoueursSauvegarde[j].ListeJetons_lettre[0] == "") compteurMainJoueurVide++; //si l'un d'eux n'en a plus aucun on augmente le compteurMainJoueurVide
                         }
-                        if (compteurMainJoueurVide != 0) vérifJetonsSac = true;
+                        if (compteurMainJoueurVide != 0) vérifJetonsSac = true; //si un seul joueur n'a plus de jeton dans sa main on met vérifJetonsSac à true, ce qui mettra fin à la boucle while
                     }
-                    if (leSac.Sac.Count < 7 && Jeu.CompteurPasseTour >= nombrejoueur * 3) vérifJetonsSac = true;
+                    if (leSac.Sac.Count < 7 && Jeu.CompteurPasseTour >= nombrejoueur * 3) vérifJetonsSac = true; //s'il reste moins de 7 jetons dans le sac et que tous les joueurs piochent ou passent leur tour 3 fois d'affilée, la partie prend fin
                 }
             }
-            for (int i = 0; i < nombrejoueur; i++)
+            for (int i = 0; i < nombrejoueur; i++) //lorsque la partie est finie, on enlève à chaque joueur le score de chacune de leur lettre restantes dans leur main de leur score total
             {
                 for (int j = 0; j < listeJoueursSauvegarde[i].ListeJetons_lettre.Count; j++)
                 {
@@ -325,7 +322,7 @@ namespace Scrabble
             {
                 for (int j = i+1; j<nombrejoueur; j++)
                 {
-                    if(listeJoueursSauvegarde[i].Score<listeJoueursSauvegarde[j].Score)
+                    if(listeJoueursSauvegarde[i].Score<listeJoueursSauvegarde[j].Score) //on trie la liste des joueurs pour qu'elle soit dans l'ordre décroissante par rapport à leur score
                     {
                         stock = listeJoueursSauvegarde[i];
                         listeJoueursSauvegarde[i] = listeJoueursSauvegarde[j];
@@ -333,7 +330,7 @@ namespace Scrabble
                     }
                 }
             }
-            Joueur Vainqueur = listeJoueursSauvegarde[0];
+            Joueur Vainqueur = listeJoueursSauvegarde[0]; //affichage de fin de partie avec les scores
             Joueur Deuxieme = listeJoueursSauvegarde[1];
             Joueur Troisieme = listeJoueursSauvegarde[2];
             Joueur Quatrieme = listeJoueursSauvegarde[3];
