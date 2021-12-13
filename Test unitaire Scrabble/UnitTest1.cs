@@ -98,9 +98,9 @@ namespace Scrabble
         [TestMethod]
         public void Test_Test_Plateau()
         {
-            string mot1 = "djjzz";
-            char colonne = 'h';
-            int ligne = 8;
+            string mot1 = "DJJZZ";
+            int colonne = 7;
+            int ligne = 7;
             char direction = 'h';
             Dictionnaire[] ledico = new Dictionnaire[13];
             for(int i = 0; i < 13; i++)
@@ -108,14 +108,21 @@ namespace Scrabble
                 ledico[i] = new Dictionnaire("Francais.txt", i + 2);
             }
             Joueur joueur = new Joueur("Léo", 0);
-            Plateau plateau = new Plateau("TestInstancePlateau.txt", ledico, joueur);
+            joueur.ListeJetons_lettre.Add("A");
+            joueur.ListeJetons_lettre.Add("V");
+            joueur.ListeJetons_lettre.Add("I");
+            joueur.ListeJetons_lettre.Add("O");
+            joueur.ListeJetons_lettre.Add("N");
+            joueur.ListeJetons_lettre.Add("P");
+            joueur.ListeJetons_lettre.Add("Q");
+            Plateau plateau = new Plateau("TestPlateau.txt", ledico, joueur);
             bool rep = true;
             if (plateau.Test_Plateau(mot1, ligne, colonne, direction) == true) rep = false;
-            mot1 = "avion";
+            mot1 = "AVION";
             if (plateau.Test_Plateau(mot1, ligne, colonne, direction) == false) rep = false;
             ligne = -1;
             if (plateau.Test_Plateau(mot1, ligne, colonne, direction) == true) rep = false;
-            colonne = 'a';
+            colonne = 0;
             if (plateau.Test_Plateau(mot1, ligne, colonne, direction) == true) rep = false;
             Assert.AreEqual(rep, true);
         }
