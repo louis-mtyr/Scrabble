@@ -48,15 +48,6 @@ namespace Scrabble
             if (joueur.ListeJetons_lettre[0]!="B") rep = false;
             Assert.AreEqual(rep, true);
         }
-        /*[TestMethod]
-        public void TestRetire_un_nombre()
-        {
-            bool rep = true;
-            Jeton A = new Jeton("A", 1, 10);
-            A.Retire_un_nombre();
-            if (A.NombreJ!=9) rep = false;
-            Assert.AreEqual(rep, true);
-        }*/
         [TestMethod]
         public void TestToStringJeton()
         {
@@ -83,22 +74,7 @@ namespace Scrabble
             Dictionnaire mondico = new Dictionnaire("Francais.txt",3);
             if (mondico.RechDichoRecursif(mot) != true) rep = false;
             Assert.AreEqual(rep, true);
-        }/*
-        [TestMethod]
-        public void TestRetire_Jeton(Random r)
-        {
-            bool rep = true;
-            Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
-            int[] stock = new int[27];
-            int compteur=0;
-            for (int i = 0; i < 27; i++) stock[i] = sac.Sac[i];
-            for (int i=0; i<27; i++)
-            {
-                if (sac.Retire_Jeton(r) == stock[i] - 1) compteur++;
-            }
-
-            Assert.AreEqual(rep, true);
-        }*/
+        }
         [TestMethod]
         public void TestAjoute_Jeton()
         {
