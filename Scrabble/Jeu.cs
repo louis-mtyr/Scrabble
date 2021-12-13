@@ -56,6 +56,7 @@ namespace Scrabble
         public void Jouer(int numéroJoueur, List<Joueur> listeJoueurs)
         {
             Random aleatoire = new Random();
+            DateTime oldTimer = DateTime.Now;
             Console.Clear();
             Console.WriteLine(this.monplateau.ToString());
             Console.WriteLine("C'est au tour du joueur {0} :", numéroJoueur);
@@ -77,7 +78,6 @@ namespace Scrabble
             int scoreMot = 0;
             int multiplicateur = 1;
             int compteurJetonPose = 0;
-            DateTime oldTimer = DateTime.Now;
             while (tourFini == false)
             {
                 switch (réponseJoueur)
@@ -189,7 +189,7 @@ namespace Scrabble
                             DateTime newTimer = DateTime.Now;
                             double Delta = newTimer.Subtract(oldTimer).TotalSeconds;
                             oldTimer = newTimer;
-                            if (Delta >= 90)
+                            if (Delta >= 300)
                             {
                                 Console.WriteLine("Temps imparti écoulé, votre action n'est pas comptabilisée");
                                 tourFini = true;
@@ -480,7 +480,7 @@ namespace Scrabble
                             DateTime newTimer = DateTime.Now;
                             double Delta = newTimer.Subtract(oldTimer).TotalSeconds;
                             oldTimer = newTimer;
-                            if (Delta >= 90)
+                            if (Delta >= 300)
                             {
                                 Console.WriteLine("Temps imparti écoulé, votre action n'est pas comptabilisée");
                                 tourFini = true;
