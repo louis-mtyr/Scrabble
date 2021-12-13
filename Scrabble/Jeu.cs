@@ -189,7 +189,7 @@ namespace Scrabble
                             DateTime newTimer = DateTime.Now;
                             double Delta = newTimer.Subtract(oldTimer).TotalSeconds;
                             oldTimer = newTimer;
-                            if (Delta >= 10)
+                            if (Delta >= 90)
                             {
                                 Console.WriteLine("Temps imparti écoulé, votre action n'est pas comptabilisée");
                                 tourFini = true;
@@ -480,7 +480,7 @@ namespace Scrabble
                             DateTime newTimer = DateTime.Now;
                             double Delta = newTimer.Subtract(oldTimer).TotalSeconds;
                             oldTimer = newTimer;
-                            if (Delta >= 10)
+                            if (Delta >= 90)
                             {
                                 Console.WriteLine("Temps imparti écoulé, votre action n'est pas comptabilisée");
                                 tourFini = true;
