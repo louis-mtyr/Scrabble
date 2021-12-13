@@ -107,7 +107,7 @@ namespace Scrabble
             {
                 ledico[i] = new Dictionnaire("Francais.txt", i + 2);
             }
-            Joueur joueur = new Joueur("Léo");
+            Joueur joueur = new Joueur("Léo", 0);
             Plateau plateau = new Plateau("TestInstancePlateau.txt", ledico, joueur);
             bool rep = true;
             if (plateau.Test_Plateau(mot1, ligne, colonne, direction) == true) rep = false;
