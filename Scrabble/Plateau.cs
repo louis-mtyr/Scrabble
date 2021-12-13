@@ -11,7 +11,7 @@ namespace Scrabble
         private Dictionnaire[] leDico;
         private Joueur leJoueur;
 
-        public Plateau(string[,] matrice = null) //jcomprends pas ce qu'ils demandent
+        public Plateau(string[,] matrice = null) //inutilisé
         {
             this.matrice = matrice;
         }
@@ -207,7 +207,7 @@ namespace Scrabble
                         }
                         else
                         {
-                            for (int i = 0; i < mot.Length; i++) //Véifie que le mot ne rentre pas en conflit avec un autre mot (une lettre se trouve sur le même case qu'une autre et sont différentes
+                            for (int i = 0; i < mot.Length; i++) //Véifie que le mot ne rentre pas en conflit avec un autre mot (une lettre se trouve sur le même case qu'une autre et sont différentes)
                             {
                                 if (matrice[ligne, colonne+i] != "_" && matrice[ligne, colonne + i] != "2" && matrice[ligne, colonne + i] != "3" && matrice[ligne, colonne + i] != "4" && matrice[ligne, colonne + i] != "5")
                                 {
@@ -256,10 +256,6 @@ namespace Scrabble
                                     }
                                     if (compteurlettre != 0)
                                     {
-                                        /*for (int j = 0; j < 7; j++)
-                                        {
-                                            if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j]|| this.leJoueur.ListeJetons_lettre[j] == "*") occurence++;
-                                        }*/
                                         if (compteurMain < compteurlettre) compteurMain = 0;
                                     }
                                     //occurence = 0;
@@ -450,10 +446,6 @@ namespace Scrabble
 
                                 if (compteurlettre != 0)
                                 {
-                                    /*for (int j = 0; j < 7; j++)
-                                    {
-                                        if (Convert.ToString(mot[i]) == this.leJoueur.ListeJetons_lettre[j] || this.leJoueur.ListeJetons_lettre[j] == "*") occurence++;
-                                    }*/
                                     if (compteurMain < compteurlettre) compteurMain = 0;
                                 }
                                 //occurence = 0;
@@ -604,7 +596,7 @@ namespace Scrabble
             {
                 try
                 {
-                    fichier = new StreamWriter(filename);//, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
+                    fichier = new StreamWriter(filename);
                     {
                         for (int i = 0; i < this.matrice.GetLength(0); i++)
                         {

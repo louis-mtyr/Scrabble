@@ -11,25 +11,21 @@ namespace Scrabble
         static void Main(string[] args)
         {
             /*Console.WindowHeight = 44;
-            Console.WindowWidth = 165;*/
-            //Sac_Jetons sac = new Sac_Jetons("Jetons.txt");
-            //Console.WriteLine(sac.ToString());
+            Console.WindowWidth = 165;
+            Nous avions essayés de modifier la taille de la console au lancement mais en fonction de l'ordinateur utilisé cela pouvait faire crasher le programme si la console était trop grande*/
+            
             Dictionnaire[] leDico = new Dictionnaire[13];
             for(int i=0;i<13;i++)
             {
-                leDico[i] = new Dictionnaire("Francais.txt", i + 2);
-                //Console.WriteLine(leDico[i].ToString());
+                leDico[i] = new Dictionnaire("Francais.txt", i + 2); //on initialise les données qui sont constantes à chaque début de partie, à savoir les dictionnaires, le nombre aléatoire, et le 1er sac de jetons
             }
-            //Joueur leJoueur = new Joueur("Joueurs.txt");
-            //Plateau lePlateau = new Plateau("TestPlateau.txt", leDico, leJoueur);
             Sac_Jetons leSac = new Sac_Jetons("Jetons.txt");
-            //Jeu leJeu = new Jeu("Francais.txt", lePlateau, leSac);
-
             Random aleatoire = new Random();
+
             Console.WriteLine("Voulez-vous reprendre une partie déjà commencée ? (O/N) (Pensez à bien finir un tour complet avant de quitter où certains joueurs se feront sauter leur tour !)");
-            bool recommencerBool = false;
-            string recommencer;
-            int nombrejoueur=0;
+            bool recommencerBool = false; //permet de vérifier quelle option a été choisie plutôt que de tout mettre dans le même switch
+            string recommencer; //réponse écrite de l'utilisateur
+            int nombrejoueur=0; //explicite
             do
             {
 

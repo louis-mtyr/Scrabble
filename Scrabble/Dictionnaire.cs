@@ -26,7 +26,7 @@ namespace Scrabble
                 StreamReader sr = new StreamReader(fichier);
                 string mot = sr.ReadLine();
                 string[] ligne;
-                while (mot != Convert.ToString(longueur))
+                while (mot != Convert.ToString(longueur)) //permet de ne retourner qu'un seul dictionnaire qui est une liste de string contenant tous les mots de la longueur souhaitée
                 {
                     mot = sr.ReadLine();
                 }

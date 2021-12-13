@@ -17,7 +17,7 @@ namespace Scrabble
             string mot = sr.ReadLine();
             string[] ligne;
             Jeton jeton = null;
-            while (mot!=null) //La boucle permet de remplir note sac de jetons avec les caractéristiques de jetons mis en paramètre dans le fichier
+            while (mot!=null) //La boucle permet de remplir notre sac de jetons avec les caractéristiques de jetons mis en paramètre dans le fichier
             {
                 ligne = mot.Split(';'); 
                 jeton = new Jeton(ligne[0], Convert.ToInt32(ligne[1]));
@@ -30,7 +30,7 @@ namespace Scrabble
             }
         }
 
-        public Sac_Jetons(string fichier, int nbrJetons)
+        public Sac_Jetons(string fichier, int nbrJetons) // permet de créer un nouveau sac de jetons en se basant sur un fichier contenant les valeurs sauvegardées créé par nos soins
         {
             this.sac = new List<Jeton>();
             StreamReader sr = new StreamReader(fichier);
@@ -286,7 +286,7 @@ namespace Scrabble
             }
         }
         /// <summary>
-        /// Retourne le jeton cherché avec toutes ces caractéristiques
+        /// Retourne le jeton cherché avec toutes ces caractéristiques à partir d'un string correspondant à sa lettre
         /// </summary>
         /// <param name="lettreJeton">Nom du jeton cherché</param>
         /// <returns></returns>
@@ -384,7 +384,7 @@ namespace Scrabble
         }
 
         /// <summary>
-        /// Retourne une chaîne de caractères qui décrit un jeton
+        /// Retourne une chaîne de caractères qui décrit un sac de jetons
         /// </summary>
         /// <returns></returns>
         public override string ToString()
@@ -408,7 +408,10 @@ namespace Scrabble
             }
             return rep;
         }
-
+        /// <summary>
+        /// Lit la valeur entrée dans le fichier texte et assimile la valeur static nbJetons à celle lue
+        /// </summary>
+        /// <param name="filename">Nom du fichier texte lu</param>
         public void ReadFileNbJetons(string filename)
         {
             StreamReader fichier = new StreamReader(filename);
@@ -416,14 +419,20 @@ namespace Scrabble
             nbJetons = Convert.ToInt32(ligne);
             fichier.Close();
         }
-
+        /// <summary>
+        /// Sauvegarde la valeur static nbJetons en l'écrivant dans un fichier texte
+        /// </summary>
+        /// <param name="filename">Nom du fichier texte dans lequel la valeur va être écrite</param>
         public void WriteFileNbJetons(string filename)
         {
             StreamWriter fichier = new StreamWriter(filename);
             fichier.Write(nbJetons);
             fichier.Close();
         }
-
+        /// <summary>
+        /// Permet de sauvegarder tous les jetons restants dans le sac en les écrivant dans un fichier texte lisible par un constructeur spécifique
+        /// </summary>
+        /// <param name="filename">Nom du fichier texte dans lequel les valeurs vont être écrites</param>
         public void WriteFileSac(string filename)
         {
             StreamWriter fichier = new StreamWriter(filename);

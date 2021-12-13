@@ -154,6 +154,10 @@ namespace Scrabble
             this.listeJetons_lettre.Remove(monjeton);
         }
 
+        /// <summary>
+        /// Sauvegarde toutes les informations concernant un joueur dans un fichier texte (son nom, son score, ses mots trouvés, et les jetons de sa main)
+        /// </summary>
+        /// <param name="filename">nom du fichier dans lequel les données vont être écrites</param>
         public void WriteFile(string filename)
         {
             string[] texte = new string[3];

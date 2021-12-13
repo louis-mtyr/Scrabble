@@ -1,5 +1,3 @@
- - timer pour jouer
-
  - commentaires partout
 
  - tests unitaires ?
