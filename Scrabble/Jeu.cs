@@ -56,6 +56,7 @@ namespace Scrabble
         public void Jouer(int numéroJoueur, List<Joueur> listeJoueurs)
         {
             Random aleatoire = new Random();
+            DateTime oldTimer = DateTime.Now;
             Console.Clear();
             Console.WriteLine(this.monplateau.ToString());
             Console.WriteLine("C'est au tour du joueur {0} :", numéroJoueur);
@@ -77,7 +78,6 @@ namespace Scrabble
             int scoreMot = 0;
             int multiplicateur = 1;
             int compteurJetonPose = 0;
-            DateTime oldTimer = DateTime.Now;
             while (tourFini == false)
             {
                 switch (réponseJoueur)
@@ -188,7 +188,6 @@ namespace Scrabble
                         {
                             DateTime newTimer = DateTime.Now;
                             double Delta = newTimer.Subtract(oldTimer).TotalSeconds;
-                            oldTimer = newTimer;
                             if (Delta >= 300)
                             {
                                 Console.WriteLine("Temps imparti écoulé, votre action n'est pas comptabilisée");
@@ -766,18 +765,6 @@ namespace Scrabble
                         break;
                 }
             }
-            /*Stopwatch stopWatch = new Stopwatch();
-            stopWatch.Start();
-            Thread.Sleep(5000);
-            stopWatch.Stop();
-            // Get the elapsed time as a TimeSpan value.
-            TimeSpan ts = stopWatch.Elapsed;
-
-            // Format and display the TimeSpan value.
-            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-            ts.Hours, ts.Minutes, ts.Seconds,
-            ts.Milliseconds / 10);
-            Console.WriteLine("RunTime " + elapsedTime);*/
         }
     }
 }
